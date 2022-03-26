@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <executable name="dist/default/debug/Boot18.X.debug.hex">
+    <memory name="program">
+      <units>bytes</units>
+      <length>65536</length>
+      <used>1130</used>
+      <free>64406</free>
+    </memory>
+    <memory name="data">
+      <units>bytes</units>
+      <length>4352</length>
+      <used>50</used>
+      <free>4302</free>
+    </memory>
+  </executable>
+</project>
