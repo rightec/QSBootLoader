@@ -1,7 +1,7 @@
 
 
 Microchip MPLAB XC8 Assembler V2.36 build 20220127204148 
-                                                                                               Sat Mar 26 11:51:42 2022
+                                                                                               Sat Mar 26 17:45:02 2022
 
 Microchip MPLAB XC8 C Compiler v2.36 (Free license) build 20220127204148 Og1 
      1                           	processor	18F46Q43
@@ -2655,19 +2655,19 @@ CODE                 0      0       0       0        0.0%
 
 
 Microchip Technology PIC18 Macro Assembler V2.36 build 20220127204148 
-Symbol Table                                                                                   Sat Mar 26 11:51:42 2022
+Symbol Table                                                                                   Sat Mar 26 17:45:02 2022
 
                                           l88 0468                                            u60 0300  
                                           u61 02FC                                            u70 030E  
                                           u71 030A                                            u80 033E  
                                           u81 033A                           _uart5RxStatusBuffer 0501  
                            UART5_Write@txData 052E                                           l300 0346  
-                                         l411 042C                                           l332 044A  
-                                         l341 0436                                           l414 0416  
+                                         l332 044A                                           l341 0436  
                                          l182 0174                                           l335 045E  
-                                         l272 0206                                           l417 03FA  
-                                         l329 0454                                           l338 0440  
+                                         l272 0206                                           l329 0454  
+                                         l338 0440                                           l392 03FA  
                                          l296 0300                                           l297 0318  
+                                         l386 042C                                           l389 0416  
                                          u330 02B8                                           u331 02B4  
                                          u340 02D0                                           u341 02CA  
                                          u346 02D2                                           tosl 0004FD  

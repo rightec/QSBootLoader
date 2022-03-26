@@ -2,12 +2,13 @@ Microchip MPLAB XC8 Compiler V2.36
 
 Linker command line:
 
--W-3 --edf=/opt/microchip/xc8/v2.36/pic/dat/en_msgs.txt -pivt0x8=08h -cn \
-  -h+dist/default/debug/Boot18.X.debug.sym \
-  --cmf=dist/default/debug/Boot18.X.debug.cmf -z -Q18F46Q43 \
-  -o/tmp/xcXiIOHnP --defsym=__MPLAB_BUILD=1 \
-  -Mdist/default/debug/Boot18.X.debug.map --md=/tmp/xcXkFPaFD.dat -E1 \
-  -ver=XC8 Compiler --acfsm=1493 -ACODE=00h-0FFFFh -ACONST=00h-0FFFFh \
+-W-3 --edf=C:\Program Files\Microchip\xc8\v2.36\pic\dat\en_msgs.txt \
+  -pivt0x8=08h -cn -h+dist/default/debug\Boot18.X.debug.sym \
+  --cmf=dist/default/debug\Boot18.X.debug.cmf -z -Q18F46Q43 \
+  -oC:\Users\hp\AppData\Local\Temp\xcAs4mc.4 --defsym=__MPLAB_BUILD=1 \
+  -Mdist/default/debug/Boot18.X.debug.map \
+  --md=C:\Users\hp\AppData\Local\Temp\xcAs4mc.dat -E1 -ver=XC8 Compiler \
+  --acfsm=1493 -ACODE=00h-0FFFFh -ACONST=00h-0FFFFh \
   -ASMALLCONST=01600h-016FFhx234 -AMEDIUMCONST=01600h-0FFFFh \
   -ACOMRAM=0501h-055Fh -AABS1=0500h-015FFh -ABIGRAM=0501h-015FFh \
   -ARAM=0560h-05FFh,0600h-06FFhx16 -ABANK5=0560h-05FFh -ABANK6=0600h-06FFh \
@@ -25,7 +26,8 @@ Linker command line:
   -pfarbss=FARRAM,fardata=FARRAM,nvFARRAM=FARRAM \
   -pintsave_regs=BIGRAM,bigbss=BIGRAM,bigdata=BIGRAM -pbss=RAM \
   -pidata=CODE,irdata=CODE,ibigdata=CODE,ifardata=CODE -prparam=COMRAM \
-  /tmp/xcXocPaBL.o dist/default/debug/Boot18.X.debug.o 
+  C:\Users\hp\AppData\Local\Temp\xcAs4mc.o \
+  dist/default/debug\Boot18.X.debug.o 
 
 Object code version is 3.11
 
@@ -34,12 +36,12 @@ Machine type is 18F46Q43
 
 
                 Name                               Link     Load   Length Selector   Space Scale
-/tmp/xcXocPaBL.o
+C:\Users\hp\AppData\Local\Temp\xcAs4mc.o
                 idloc                            200000   200000       20        0       5
                 config                           300000   300000        A        0       4
                 init                                 1A       1A        4        4       0
                 reset_vec                             0        0        4        0       0
-dist/default/debug/Boot18.X.debug.o
+dist/default/debug\Boot18.X.debug.o
                 idloc                            200000   200000       20        0       5
                 config                           300000   300000        A        0       4
                 ivt0x8                                8        8       12        4       0

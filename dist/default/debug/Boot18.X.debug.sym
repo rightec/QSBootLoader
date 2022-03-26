@@ -389,9 +389,9 @@ ivt0x8 8 46D CODE 8 0
 reset_vec 0 3 CODE 0 0
 bssCOMRAM 501 530 COMRAM 501 1
 %locals
-dist/default/debug/Boot18.X.debug.o
-/opt/microchip/mplabx/v5.50/packs/Microchip/PIC18F-Q_DFP/1.11.185/xc8/pic/include/proc/pic18f46q43.h
-/tmp/xcXObAgdd.s
+dist/default/debug\Boot18.X.debug.o
+C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC18F-Q_DFP/1.11.185/xc8\pic\include\proc\pic18f46q43.h
+C:\Users\hp\AppData\Local\Temp\xcAs4mc.s
 10406 3B4 0 CODE 0
 10408 3B4 0 CODE 0
 10411 3B4 0 CODE 0

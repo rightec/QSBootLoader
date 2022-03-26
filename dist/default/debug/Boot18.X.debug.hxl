@@ -1,19 +1,19 @@
 ### HEXMate logfile and output summary ###
 
 ### Command-line arguments ###
- dist/default/debug/Boot18.X.debug.hex
- -Odist/default/debug/Boot18.X.debug.hex
- -logfile=dist/default/debug/Boot18.X.debug.hxl
+ dist/default/debug\Boot18.X.debug.hex
+ -Odist/default/debug\Boot18.X.debug.hex
+ -logfile=dist/default/debug\Boot18.X.debug.hxl
  -addressing=1
  -break=300000
 
 ### Memory Usage ###
  Intel Hex-file ranges:
-  0h - 3h		(dist/default/debug/Boot18.X.debug.hex)
-  8h - Bh		(dist/default/debug/Boot18.X.debug.hex)
-  18h - 46Dh		(dist/default/debug/Boot18.X.debug.hex)
-  200000h - 20001Fh		(dist/default/debug/Boot18.X.debug.hex)
-  300000h - 300009h		(dist/default/debug/Boot18.X.debug.hex)
+  0h - 3h		(dist/default/debug\Boot18.X.debug.hex)
+  8h - Bh		(dist/default/debug\Boot18.X.debug.hex)
+  18h - 46Dh		(dist/default/debug\Boot18.X.debug.hex)
+  200000h - 20001Fh		(dist/default/debug\Boot18.X.debug.hex)
+  300000h - 300009h		(dist/default/debug\Boot18.X.debug.hex)
  Unused ranges:
   4h - 7h
   Ch - 17h
@@ -23,7 +23,7 @@
 ### Hex Memory Map ###
  Legend:
   -- = Unused memory
-  H1 = Intel Hex-file         (dist/default/debug/Boot18.X.debug.hex)
+  H1 = Intel Hex-file         (dist/default/debug\Boot18.X.debug.hex)
 ----------------------------------------------------------
          | 00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F
 ----------------------------------------------------------
