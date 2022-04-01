@@ -3,15 +3,15 @@
   <executable name="dist/default/production/Boot18.X.production.hex">
     <memory name="program">
       <units>bytes</units>
-      <length>65536</length>
-      <used>1130</used>
-      <free>64406</free>
+      <length>131072</length>
+      <used>2486</used>
+      <free>128586</free>
     </memory>
     <memory name="data">
       <units>bytes</units>
-      <length>4352</length>
-      <used>50</used>
-      <free>4302</free>
+      <length>8448</length>
+      <used>1829</used>
+      <free>6619</free>
     </memory>
   </executable>
 </project>

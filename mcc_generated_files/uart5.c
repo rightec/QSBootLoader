@@ -53,8 +53,8 @@
 /**
   Section: Macro Declarations
 */
-#define UART5_TX_BUFFER_SIZE 8
-#define UART5_RX_BUFFER_SIZE 8
+#define UART5_TX_BUFFER_SIZE 255
+#define UART5_RX_BUFFER_SIZE 255
 
 /**
   Section: Global Variables
