@@ -1,6 +1,14 @@
 Version 4.0 HI-TECH Software Intermediate Code
 [v F16667 `(v ~T0 @X0 0 tf ]
 [v F16669 `(v ~T0 @X0 0 tf ]
+"90 main.c
+[; ;main.c: 90: {
+[s S2317 `us 1 `uc 1 `uc 1 `ul 1 ]
+[n S2317 . FW_Erp_Identifier FW_Erp_Version FW_Erp_BuildNumber FW_Erp_Crc32 ]
+"108
+[; ;main.c: 108: {
+[s S2318 `uc 1 ]
+[n S2318 . ID_Info_Version ]
 [p mainexit ]
 "72 ./mcc_generated_files/mcc.h
 [; ;./mcc_generated_files/mcc.h: 72: void SYSTEM_Initialize(void);
@@ -20,8 +28,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "47459
 [; ;/opt/microchip/mplabx/v5.50/packs/Microchip/PIC18F-Q_DFP/1.11.185/xc8/pic/include/proc/pic18f47q43.h: 47459: extern volatile INTCON0bits_t INTCON0bits __attribute__((address(0x4D6)));
 [v _INTCON0bits `VS2215 ~T0 @X0 0 e@1238 ]
-"77 main.c
-[; ;main.c: 77: void proto_entry(void);
+"125 main.c
+[; ;main.c: 125: void proto_entry(void);
 [v _proto_entry `(v ~T0 @X0 0 ef ]
 "46661 /opt/microchip/mplabx/v5.50/packs/Microchip/PIC18F-Q_DFP/1.11.185/xc8/pic/include/proc/pic18f47q43.h
 [; ;/opt/microchip/mplabx/v5.50/packs/Microchip/PIC18F-Q_DFP/1.11.185/xc8/pic/include/proc/pic18f47q43.h: 46661:     struct {
@@ -40,22 +48,32 @@ Version 4.0 HI-TECH Software Intermediate Code
 "355
 [; ;./mcc_generated_files/uart5.h: 355: uint8_t UART5_Read(void);
 [v _UART5_Read `(uc ~T0 @X0 0 ef ]
-"78 main.c
-[; ;main.c: 78: void proto_parser(uint8_t __newChar);
+"126 main.c
+[; ;main.c: 126: void proto_parser(uint8_t __newChar);
 [v _proto_parser `(v ~T0 @X0 0 ef1`uc ]
-"79
-[; ;main.c: 79: void proto_decoder(void);
+"127
+[; ;main.c: 127: void proto_decoder(void);
 [v _proto_decoder `(v ~T0 @X0 0 ef ]
-"50
-[; ;main.c: 50: typedef struct QS_bootProt{
-[s S2315 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc -> 240 `i `uc 1 `uc 1 `uc 1 ]
-[n S2315 QS_bootProt qs_Stx qs_PayLen qs_Sender qs_Policy qs_CmdId qs_Payload qs_CrcLow qs_CrcHigh qs_Etx ]
+"55
+[; ;main.c: 55: typedef struct QS_bootProt{
+[s S2316 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc -> 240 `i `uc 1 `uc 1 `uc 1 ]
+[n S2316 QS_bootProt qs_Stx qs_PayLen qs_Sender qs_Policy qs_CmdId qs_Payload qs_CrcLow qs_CrcHigh qs_Etx ]
+"27 /opt/microchip/xc8/v2.36/pic/include/c99/string.h
+[; ;/opt/microchip/xc8/v2.36/pic/include/c99/string.h: 27: void *memcpy (void *restrict, const void *restrict, size_t);
+[v _memcpy `(*v ~T0 @X0 0 ef3`*v`*Cv`ui ]
+"128 main.c
+[; ;main.c: 128: void CalcCrc16_Poly(uint16_t crc_initial, uint16_t poly, uint8_t *pBuf, uint16_t wLen, uint8_t *crc_l, uint8_t *crc_h);
+[v _CalcCrc16_Poly `(v ~T0 @X0 0 ef6`us`us`*uc`us`*uc`*uc ]
 "380 ./mcc_generated_files/uart5.h
 [; ;./mcc_generated_files/uart5.h: 380: void UART5_Write(uint8_t txData);
 [v _UART5_Write `(v ~T0 @X0 0 ef1`uc ]
-"80 main.c
-[; ;main.c: 80: void CalcCrc16_Poly(uint16_t crc_initial, uint16_t poly, uint8_t *pBuf, uint16_t wLen, uint8_t *crc_l, uint8_t *crc_h);
-[v _CalcCrc16_Poly `(v ~T0 @X0 0 ef6`us`us`*uc`us`*uc`*uc ]
+"117 main.c
+[; ;main.c: 117: union U_WVAL {
+[u S2319 `s 1 `uc -> 2 `i ]
+[n S2319 U_WVAL i c ]
+"130
+[; ;main.c: 130: void bxtoa(char *s, uint8_t n);
+[v _bxtoa `(v ~T0 @X0 0 ef2`*uc`uc ]
 "329 /opt/microchip/mplabx/v5.50/packs/Microchip/PIC18F-Q_DFP/1.11.185/xc8/pic/include/proc/pic18f47q43.h
 [; ;/opt/microchip/mplabx/v5.50/packs/Microchip/PIC18F-Q_DFP/1.11.185/xc8/pic/include/proc/pic18f47q43.h: 329: __asm("CLKRCON equ 039h");
 [; <" CLKRCON equ 039h ;# ">
@@ -2567,706 +2585,1071 @@ Version 4.0 HI-TECH Software Intermediate Code
 "535
 [; ;./mcc_generated_files/uart5.h: 535: void (*UART5_TxInterruptHandler)(void);
 [v _UART5_TxInterruptHandler `*F16669 ~T0 @X0 1 e ]
-"48 main.c
-[; ;main.c: 48: int count;
+"53 main.c
+[; ;main.c: 53: int count;
 [v _count `i ~T0 @X0 1 e ]
+"99
+[; ;main.c: 99: FW_SW_VERSION_T theFwVersion;
+[v _theFwVersion `S2317 ~T0 @X0 1 e ]
+"113
+[; ;main.c: 113: ID_INFO_VERSION_T theRevisionID;
+[v _theRevisionID `S2318 ~T0 @X0 1 e ]
+"114
+[; ;main.c: 114: uint8_t theDeviceID = 0x23;
+[v _theDeviceID `uc ~T0 @X0 1 e ]
+[i _theDeviceID
+-> -> 35 `i `uc
+]
 [v $root$_main `(v ~T0 @X0 0 e ]
-"85
-[; ;main.c: 85: void main(void)
+"135
+[; ;main.c: 135: void main(void)
 [v _main `(v ~T0 @X0 1 ef ]
-"86
-[; ;main.c: 86: {
+"136
+[; ;main.c: 136: {
 {
 [e :U _main ]
 [f ]
-"88
-[; ;main.c: 88:     SYSTEM_Initialize();
+"138
+[; ;main.c: 138:     SYSTEM_Initialize();
 [e ( _SYSTEM_Initialize ..  ]
-"95
-[; ;main.c: 95:     (INTCON0bits.GIE = 1);
+"145
+[; ;main.c: 145:     (INTCON0bits.GIE = 1);
 [e = . . _INTCON0bits 0 6 -> -> 1 `i `uc ]
-"100
-[; ;main.c: 100:     while (1)
-[e :U 2318 ]
-"101
-[; ;main.c: 101:     {
+"150
+[; ;main.c: 150:     while (1)
+[e :U 2322 ]
+"151
+[; ;main.c: 151:     {
 {
-"103
-[; ;main.c: 103:         count++;
+"153
+[; ;main.c: 153:         count++;
 [e ++ _count -> 1 `i ]
-"105
-[; ;main.c: 105:         proto_entry();
+"155
+[; ;main.c: 155:         proto_entry();
 [e ( _proto_entry ..  ]
-"107
-[; ;main.c: 107:         if( count > 30000 )
-[e $ ! > _count -> 30000 `i 2320  ]
-"108
-[; ;main.c: 108:         {
+"157
+[; ;main.c: 157:         if( count > 30000 )
+[e $ ! > _count -> 30000 `i 2324  ]
+"158
+[; ;main.c: 158:         {
 {
-"109
-[; ;main.c: 109:             count = 0;
+"159
+[; ;main.c: 159:             count = 0;
 [e = _count -> 0 `i ]
-"110
-[; ;main.c: 110:             do { LATBbits.LATB0 = ~LATBbits.LATB0; } while(0);
-[e :U 2323 ]
+"160
+[; ;main.c: 160:             do { LATBbits.LATB0 = ~LATBbits.LATB0; } while(0);
+[e :U 2327 ]
 {
 [e = . . _LATBbits 0 0 -> ~ -> . . _LATBbits 0 0 `i `uc ]
 }
-[e :U 2322 ]
-"113
-[; ;main.c: 113:         }
+[e :U 2326 ]
+"163
+[; ;main.c: 163:         }
 }
-[e :U 2320 ]
-"116
-[; ;main.c: 116:     }
+[e :U 2324 ]
+"166
+[; ;main.c: 166:     }
 }
-[e :U 2317 ]
-[e $U 2318  ]
-[e :U 2319 ]
-"117
-[; ;main.c: 117: }
-[e :UE 2316 ]
+[e :U 2321 ]
+[e $U 2322  ]
+[e :U 2323 ]
+"167
+[; ;main.c: 167: }
+[e :UE 2320 ]
 }
-"123
-[; ;main.c: 123: void proto_entry(void)
+"173
+[; ;main.c: 173: void proto_entry(void)
 [v _proto_entry `(v ~T0 @X0 1 ef ]
-"124
-[; ;main.c: 124: {
+"174
+[; ;main.c: 174: {
 {
 [e :U _proto_entry ]
 [f ]
-"125
-[; ;main.c: 125: uint8_t c;
+"175
+[; ;main.c: 175: uint8_t c;
 [v _c `uc ~T0 @X0 1 a ]
-"128
-[; ;main.c: 128:     if( UART5_is_rx_ready() )
-[e $ ! != -> ( _UART5_is_rx_ready ..  `i -> 0 `i 2325  ]
-"129
-[; ;main.c: 129:     {
+"178
+[; ;main.c: 178:     if( UART5_is_rx_ready() )
+[e $ ! != -> ( _UART5_is_rx_ready ..  `i -> 0 `i 2329  ]
+"179
+[; ;main.c: 179:     {
 {
-"130
-[; ;main.c: 130:         c = UART5_Read();
+"180
+[; ;main.c: 180:         c = UART5_Read();
 [e = _c ( _UART5_Read ..  ]
-"132
-[; ;main.c: 132:         proto_parser(c);
+"182
+[; ;main.c: 182:         proto_parser(c);
 [e ( _proto_parser (1 _c ]
-"133
-[; ;main.c: 133:     }
+"183
+[; ;main.c: 183:     }
 }
-[e :U 2325 ]
-"135
-[; ;main.c: 135:     proto_decoder();
+[e :U 2329 ]
+"185
+[; ;main.c: 185:     proto_decoder();
 [e ( _proto_decoder ..  ]
-"138
-[; ;main.c: 138: }
-[e :UE 2324 ]
+"188
+[; ;main.c: 188: }
+[e :UE 2328 ]
 }
-"152
-[; ;main.c: 152: QS_BOOT_PROT_T qsDecodPack;
-[v _qsDecodPack `S2315 ~T0 @X0 1 e ]
-"154
-[; ;main.c: 154: uint8_t answerBuf[240];
-[v _answerBuf `uc ~T0 @X0 -> 240 `i e ]
-"156
-[; ;main.c: 156: void proto_decoder(void)
+"202
+[; ;main.c: 202: QS_BOOT_PROT_T qsDecodPack;
+[v _qsDecodPack `S2316 ~T0 @X0 1 e ]
+"204
+[; ;main.c: 204: static uint8_t answerBuf[240];
+[v _answerBuf `uc ~T0 @X0 -> 240 `i s ]
+"205
+[; ;main.c: 205: static uint8_t statoDecoder;
+[v _statoDecoder `uc ~T0 @X0 1 s ]
+"206
+[; ;main.c: 206: static uint8_t lenTxDecoder;
+[v _lenTxDecoder `uc ~T0 @X0 1 s ]
+"207
+[; ;main.c: 207: static uint8_t cntTxDecoder;
+[v _cntTxDecoder `uc ~T0 @X0 1 s ]
+"208
+[; ;main.c: 208: static uint8_t cmdDecoder;
+[v _cmdDecoder `uc ~T0 @X0 1 s ]
+"209
+[; ;main.c: 209: static uint8_t crcDecoderL;
+[v _crcDecoderL `uc ~T0 @X0 1 s ]
+"210
+[; ;main.c: 210: static uint8_t crcDecoderH;
+[v _crcDecoderH `uc ~T0 @X0 1 s ]
+"212
+[; ;main.c: 212: void proto_decoder(void)
 [v _proto_decoder `(v ~T0 @X0 1 ef ]
-"157
-[; ;main.c: 157: {
+"213
+[; ;main.c: 213: {
 {
 [e :U _proto_decoder ]
 [f ]
-"158
-[; ;main.c: 158:     uint8_t nb;
+"214
+[; ;main.c: 214:     uint8_t nb;
 [v _nb `uc ~T0 @X0 1 a ]
-"160
-[; ;main.c: 160:     if( qsDecodPack.qs_Stx == 0x02 )
-[e $ ! == -> . _qsDecodPack 0 `i -> 2 `i 2327  ]
-"161
-[; ;main.c: 161:     {
-{
-"162
-[; ;main.c: 162:         qsDecodPack.qs_Stx = 0x00;
-[e = . _qsDecodPack 0 -> -> 0 `i `uc ]
-"164
-[; ;main.c: 164:         switch( qsDecodPack.qs_CmdId )
-[e $U 2329  ]
-"165
-[; ;main.c: 165:         {
-{
-"166
-[; ;main.c: 166:             case 0x50:
-[e :U 2330 ]
-"167
-[; ;main.c: 167:                 UART5_Write(0x02);
-[e ( _UART5_Write (1 -> -> 2 `i `uc ]
-"168
-[; ;main.c: 168:                 UART5_Write(0x04);
-[e ( _UART5_Write (1 -> -> 4 `i `uc ]
-"169
-[; ;main.c: 169:                 UART5_Write(0x23);
-[e ( _UART5_Write (1 -> -> 35 `i `uc ]
-"170
-[; ;main.c: 170:                 UART5_Write(0xA3);
-[e ( _UART5_Write (1 -> -> 163 `i `uc ]
-"171
-[; ;main.c: 171:                 UART5_Write(0x50|0x80);
-[e ( _UART5_Write (1 -> | -> 80 `i -> 128 `i `uc ]
-"173
-[; ;main.c: 173:                 answerBuf[0] = 0x66;
-[e = *U + &U _answerBuf * -> -> -> 0 `i `ui `ux -> -> # *U &U _answerBuf `ui `ux -> -> 102 `i `uc ]
-"174
-[; ;main.c: 174:                 answerBuf[1] = 0x66;
-[e = *U + &U _answerBuf * -> -> -> 1 `i `ui `ux -> -> # *U &U _answerBuf `ui `ux -> -> 102 `i `uc ]
-"175
-[; ;main.c: 175:                 answerBuf[2] = 0x66;
-[e = *U + &U _answerBuf * -> -> -> 2 `i `ui `ux -> -> # *U &U _answerBuf `ui `ux -> -> 102 `i `uc ]
-"176
-[; ;main.c: 176:                 answerBuf[3] = 0x66;
-[e = *U + &U _answerBuf * -> -> -> 3 `i `ui `ux -> -> # *U &U _answerBuf `ui `ux -> -> 102 `i `uc ]
-"179
-[; ;main.c: 179:                 CalcCrc16_Poly(0x0000, 0x8005, answerBuf, 4, &answerBuf[4], &answerBuf[5]);
-[e ( _CalcCrc16_Poly (4 , , , , , -> -> 0 `i `us -> -> 32773 `ui `us &U _answerBuf -> -> 4 `i `us &U *U + &U _answerBuf * -> -> -> 4 `i `ui `ux -> -> # *U &U _answerBuf `ui `ux &U *U + &U _answerBuf * -> -> -> 5 `i `ui `ux -> -> # *U &U _answerBuf `ui `ux ]
-"180
-[; ;main.c: 180:                 answerBuf[6] = 0x03;
-[e = *U + &U _answerBuf * -> -> -> 6 `i `ui `ux -> -> # *U &U _answerBuf `ui `ux -> -> 3 `i `uc ]
-"182
-[; ;main.c: 182:                 for(nb=0; nb<6; nb++)
-{
-[e = _nb -> -> 0 `i `uc ]
-[e $ < -> _nb `i -> 6 `i 2331  ]
-[e $U 2332  ]
-[e :U 2331 ]
-"183
-[; ;main.c: 183:                     UART5_Write(answerBuf[nb]);
-[e ( _UART5_Write (1 *U + &U _answerBuf * -> _nb `ux -> -> # *U &U _answerBuf `ui `ux ]
-[e ++ _nb -> -> 1 `i `uc ]
-[e $ < -> _nb `i -> 6 `i 2331  ]
-[e :U 2332 ]
-}
-"185
-[; ;main.c: 185:                 break;
-[e $U 2328  ]
-"186
-[; ;main.c: 186:         }
-}
-[e $U 2328  ]
-[e :U 2329 ]
-[e [\ -> . _qsDecodPack 4 `i , $ -> 80 `i 2330
- 2328 ]
-[e :U 2328 ]
-"188
-[; ;main.c: 188:     }
-}
-[e :U 2327 ]
-"190
-[; ;main.c: 190: }
-[e :UE 2326 ]
-}
-"198
-[; ;main.c: 198: static uint8_t statoParser;
-[v _statoParser `uc ~T0 @X0 1 s ]
-"200
-[; ;main.c: 200: static uint8_t parserBuffer[255];
-[v _parserBuffer `uc ~T0 @X0 -> 255 `i s ]
-"201
-[; ;main.c: 201: static uint8_t parserIdx;
-[v _parserIdx `uc ~T0 @X0 1 s ]
-"202
-[; ;main.c: 202: static uint8_t parserLen;
-[v _parserLen `uc ~T0 @X0 1 s ]
-"203
-[; ;main.c: 203: static uint8_t parserSender;
-[v _parserSender `uc ~T0 @X0 1 s ]
-"204
-[; ;main.c: 204: static uint8_t parserPolicy;
-[v _parserPolicy `uc ~T0 @X0 1 s ]
-"205
-[; ;main.c: 205: static uint8_t parserCmd;
-[v _parserCmd `uc ~T0 @X0 1 s ]
-"206
-[; ;main.c: 206: static uint8_t parserPayBuf[255];
-[v _parserPayBuf `uc ~T0 @X0 -> 255 `i s ]
-"207
-[; ;main.c: 207: static uint8_t parserPayIdx;
-[v _parserPayIdx `uc ~T0 @X0 1 s ]
-"208
-[; ;main.c: 208: static uint8_t parserCrcL;
-[v _parserCrcL `uc ~T0 @X0 1 s ]
-"209
-[; ;main.c: 209: static uint8_t parserCrcH;
-[v _parserCrcH `uc ~T0 @X0 1 s ]
-"210
-[; ;main.c: 210: static uint8_t parserEtx;
-[v _parserEtx `uc ~T0 @X0 1 s ]
-"213
-[; ;main.c: 213: void proto_parser(uint8_t __newChar)
-[v _proto_parser `(v ~T0 @X0 1 ef1`uc ]
-"214
-[; ;main.c: 214: {
-{
-[e :U _proto_parser ]
-"213
-[; ;main.c: 213: void proto_parser(uint8_t __newChar)
-[v ___newChar `uc ~T0 @X0 1 r1 ]
-"214
-[; ;main.c: 214: {
-[f ]
 "217
-[; ;main.c: 217:     if( statoParser != 0 &&
-[e $ ! && && && != -> _statoParser `i -> 0 `i != -> _statoParser `i -> 6 `i != -> _statoParser `i -> 7 `i != -> _statoParser `i -> 10 `i 2335  ]
+[; ;main.c: 217:     switch( statoDecoder )
+[e $U 2332  ]
+"218
+[; ;main.c: 218:     {
+{
+"219
+[; ;main.c: 219:         case 0:
+[e :U 2333 ]
+"220
+[; ;main.c: 220:             if( qsDecodPack.qs_Stx == 0x02 )
+[e $ ! == -> . _qsDecodPack 0 `i -> 2 `i 2334  ]
+"221
+[; ;main.c: 221:             {
+{
 "222
-[; ;main.c: 222:     {
-{
+[; ;main.c: 222:                 qsDecodPack.qs_Stx = 0x00;
+[e = . _qsDecodPack 0 -> -> 0 `i `uc ]
 "223
-[; ;main.c: 223:         if( __newChar == 0x02 )
-[e $ ! == -> ___newChar `i -> 2 `i 2336  ]
-"224
-[; ;main.c: 224:             statoParser = 0;
-[e = _statoParser -> -> 0 `i `uc ]
-[e :U 2336 ]
+[; ;main.c: 223:                 cmdDecoder = 0;
+[e = _cmdDecoder -> -> 0 `i `uc ]
 "225
-[; ;main.c: 225:     }
-}
-[e :U 2335 ]
+[; ;main.c: 225:                 switch( qsDecodPack.qs_CmdId )
+[e $U 2336  ]
+"226
+[; ;main.c: 226:                 {
+{
 "227
-[; ;main.c: 227:     switch( statoParser )
-[e $U 2338  ]
+[; ;main.c: 227:                     case 0x41:
+[e :U 2337 ]
 "228
-[; ;main.c: 228:     {
-{
+[; ;main.c: 228:                         cmdDecoder = 0x41;
+[e = _cmdDecoder -> -> 65 `i `uc ]
 "229
-[; ;main.c: 229:         case 0:
-[e :U 2339 ]
-"230
-[; ;main.c: 230:             if( __newChar == 0x02 )
-[e $ ! == -> ___newChar `i -> 2 `i 2340  ]
+[; ;main.c: 229:                         memcpy(answerBuf, &theFwVersion, sizeof(theFwVersion));
+[e ( _memcpy (3 , , -> &U _answerBuf `*v -> &U _theFwVersion `*Cv -> # _theFwVersion `ui ]
 "231
-[; ;main.c: 231:             {
-{
+[; ;main.c: 231:                         lenTxDecoder = sizeof(theFwVersion);
+[e = _lenTxDecoder -> -> # _theFwVersion `ui `uc ]
 "232
-[; ;main.c: 232:                 parserIdx = 0;
-[e = _parserIdx -> -> 0 `i `uc ]
-"233
-[; ;main.c: 233:                 statoParser++;
-[e ++ _statoParser -> -> 1 `i `uc ]
+[; ;main.c: 232:                         break;
+[e $U 2335  ]
 "234
-[; ;main.c: 234:             }
-}
-[e :U 2340 ]
-"235
-[; ;main.c: 235:             break;
-[e $U 2337  ]
+[; ;main.c: 234:                     case 0x42:
+[e :U 2338 ]
+"236
+[; ;main.c: 236:                         cmdDecoder = 0x42;
+[e = _cmdDecoder -> -> 66 `i `uc ]
 "237
-[; ;main.c: 237:         case 1:
-[e :U 2341 ]
+[; ;main.c: 237:                         answerBuf[0] = theRevisionID.ID_Info_Version;
+[e = *U + &U _answerBuf * -> -> -> 0 `i `ui `ux -> -> # *U &U _answerBuf `ui `ux . _theRevisionID 0 ]
+"238
+[; ;main.c: 238:                         answerBuf[1] = 0x00;
+[e = *U + &U _answerBuf * -> -> -> 1 `i `ui `ux -> -> # *U &U _answerBuf `ui `ux -> -> 0 `i `uc ]
 "239
-[; ;main.c: 239:             parserLen = __newChar;
-[e = _parserLen ___newChar ]
-"241
-[; ;main.c: 241:             if( parserLen == 0 || parserLen > 240 )
-[e $ ! || == -> _parserLen `i -> 0 `i > -> _parserLen `i -> 240 `i 2342  ]
+[; ;main.c: 239:                         answerBuf[2] = 0x00;
+[e = *U + &U _answerBuf * -> -> -> 2 `i `ui `ux -> -> # *U &U _answerBuf `ui `ux -> -> 0 `i `uc ]
+"240
+[; ;main.c: 240:                         answerBuf[3] = 0x00;
+[e = *U + &U _answerBuf * -> -> -> 3 `i `ui `ux -> -> # *U &U _answerBuf `ui `ux -> -> 0 `i `uc ]
 "242
-[; ;main.c: 242:             {
-{
+[; ;main.c: 242:                         lenTxDecoder = 4;
+[e = _lenTxDecoder -> -> 4 `i `uc ]
 "243
-[; ;main.c: 243:                 statoParser = 0;
-[e = _statoParser -> -> 0 `i `uc ]
-"244
-[; ;main.c: 244:             }
-}
-[e $U 2343  ]
+[; ;main.c: 243:                         break;
+[e $U 2335  ]
 "245
-[; ;main.c: 245:             else
-[e :U 2342 ]
-"246
-[; ;main.c: 246:             {
-{
+[; ;main.c: 245:                     case 0x43:
+[e :U 2339 ]
 "247
-[; ;main.c: 247:                 statoParser++;
-[e ++ _statoParser -> -> 1 `i `uc ]
+[; ;main.c: 247:                         cmdDecoder = 0x43;
+[e = _cmdDecoder -> -> 67 `i `uc ]
 "248
-[; ;main.c: 248:             }
-}
-[e :U 2343 ]
+[; ;main.c: 248:                         answerBuf[0] = theDeviceID;
+[e = *U + &U _answerBuf * -> -> -> 0 `i `ui `ux -> -> # *U &U _answerBuf `ui `ux _theDeviceID ]
 "249
-[; ;main.c: 249:             break;
-[e $U 2337  ]
+[; ;main.c: 249:                         answerBuf[1] = 0x00;
+[e = *U + &U _answerBuf * -> -> -> 1 `i `ui `ux -> -> # *U &U _answerBuf `ui `ux -> -> 0 `i `uc ]
+"250
+[; ;main.c: 250:                         answerBuf[2] = 0x00;
+[e = *U + &U _answerBuf * -> -> -> 2 `i `ui `ux -> -> # *U &U _answerBuf `ui `ux -> -> 0 `i `uc ]
 "251
-[; ;main.c: 251:         case 2:
-[e :U 2344 ]
+[; ;main.c: 251:                         answerBuf[3] = 0x00;
+[e = *U + &U _answerBuf * -> -> -> 3 `i `ui `ux -> -> # *U &U _answerBuf `ui `ux -> -> 0 `i `uc ]
 "253
-[; ;main.c: 253:             parserSender = __newChar;
-[e = _parserSender ___newChar ]
-"255
-[; ;main.c: 255:             if( parserSender != 0x20 )
-[e $ ! != -> _parserSender `i -> 32 `i 2345  ]
+[; ;main.c: 253:                         lenTxDecoder = 4;
+[e = _lenTxDecoder -> -> 4 `i `uc ]
+"254
+[; ;main.c: 254:                         break;
+[e $U 2335  ]
 "256
-[; ;main.c: 256:             {
-{
+[; ;main.c: 256:                     case 0x44:
+[e :U 2340 ]
 "257
-[; ;main.c: 257:                 statoParser = 0;
-[e = _statoParser -> -> 0 `i `uc ]
+[; ;main.c: 257:                         cmdDecoder = 0x44;
+[e = _cmdDecoder -> -> 68 `i `uc ]
 "258
-[; ;main.c: 258:             }
-}
-[e $U 2346  ]
-"259
-[; ;main.c: 259:             else
-[e :U 2345 ]
+[; ;main.c: 258:                         memcpy(answerBuf, &theFwVersion, sizeof(theFwVersion));
+[e ( _memcpy (3 , , -> &U _answerBuf `*v -> &U _theFwVersion `*Cv -> # _theFwVersion `ui ]
 "260
-[; ;main.c: 260:             {
-{
+[; ;main.c: 260:                         lenTxDecoder = sizeof(theFwVersion);
+[e = _lenTxDecoder -> -> # _theFwVersion `ui `uc ]
 "261
-[; ;main.c: 261:                 statoParser++;
-[e ++ _statoParser -> -> 1 `i `uc ]
-"262
-[; ;main.c: 262:             }
+[; ;main.c: 261:                         break;
+[e $U 2335  ]
+"263
+[; ;main.c: 263:                     case 0x50:
+[e :U 2341 ]
+"265
+[; ;main.c: 265:                         cmdDecoder = 0x50;
+[e = _cmdDecoder -> -> 80 `i `uc ]
+"266
+[; ;main.c: 266:                         answerBuf[0] = 0x66;
+[e = *U + &U _answerBuf * -> -> -> 0 `i `ui `ux -> -> # *U &U _answerBuf `ui `ux -> -> 102 `i `uc ]
+"267
+[; ;main.c: 267:                         answerBuf[1] = 0x66;
+[e = *U + &U _answerBuf * -> -> -> 1 `i `ui `ux -> -> # *U &U _answerBuf `ui `ux -> -> 102 `i `uc ]
+"268
+[; ;main.c: 268:                         answerBuf[2] = 0x66;
+[e = *U + &U _answerBuf * -> -> -> 2 `i `ui `ux -> -> # *U &U _answerBuf `ui `ux -> -> 102 `i `uc ]
+"269
+[; ;main.c: 269:                         answerBuf[3] = 0x66;
+[e = *U + &U _answerBuf * -> -> -> 3 `i `ui `ux -> -> # *U &U _answerBuf `ui `ux -> -> 102 `i `uc ]
+"271
+[; ;main.c: 271:                         lenTxDecoder = 4;
+[e = _lenTxDecoder -> -> 4 `i `uc ]
+"272
+[; ;main.c: 272:                         break;
+[e $U 2335  ]
+"274
+[; ;main.c: 274:                     case 0x51:
+[e :U 2342 ]
+"275
+[; ;main.c: 275:                         cmdDecoder = 0x51;
+[e = _cmdDecoder -> -> 81 `i `uc ]
+"276
+[; ;main.c: 276:                         answerBuf[0] = 0x00;
+[e = *U + &U _answerBuf * -> -> -> 0 `i `ui `ux -> -> # *U &U _answerBuf `ui `ux -> -> 0 `i `uc ]
+"277
+[; ;main.c: 277:                         answerBuf[1] = qsDecodPack.qs_Payload[0];
+[e = *U + &U _answerBuf * -> -> -> 1 `i `ui `ux -> -> # *U &U _answerBuf `ui `ux *U + &U . _qsDecodPack 5 * -> -> -> 0 `i `ui `ux -> -> # *U &U . _qsDecodPack 5 `ui `ux ]
+"278
+[; ;main.c: 278:                         answerBuf[2] = qsDecodPack.qs_Payload[1];
+[e = *U + &U _answerBuf * -> -> -> 2 `i `ui `ux -> -> # *U &U _answerBuf `ui `ux *U + &U . _qsDecodPack 5 * -> -> -> 1 `i `ui `ux -> -> # *U &U . _qsDecodPack 5 `ui `ux ]
+"279
+[; ;main.c: 279:                         answerBuf[3] = '1';
+[e = *U + &U _answerBuf * -> -> -> 3 `i `ui `ux -> -> # *U &U _answerBuf `ui `ux -> -> 49 `ui `uc ]
+"281
+[; ;main.c: 281:                         lenTxDecoder = 4;
+[e = _lenTxDecoder -> -> 4 `i `uc ]
+"282
+[; ;main.c: 282:                         break;
+[e $U 2335  ]
+"284
+[; ;main.c: 284:                     case 0x52:
+[e :U 2343 ]
+"285
+[; ;main.c: 285:                         cmdDecoder = 0x52;
+[e = _cmdDecoder -> -> 82 `i `uc ]
+"286
+[; ;main.c: 286:                         answerBuf[0] = '2';
+[e = *U + &U _answerBuf * -> -> -> 0 `i `ui `ux -> -> # *U &U _answerBuf `ui `ux -> -> 50 `ui `uc ]
+"287
+[; ;main.c: 287:                         answerBuf[1] = '2';
+[e = *U + &U _answerBuf * -> -> -> 1 `i `ui `ux -> -> # *U &U _answerBuf `ui `ux -> -> 50 `ui `uc ]
+"288
+[; ;main.c: 288:                         answerBuf[2] = '2';
+[e = *U + &U _answerBuf * -> -> -> 2 `i `ui `ux -> -> # *U &U _answerBuf `ui `ux -> -> 50 `ui `uc ]
+"289
+[; ;main.c: 289:                         answerBuf[3] = '2';
+[e = *U + &U _answerBuf * -> -> -> 3 `i `ui `ux -> -> # *U &U _answerBuf `ui `ux -> -> 50 `ui `uc ]
+"291
+[; ;main.c: 291:                         lenTxDecoder = 4;
+[e = _lenTxDecoder -> -> 4 `i `uc ]
+"292
+[; ;main.c: 292:                         break;
+[e $U 2335  ]
+"294
+[; ;main.c: 294:                     case 0x53:
+[e :U 2344 ]
+"295
+[; ;main.c: 295:                         cmdDecoder = 0x53;
+[e = _cmdDecoder -> -> 83 `i `uc ]
+"296
+[; ;main.c: 296:                         answerBuf[0] = '0';
+[e = *U + &U _answerBuf * -> -> -> 0 `i `ui `ux -> -> # *U &U _answerBuf `ui `ux -> -> 48 `ui `uc ]
+"297
+[; ;main.c: 297:                         answerBuf[1] = '2';
+[e = *U + &U _answerBuf * -> -> -> 1 `i `ui `ux -> -> # *U &U _answerBuf `ui `ux -> -> 50 `ui `uc ]
+"298
+[; ;main.c: 298:                         answerBuf[2] = '2';
+[e = *U + &U _answerBuf * -> -> -> 2 `i `ui `ux -> -> # *U &U _answerBuf `ui `ux -> -> 50 `ui `uc ]
+"299
+[; ;main.c: 299:                         answerBuf[3] = '2';
+[e = *U + &U _answerBuf * -> -> -> 3 `i `ui `ux -> -> # *U &U _answerBuf `ui `ux -> -> 50 `ui `uc ]
+"301
+[; ;main.c: 301:                         lenTxDecoder = 4;
+[e = _lenTxDecoder -> -> 4 `i `uc ]
+"302
+[; ;main.c: 302:                         break;
+[e $U 2335  ]
+"304
+[; ;main.c: 304:                     case 0x70:
+[e :U 2345 ]
+"305
+[; ;main.c: 305:                         cmdDecoder = 0x70;
+[e = _cmdDecoder -> -> 112 `i `uc ]
+"306
+[; ;main.c: 306:                         answerBuf[0] = '2';
+[e = *U + &U _answerBuf * -> -> -> 0 `i `ui `ux -> -> # *U &U _answerBuf `ui `ux -> -> 50 `ui `uc ]
+"307
+[; ;main.c: 307:                         answerBuf[1] = '2';
+[e = *U + &U _answerBuf * -> -> -> 1 `i `ui `ux -> -> # *U &U _answerBuf `ui `ux -> -> 50 `ui `uc ]
+"308
+[; ;main.c: 308:                         answerBuf[2] = '2';
+[e = *U + &U _answerBuf * -> -> -> 2 `i `ui `ux -> -> # *U &U _answerBuf `ui `ux -> -> 50 `ui `uc ]
+"309
+[; ;main.c: 309:                         answerBuf[3] = '2';
+[e = *U + &U _answerBuf * -> -> -> 3 `i `ui `ux -> -> # *U &U _answerBuf `ui `ux -> -> 50 `ui `uc ]
+"311
+[; ;main.c: 311:                         lenTxDecoder = 4;
+[e = _lenTxDecoder -> -> 4 `i `uc ]
+"312
+[; ;main.c: 312:                         break;
+[e $U 2335  ]
+"313
+[; ;main.c: 313:                 }
+}
+[e $U 2335  ]
+[e :U 2336 ]
+[e [\ -> . _qsDecodPack 4 `i , $ -> 65 `i 2337
+ , $ -> 66 `i 2338
+ , $ -> 67 `i 2339
+ , $ -> 68 `i 2340
+ , $ -> 80 `i 2341
+ , $ -> 81 `i 2342
+ , $ -> 82 `i 2343
+ , $ -> 83 `i 2344
+ , $ -> 112 `i 2345
+ 2335 ]
+[e :U 2335 ]
+"315
+[; ;main.c: 315:                 if( cmdDecoder != 0 )
+[e $ ! != -> _cmdDecoder `i -> 0 `i 2346  ]
+"316
+[; ;main.c: 316:                 {
+{
+"319
+[; ;main.c: 319:                     CalcCrc16_Poly(0x0000, 0x8005, answerBuf, lenTxDecoder, &crcDecoderL, &crcDecoderH);
+[e ( _CalcCrc16_Poly (4 , , , , , -> -> 0 `i `us -> -> 32773 `ui `us &U _answerBuf -> _lenTxDecoder `us &U _crcDecoderL &U _crcDecoderH ]
+"321
+[; ;main.c: 321:                     answerBuf[lenTxDecoder++] = crcDecoderL;
+[e = *U + &U _answerBuf * -> ++ _lenTxDecoder -> -> 1 `i `uc `ux -> -> # *U &U _answerBuf `ui `ux _crcDecoderL ]
+"322
+[; ;main.c: 322:                     answerBuf[lenTxDecoder++] = crcDecoderH;
+[e = *U + &U _answerBuf * -> ++ _lenTxDecoder -> -> 1 `i `uc `ux -> -> # *U &U _answerBuf `ui `ux _crcDecoderH ]
+"323
+[; ;main.c: 323:                     answerBuf[lenTxDecoder++] = 0x03;
+[e = *U + &U _answerBuf * -> ++ _lenTxDecoder -> -> 1 `i `uc `ux -> -> # *U &U _answerBuf `ui `ux -> -> 3 `i `uc ]
+"324
+[; ;main.c: 324:                     statoDecoder++;
+[e ++ _statoDecoder -> -> 1 `i `uc ]
+"325
+[; ;main.c: 325:                 }
 }
 [e :U 2346 ]
-"263
-[; ;main.c: 263:             break;
-[e $U 2337  ]
-"265
-[; ;main.c: 265:         case 3:
-[e :U 2347 ]
-"267
-[; ;main.c: 267:             parserPolicy = __newChar;
-[e = _parserPolicy ___newChar ]
-"269
-[; ;main.c: 269:             if( parserPolicy != 0x23 )
-[e $ ! != -> _parserPolicy `i -> 35 `i 2348  ]
-"270
-[; ;main.c: 270:             {
-{
-"271
-[; ;main.c: 271:                 statoParser = 0;
-[e = _statoParser -> -> 0 `i `uc ]
-"272
-[; ;main.c: 272:             }
-}
-[e $U 2349  ]
-"273
-[; ;main.c: 273:             else
-[e :U 2348 ]
-"274
-[; ;main.c: 274:             {
-{
-"275
-[; ;main.c: 275:                 statoParser++;
-[e ++ _statoParser -> -> 1 `i `uc ]
-"276
-[; ;main.c: 276:             }
-}
-[e :U 2349 ]
-"277
-[; ;main.c: 277:             break;
-[e $U 2337  ]
-"279
-[; ;main.c: 279:         case 4:
-[e :U 2350 ]
-"281
-[; ;main.c: 281:             parserCmd = __newChar;
-[e = _parserCmd ___newChar ]
-"283
-[; ;main.c: 283:             if( parserCmd < 0x40 )
-[e $ ! < -> _parserCmd `i -> 64 `i 2351  ]
-"284
-[; ;main.c: 284:             {
-{
-"285
-[; ;main.c: 285:                 statoParser = 0;
-[e = _statoParser -> -> 0 `i `uc ]
-"286
-[; ;main.c: 286:             }
-}
-[e $U 2352  ]
-"287
-[; ;main.c: 287:             else
-[e :U 2351 ]
-"288
-[; ;main.c: 288:             {
-{
-"289
-[; ;main.c: 289:                 parserPayIdx = 0;
-[e = _parserPayIdx -> -> 0 `i `uc ]
-"290
-[; ;main.c: 290:                 statoParser++;
-[e ++ _statoParser -> -> 1 `i `uc ]
-"291
-[; ;main.c: 291:             }
-}
-[e :U 2352 ]
-"292
-[; ;main.c: 292:             break;
-[e $U 2337  ]
-"294
-[; ;main.c: 294:         case 5:
-[e :U 2353 ]
-"296
-[; ;main.c: 296:             parserPayBuf[parserPayIdx++] = __newChar;
-[e = *U + &U _parserPayBuf * -> ++ _parserPayIdx -> -> 1 `i `uc `ux -> -> # *U &U _parserPayBuf `ui `ux ___newChar ]
-"298
-[; ;main.c: 298:             if( parserPayIdx >= parserLen )
-[e $ ! >= -> _parserPayIdx `i -> _parserLen `i 2354  ]
-"299
-[; ;main.c: 299:             {
-{
-"300
-[; ;main.c: 300:                 statoParser++;
-[e ++ _statoParser -> -> 1 `i `uc ]
-"301
-[; ;main.c: 301:             }
-}
-[e :U 2354 ]
-"302
-[; ;main.c: 302:             break;
-[e $U 2337  ]
-"304
-[; ;main.c: 304:         case 6:
-[e :U 2355 ]
-"306
-[; ;main.c: 306:             parserCrcL = __newChar;
-[e = _parserCrcL ___newChar ]
-"307
-[; ;main.c: 307:             statoParser++;
-[e ++ _statoParser -> -> 1 `i `uc ]
-"308
-[; ;main.c: 308:             break;
-[e $U 2337  ]
-"310
-[; ;main.c: 310:         case 7:
-[e :U 2356 ]
-"312
-[; ;main.c: 312:             parserCrcH = __newChar;
-[e = _parserCrcH ___newChar ]
-"314
-[; ;main.c: 314:             statoParser++;
-[e ++ _statoParser -> -> 1 `i `uc ]
-"315
-[; ;main.c: 315:             break;
-[e $U 2337  ]
-"317
-[; ;main.c: 317:         case 8:
-[e :U 2357 ]
-"319
-[; ;main.c: 319:             parserEtx = __newChar;
-[e = _parserEtx ___newChar ]
-"323
-[; ;main.c: 323:             statoParser = 10;
-[e = _statoParser -> -> 10 `i `uc ]
-"324
-[; ;main.c: 324:             break;
-[e $U 2337  ]
 "326
-[; ;main.c: 326:         case 10:
-[e :U 2358 ]
+[; ;main.c: 326:             }
+}
+[e :U 2334 ]
 "327
 [; ;main.c: 327:             break;
-[e $U 2337  ]
+[e $U 2331  ]
 "329
-[; ;main.c: 329:     }
-}
-[e $U 2337  ]
-[e :U 2338 ]
-[e [\ -> _statoParser `i , $ -> 0 `i 2339
- , $ -> 1 `i 2341
- , $ -> 2 `i 2344
- , $ -> 3 `i 2347
- , $ -> 4 `i 2350
- , $ -> 5 `i 2353
- , $ -> 6 `i 2355
- , $ -> 7 `i 2356
- , $ -> 8 `i 2357
- , $ -> 10 `i 2358
- 2337 ]
-[e :U 2337 ]
+[; ;main.c: 329:         case 1:
+[e :U 2347 ]
+"330
+[; ;main.c: 330:             UART5_Write(0x02);
+[e ( _UART5_Write (1 -> -> 2 `i `uc ]
+"331
+[; ;main.c: 331:             UART5_Write(0x04);
+[e ( _UART5_Write (1 -> -> 4 `i `uc ]
 "332
-[; ;main.c: 332:     if( statoParser != 0 && statoParser != 10 )
-[e $ ! && != -> _statoParser `i -> 0 `i != -> _statoParser `i -> 10 `i 2359  ]
+[; ;main.c: 332:             UART5_Write(0x23);
+[e ( _UART5_Write (1 -> -> 35 `i `uc ]
 "333
-[; ;main.c: 333:         parserBuffer[parserIdx++] = __newChar;
-[e = *U + &U _parserBuffer * -> ++ _parserIdx -> -> 1 `i `uc `ux -> -> # *U &U _parserBuffer `ui `ux ___newChar ]
-[e :U 2359 ]
+[; ;main.c: 333:             UART5_Write(0xA3);
+[e ( _UART5_Write (1 -> -> 163 `i `uc ]
+"334
+[; ;main.c: 334:             UART5_Write(cmdDecoder|0x80);
+[e ( _UART5_Write (1 -> | -> _cmdDecoder `i -> 128 `i `uc ]
+"335
+[; ;main.c: 335:             cntTxDecoder = 0;
+[e = _cntTxDecoder -> -> 0 `i `uc ]
 "336
-[; ;main.c: 336:     if( statoParser == 10 )
-[e $ ! == -> _statoParser `i -> 10 `i 2360  ]
+[; ;main.c: 336:             statoDecoder++;
+[e ++ _statoDecoder -> -> 1 `i `uc ]
 "337
-[; ;main.c: 337:     {
-{
-"338
-[; ;main.c: 338:         if( qsDecodPack.qs_Stx == 0 )
-[e $ ! == -> . _qsDecodPack 0 `i -> 0 `i 2361  ]
+[; ;main.c: 337:             break;
+[e $U 2331  ]
 "339
-[; ;main.c: 339:         {
-{
+[; ;main.c: 339:         case 2:
+[e :U 2348 ]
 "340
-[; ;main.c: 340:             qsDecodPack.qs_Stx = 0x02;
-[e = . _qsDecodPack 0 -> -> 2 `i `uc ]
+[; ;main.c: 340:             if( cntTxDecoder < lenTxDecoder)
+[e $ ! < -> _cntTxDecoder `i -> _lenTxDecoder `i 2349  ]
 "341
-[; ;main.c: 341:             qsDecodPack.qs_PayLen = parserLen;
-[e = . _qsDecodPack 1 _parserLen ]
+[; ;main.c: 341:                 UART5_Write(answerBuf[cntTxDecoder++]);
+[e ( _UART5_Write (1 *U + &U _answerBuf * -> ++ _cntTxDecoder -> -> 1 `i `uc `ux -> -> # *U &U _answerBuf `ui `ux ]
+[e $U 2350  ]
 "342
-[; ;main.c: 342:             qsDecodPack.qs_Sender = parserSender;
-[e = . _qsDecodPack 2 _parserSender ]
+[; ;main.c: 342:             else
+[e :U 2349 ]
 "343
-[; ;main.c: 343:             qsDecodPack.qs_Policy = parserPolicy;
-[e = . _qsDecodPack 3 _parserPolicy ]
+[; ;main.c: 343:                 statoDecoder = 0;
+[e = _statoDecoder -> -> 0 `i `uc ]
+[e :U 2350 ]
 "344
-[; ;main.c: 344:             qsDecodPack.qs_CmdId = parserCmd;
+[; ;main.c: 344:             break;
+[e $U 2331  ]
+"345
+[; ;main.c: 345:     }
+}
+[e $U 2331  ]
+[e :U 2332 ]
+[e [\ -> _statoDecoder `i , $ -> 0 `i 2333
+ , $ -> 1 `i 2347
+ , $ -> 2 `i 2348
+ 2331 ]
+[e :U 2331 ]
+"347
+[; ;main.c: 347: }
+[e :UE 2330 ]
+}
+"379
+[; ;main.c: 379: void wxtoa(char *s, short n)
+[v _wxtoa `(v ~T0 @X0 1 ef2`*uc`s ]
+"380
+[; ;main.c: 380: {
+{
+[e :U _wxtoa ]
+"379
+[; ;main.c: 379: void wxtoa(char *s, short n)
+[v _s `*uc ~T0 @X0 1 r1 ]
+[v _n `s ~T0 @X0 1 r2 ]
+"380
+[; ;main.c: 380: {
+[f ]
+"381
+[; ;main.c: 381: WVAL wn;
+[v _wn `S2319 ~T0 @X0 1 a ]
+"383
+[; ;main.c: 383:  wn.i = n;
+[e = . _wn 0 _n ]
+"385
+[; ;main.c: 385:  bxtoa(s+2, wn.c[1]);
+[e ( _bxtoa (2 , + _s * -> -> 2 `i `x -> -> # *U _s `i `x *U + &U . _wn 1 * -> -> -> 1 `i `ui `ux -> -> # *U &U . _wn 1 `ui `ux ]
+"386
+[; ;main.c: 386:  bxtoa(s, wn.c[0]);
+[e ( _bxtoa (2 , _s *U + &U . _wn 1 * -> -> -> 0 `i `ui `ux -> -> # *U &U . _wn 1 `ui `ux ]
+"387
+[; ;main.c: 387: }
+[e :UE 2351 ]
+}
+"392
+[; ;main.c: 392: void bxtoa(char *s, uint8_t n)
+[v _bxtoa `(v ~T0 @X0 1 ef2`*uc`uc ]
+"393
+[; ;main.c: 393: {
+{
+[e :U _bxtoa ]
+"392
+[; ;main.c: 392: void bxtoa(char *s, uint8_t n)
+[v _s `*uc ~T0 @X0 1 r1 ]
+[v _n `uc ~T0 @X0 1 r2 ]
+"393
+[; ;main.c: 393: {
+[f ]
+"394
+[; ;main.c: 394: uint8_t b;
+[v _b `uc ~T0 @X0 1 a ]
+"396
+[; ;main.c: 396:  b = n & 0x0F;
+[e = _b -> & -> _n `i -> 15 `i `uc ]
+"398
+[; ;main.c: 398:  if( b > 9 )
+[e $ ! > -> _b `i -> 9 `i 2353  ]
+"399
+[; ;main.c: 399:   s[1] = (b - 10) + 'A';
+[e = *U + _s * -> -> 1 `i `x -> -> # *U _s `i `x -> + -> - -> _b `i -> 10 `i `ui -> 65 `ui `uc ]
+[e $U 2354  ]
+"400
+[; ;main.c: 400:  else
+[e :U 2353 ]
+"401
+[; ;main.c: 401:   s[1] = b + '0';
+[e = *U + _s * -> -> 1 `i `x -> -> # *U _s `i `x -> + -> _b `ui -> 48 `ui `uc ]
+[e :U 2354 ]
+"403
+[; ;main.c: 403:  b = (n & 0xF0) >> 4;
+[e = _b -> >> & -> _n `i -> 240 `i -> 4 `i `uc ]
+"405
+[; ;main.c: 405:  if( b > 9 )
+[e $ ! > -> _b `i -> 9 `i 2355  ]
+"406
+[; ;main.c: 406:   s[0] = (b - 10) + 'A';
+[e = *U + _s * -> -> 0 `i `x -> -> # *U _s `i `x -> + -> - -> _b `i -> 10 `i `ui -> 65 `ui `uc ]
+[e $U 2356  ]
+"407
+[; ;main.c: 407:  else
+[e :U 2355 ]
+"408
+[; ;main.c: 408:   s[0] = b + '0';
+[e = *U + _s * -> -> 0 `i `x -> -> # *U _s `i `x -> + -> _b `ui -> 48 `ui `uc ]
+[e :U 2356 ]
+"409
+[; ;main.c: 409: }
+[e :UE 2352 ]
+}
+"417
+[; ;main.c: 417: static uint8_t statoParser;
+[v _statoParser `uc ~T0 @X0 1 s ]
+"419
+[; ;main.c: 419: static uint8_t parserBuffer[255];
+[v _parserBuffer `uc ~T0 @X0 -> 255 `i s ]
+"420
+[; ;main.c: 420: static uint8_t parserIdx;
+[v _parserIdx `uc ~T0 @X0 1 s ]
+"421
+[; ;main.c: 421: static uint8_t parserLen;
+[v _parserLen `uc ~T0 @X0 1 s ]
+"422
+[; ;main.c: 422: static uint8_t parserSender;
+[v _parserSender `uc ~T0 @X0 1 s ]
+"423
+[; ;main.c: 423: static uint8_t parserPolicy;
+[v _parserPolicy `uc ~T0 @X0 1 s ]
+"424
+[; ;main.c: 424: static uint8_t parserCmd;
+[v _parserCmd `uc ~T0 @X0 1 s ]
+"425
+[; ;main.c: 425: static uint8_t parserPayBuf[255];
+[v _parserPayBuf `uc ~T0 @X0 -> 255 `i s ]
+"426
+[; ;main.c: 426: static uint8_t parserPayIdx;
+[v _parserPayIdx `uc ~T0 @X0 1 s ]
+"427
+[; ;main.c: 427: static uint8_t parserCrcL;
+[v _parserCrcL `uc ~T0 @X0 1 s ]
+"428
+[; ;main.c: 428: static uint8_t parserCrcH;
+[v _parserCrcH `uc ~T0 @X0 1 s ]
+"429
+[; ;main.c: 429: static uint8_t parserEtx;
+[v _parserEtx `uc ~T0 @X0 1 s ]
+"432
+[; ;main.c: 432: void proto_parser(uint8_t __newChar)
+[v _proto_parser `(v ~T0 @X0 1 ef1`uc ]
+"433
+[; ;main.c: 433: {
+{
+[e :U _proto_parser ]
+"432
+[; ;main.c: 432: void proto_parser(uint8_t __newChar)
+[v ___newChar `uc ~T0 @X0 1 r1 ]
+"433
+[; ;main.c: 433: {
+[f ]
+"436
+[; ;main.c: 436:     if( statoParser != 0 &&
+[e $ ! && && && != -> _statoParser `i -> 0 `i != -> _statoParser `i -> 6 `i != -> _statoParser `i -> 7 `i != -> _statoParser `i -> 10 `i 2358  ]
+"441
+[; ;main.c: 441:     {
+{
+"442
+[; ;main.c: 442:         if( __newChar == 0x02 )
+[e $ ! == -> ___newChar `i -> 2 `i 2359  ]
+"443
+[; ;main.c: 443:             statoParser = 0;
+[e = _statoParser -> -> 0 `i `uc ]
+[e :U 2359 ]
+"444
+[; ;main.c: 444:     }
+}
+[e :U 2358 ]
+"446
+[; ;main.c: 446:     switch( statoParser )
+[e $U 2361  ]
+"447
+[; ;main.c: 447:     {
+{
+"448
+[; ;main.c: 448:         case 0:
+[e :U 2362 ]
+"449
+[; ;main.c: 449:             if( __newChar == 0x02 )
+[e $ ! == -> ___newChar `i -> 2 `i 2363  ]
+"450
+[; ;main.c: 450:             {
+{
+"451
+[; ;main.c: 451:                 parserIdx = 0;
+[e = _parserIdx -> -> 0 `i `uc ]
+"452
+[; ;main.c: 452:                 statoParser++;
+[e ++ _statoParser -> -> 1 `i `uc ]
+"453
+[; ;main.c: 453:             }
+}
+[e :U 2363 ]
+"454
+[; ;main.c: 454:             break;
+[e $U 2360  ]
+"456
+[; ;main.c: 456:         case 1:
+[e :U 2364 ]
+"458
+[; ;main.c: 458:             parserLen = __newChar;
+[e = _parserLen ___newChar ]
+"460
+[; ;main.c: 460:             if( parserLen == 0 || parserLen > 240 )
+[e $ ! || == -> _parserLen `i -> 0 `i > -> _parserLen `i -> 240 `i 2365  ]
+"461
+[; ;main.c: 461:             {
+{
+"462
+[; ;main.c: 462:                 statoParser = 0;
+[e = _statoParser -> -> 0 `i `uc ]
+"463
+[; ;main.c: 463:             }
+}
+[e $U 2366  ]
+"464
+[; ;main.c: 464:             else
+[e :U 2365 ]
+"465
+[; ;main.c: 465:             {
+{
+"466
+[; ;main.c: 466:                 statoParser++;
+[e ++ _statoParser -> -> 1 `i `uc ]
+"467
+[; ;main.c: 467:             }
+}
+[e :U 2366 ]
+"468
+[; ;main.c: 468:             break;
+[e $U 2360  ]
+"470
+[; ;main.c: 470:         case 2:
+[e :U 2367 ]
+"472
+[; ;main.c: 472:             parserSender = __newChar;
+[e = _parserSender ___newChar ]
+"474
+[; ;main.c: 474:             if( parserSender != 0x20 )
+[e $ ! != -> _parserSender `i -> 32 `i 2368  ]
+"475
+[; ;main.c: 475:             {
+{
+"476
+[; ;main.c: 476:                 statoParser = 0;
+[e = _statoParser -> -> 0 `i `uc ]
+"477
+[; ;main.c: 477:             }
+}
+[e $U 2369  ]
+"478
+[; ;main.c: 478:             else
+[e :U 2368 ]
+"479
+[; ;main.c: 479:             {
+{
+"480
+[; ;main.c: 480:                 statoParser++;
+[e ++ _statoParser -> -> 1 `i `uc ]
+"481
+[; ;main.c: 481:             }
+}
+[e :U 2369 ]
+"482
+[; ;main.c: 482:             break;
+[e $U 2360  ]
+"484
+[; ;main.c: 484:         case 3:
+[e :U 2370 ]
+"486
+[; ;main.c: 486:             parserPolicy = __newChar;
+[e = _parserPolicy ___newChar ]
+"488
+[; ;main.c: 488:             if( parserPolicy != 0x23 )
+[e $ ! != -> _parserPolicy `i -> 35 `i 2371  ]
+"489
+[; ;main.c: 489:             {
+{
+"490
+[; ;main.c: 490:                 statoParser = 0;
+[e = _statoParser -> -> 0 `i `uc ]
+"491
+[; ;main.c: 491:             }
+}
+[e $U 2372  ]
+"492
+[; ;main.c: 492:             else
+[e :U 2371 ]
+"493
+[; ;main.c: 493:             {
+{
+"494
+[; ;main.c: 494:                 statoParser++;
+[e ++ _statoParser -> -> 1 `i `uc ]
+"495
+[; ;main.c: 495:             }
+}
+[e :U 2372 ]
+"496
+[; ;main.c: 496:             break;
+[e $U 2360  ]
+"498
+[; ;main.c: 498:         case 4:
+[e :U 2373 ]
+"500
+[; ;main.c: 500:             parserCmd = __newChar;
+[e = _parserCmd ___newChar ]
+"502
+[; ;main.c: 502:             if( parserCmd < 0x40 )
+[e $ ! < -> _parserCmd `i -> 64 `i 2374  ]
+"503
+[; ;main.c: 503:             {
+{
+"504
+[; ;main.c: 504:                 statoParser = 0;
+[e = _statoParser -> -> 0 `i `uc ]
+"505
+[; ;main.c: 505:             }
+}
+[e $U 2375  ]
+"506
+[; ;main.c: 506:             else
+[e :U 2374 ]
+"507
+[; ;main.c: 507:             {
+{
+"508
+[; ;main.c: 508:                 parserPayIdx = 0;
+[e = _parserPayIdx -> -> 0 `i `uc ]
+"509
+[; ;main.c: 509:                 statoParser++;
+[e ++ _statoParser -> -> 1 `i `uc ]
+"510
+[; ;main.c: 510:             }
+}
+[e :U 2375 ]
+"511
+[; ;main.c: 511:             break;
+[e $U 2360  ]
+"513
+[; ;main.c: 513:         case 5:
+[e :U 2376 ]
+"515
+[; ;main.c: 515:             parserPayBuf[parserPayIdx++] = __newChar;
+[e = *U + &U _parserPayBuf * -> ++ _parserPayIdx -> -> 1 `i `uc `ux -> -> # *U &U _parserPayBuf `ui `ux ___newChar ]
+"517
+[; ;main.c: 517:             if( parserPayIdx >= parserLen )
+[e $ ! >= -> _parserPayIdx `i -> _parserLen `i 2377  ]
+"518
+[; ;main.c: 518:             {
+{
+"519
+[; ;main.c: 519:                 statoParser++;
+[e ++ _statoParser -> -> 1 `i `uc ]
+"520
+[; ;main.c: 520:             }
+}
+[e :U 2377 ]
+"521
+[; ;main.c: 521:             break;
+[e $U 2360  ]
+"523
+[; ;main.c: 523:         case 6:
+[e :U 2378 ]
+"525
+[; ;main.c: 525:             parserCrcL = __newChar;
+[e = _parserCrcL ___newChar ]
+"526
+[; ;main.c: 526:             statoParser++;
+[e ++ _statoParser -> -> 1 `i `uc ]
+"527
+[; ;main.c: 527:             break;
+[e $U 2360  ]
+"529
+[; ;main.c: 529:         case 7:
+[e :U 2379 ]
+"531
+[; ;main.c: 531:             parserCrcH = __newChar;
+[e = _parserCrcH ___newChar ]
+"533
+[; ;main.c: 533:             statoParser++;
+[e ++ _statoParser -> -> 1 `i `uc ]
+"534
+[; ;main.c: 534:             break;
+[e $U 2360  ]
+"536
+[; ;main.c: 536:         case 8:
+[e :U 2380 ]
+"538
+[; ;main.c: 538:             parserEtx = __newChar;
+[e = _parserEtx ___newChar ]
+"542
+[; ;main.c: 542:             statoParser = 10;
+[e = _statoParser -> -> 10 `i `uc ]
+"543
+[; ;main.c: 543:             break;
+[e $U 2360  ]
+"545
+[; ;main.c: 545:         case 10:
+[e :U 2381 ]
+"546
+[; ;main.c: 546:             break;
+[e $U 2360  ]
+"548
+[; ;main.c: 548:     }
+}
+[e $U 2360  ]
+[e :U 2361 ]
+[e [\ -> _statoParser `i , $ -> 0 `i 2362
+ , $ -> 1 `i 2364
+ , $ -> 2 `i 2367
+ , $ -> 3 `i 2370
+ , $ -> 4 `i 2373
+ , $ -> 5 `i 2376
+ , $ -> 6 `i 2378
+ , $ -> 7 `i 2379
+ , $ -> 8 `i 2380
+ , $ -> 10 `i 2381
+ 2360 ]
+[e :U 2360 ]
+"551
+[; ;main.c: 551:     if( statoParser != 0 && statoParser != 10 )
+[e $ ! && != -> _statoParser `i -> 0 `i != -> _statoParser `i -> 10 `i 2382  ]
+"552
+[; ;main.c: 552:         parserBuffer[parserIdx++] = __newChar;
+[e = *U + &U _parserBuffer * -> ++ _parserIdx -> -> 1 `i `uc `ux -> -> # *U &U _parserBuffer `ui `ux ___newChar ]
+[e :U 2382 ]
+"555
+[; ;main.c: 555:     if( statoParser == 10 )
+[e $ ! == -> _statoParser `i -> 10 `i 2383  ]
+"556
+[; ;main.c: 556:     {
+{
+"557
+[; ;main.c: 557:         if( qsDecodPack.qs_Stx == 0 )
+[e $ ! == -> . _qsDecodPack 0 `i -> 0 `i 2384  ]
+"558
+[; ;main.c: 558:         {
+{
+"559
+[; ;main.c: 559:             qsDecodPack.qs_Stx = 0x02;
+[e = . _qsDecodPack 0 -> -> 2 `i `uc ]
+"560
+[; ;main.c: 560:             qsDecodPack.qs_PayLen = parserLen;
+[e = . _qsDecodPack 1 _parserLen ]
+"561
+[; ;main.c: 561:             qsDecodPack.qs_Sender = parserSender;
+[e = . _qsDecodPack 2 _parserSender ]
+"562
+[; ;main.c: 562:             qsDecodPack.qs_Policy = parserPolicy;
+[e = . _qsDecodPack 3 _parserPolicy ]
+"563
+[; ;main.c: 563:             qsDecodPack.qs_CmdId = parserCmd;
 [e = . _qsDecodPack 4 _parserCmd ]
-"346
-[; ;main.c: 346:             uint8_t nb;
+"565
+[; ;main.c: 565:             uint8_t nb;
 [v _nb `uc ~T0 @X0 1 a ]
-"348
-[; ;main.c: 348:             for(nb=0;nb<parserLen;nb++)
+"567
+[; ;main.c: 567:             for(nb=0;nb<parserLen;nb++)
 {
 [e = _nb -> -> 0 `i `uc ]
-[e $U 2365  ]
-[e :U 2362 ]
-"349
-[; ;main.c: 349:                 qsDecodPack.qs_Payload[nb] = parserPayBuf[nb];
+[e $U 2388  ]
+[e :U 2385 ]
+"568
+[; ;main.c: 568:                 qsDecodPack.qs_Payload[nb] = parserPayBuf[nb];
 [e = *U + &U . _qsDecodPack 5 * -> _nb `ux -> -> # *U &U . _qsDecodPack 5 `ui `ux *U + &U _parserPayBuf * -> _nb `ux -> -> # *U &U _parserPayBuf `ui `ux ]
 [e ++ _nb -> -> 1 `i `uc ]
-[e :U 2365 ]
-[e $ < -> _nb `i -> _parserLen `i 2362  ]
-[e :U 2363 ]
+[e :U 2388 ]
+[e $ < -> _nb `i -> _parserLen `i 2385  ]
+[e :U 2386 ]
 }
-"355
-[; ;main.c: 355:             CalcCrc16_Poly(0x0000, 0x8005, qsDecodPack.qs_Payload, qsDecodPack.qs_PayLen, &qsDecodPack.qs_CrcLow, &qsDecodPack.qs_CrcHigh);
+"574
+[; ;main.c: 574:             CalcCrc16_Poly(0x0000, 0x8005, qsDecodPack.qs_Payload, qsDecodPack.qs_PayLen, &qsDecodPack.qs_CrcLow, &qsDecodPack.qs_CrcHigh);
 [e ( _CalcCrc16_Poly (4 , , , , , -> -> 0 `i `us -> -> 32773 `ui `us &U . _qsDecodPack 5 -> . _qsDecodPack 1 `us &U . _qsDecodPack 6 &U . _qsDecodPack 7 ]
-"364
-[; ;main.c: 364:             statoParser = 0;
+"583
+[; ;main.c: 583:             statoParser = 0;
 [e = _statoParser -> -> 0 `i `uc ]
-"365
-[; ;main.c: 365:         }
+"584
+[; ;main.c: 584:         }
 }
-[e :U 2361 ]
-"367
-[; ;main.c: 367:     }
+[e :U 2384 ]
+"586
+[; ;main.c: 586:     }
 }
-[e :U 2360 ]
-"369
-[; ;main.c: 369: }
-[e :UE 2334 ]
+[e :U 2383 ]
+"588
+[; ;main.c: 588: }
+[e :UE 2357 ]
 }
-"372
-[; ;main.c: 372: void CalcCrc16_Poly(uint16_t crc_initial, uint16_t poly, uint8_t *pBuf, uint16_t wLen, uint8_t *crc_l, uint8_t *crc_h)
+"591
+[; ;main.c: 591: void CalcCrc16_Poly(uint16_t crc_initial, uint16_t poly, uint8_t *pBuf, uint16_t wLen, uint8_t *crc_l, uint8_t *crc_h)
 [v _CalcCrc16_Poly `(v ~T0 @X0 1 ef6`us`us`*uc`us`*uc`*uc ]
-"373
-[; ;main.c: 373: {
+"592
+[; ;main.c: 592: {
 {
 [e :U _CalcCrc16_Poly ]
-"372
-[; ;main.c: 372: void CalcCrc16_Poly(uint16_t crc_initial, uint16_t poly, uint8_t *pBuf, uint16_t wLen, uint8_t *crc_l, uint8_t *crc_h)
+"591
+[; ;main.c: 591: void CalcCrc16_Poly(uint16_t crc_initial, uint16_t poly, uint8_t *pBuf, uint16_t wLen, uint8_t *crc_l, uint8_t *crc_h)
 [v _crc_initial `us ~T0 @X0 1 r1 ]
 [v _poly `us ~T0 @X0 1 r2 ]
 [v _pBuf `*uc ~T0 @X0 1 r3 ]
 [v _wLen `us ~T0 @X0 1 r4 ]
 [v _crc_l `*uc ~T0 @X0 1 r5 ]
 [v _crc_h `*uc ~T0 @X0 1 r6 ]
-"373
-[; ;main.c: 373: {
+"592
+[; ;main.c: 592: {
 [f ]
-"374
-[; ;main.c: 374: uint8_t i,j;
+"593
+[; ;main.c: 593: uint8_t i,j;
 [v _i `uc ~T0 @X0 1 a ]
 [v _j `uc ~T0 @X0 1 a ]
-"375
-[; ;main.c: 375: uint16_t data;
+"594
+[; ;main.c: 594: uint16_t data;
 [v _data `us ~T0 @X0 1 a ]
-"376
-[; ;main.c: 376: uint16_t crc = crc_initial;
+"595
+[; ;main.c: 595: uint16_t crc = crc_initial;
 [v _crc `us ~T0 @X0 1 a ]
 [e = _crc _crc_initial ]
-"377
-[; ;main.c: 377: uint8_t crc_low, crc_hig;
+"596
+[; ;main.c: 596: uint8_t crc_low, crc_hig;
 [v _crc_low `uc ~T0 @X0 1 a ]
 [v _crc_hig `uc ~T0 @X0 1 a ]
-"379
-[; ;main.c: 379: count = 0;
+"598
+[; ;main.c: 598: count = 0;
 [e = _count -> 0 `i ]
-"381
-[; ;main.c: 381:     for (j = 0; j < wLen; j++)
+"600
+[; ;main.c: 600:     for (j = 0; j < wLen; j++)
 {
 [e = _j -> -> 0 `i `uc ]
-[e $U 2370  ]
-[e :U 2367 ]
-"382
-[; ;main.c: 382:     {
+[e $U 2393  ]
+[e :U 2390 ]
+"601
+[; ;main.c: 601:     {
 {
-"383
-[; ;main.c: 383:         data = pBuf[j];
+"602
+[; ;main.c: 602:         data = pBuf[j];
 [e = _data -> *U + _pBuf * -> _j `ux -> -> # *U _pBuf `ui `ux `us ]
-"385
-[; ;main.c: 385:         crc ^= data;
+"604
+[; ;main.c: 604:         crc ^= data;
 [e =^ _crc -> _data `us ]
-"387
-[; ;main.c: 387:         for (i=0; i < 8; i++)
+"606
+[; ;main.c: 606:         for (i=0; i < 8; i++)
 {
 [e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i -> 8 `i 2371  ]
-[e $U 2372  ]
-[e :U 2371 ]
-"388
-[; ;main.c: 388:         {
+[e $ < -> _i `i -> 8 `i 2394  ]
+[e $U 2395  ]
+[e :U 2394 ]
+"607
+[; ;main.c: 607:         {
 {
-"390
-[; ;main.c: 390:             if ( crc & 0x0001 )
-[e $ ! != & -> _crc `ui -> -> 1 `i `ui -> -> 0 `i `ui 2374  ]
-"391
-[; ;main.c: 391:             {
+"609
+[; ;main.c: 609:             if ( crc & 0x0001 )
+[e $ ! != & -> _crc `ui -> -> 1 `i `ui -> -> 0 `i `ui 2397  ]
+"610
+[; ;main.c: 610:             {
 {
-"392
-[; ;main.c: 392:                 crc >>= 1;
+"611
+[; ;main.c: 611:                 crc >>= 1;
 [e =>> _crc -> -> 1 `i `us ]
-"394
-[; ;main.c: 394:                 crc ^= poly;
+"613
+[; ;main.c: 613:                 crc ^= poly;
 [e =^ _crc -> _poly `us ]
-"395
-[; ;main.c: 395:             }
+"614
+[; ;main.c: 614:             }
 }
-[e $U 2375  ]
-"396
-[; ;main.c: 396:             else
-[e :U 2374 ]
-"397
-[; ;main.c: 397:             {
+[e $U 2398  ]
+"615
+[; ;main.c: 615:             else
+[e :U 2397 ]
+"616
+[; ;main.c: 616:             {
 {
-"398
-[; ;main.c: 398:                 crc >>= 1;
+"617
+[; ;main.c: 617:                 crc >>= 1;
 [e =>> _crc -> -> 1 `i `us ]
-"399
-[; ;main.c: 399:             }
+"618
+[; ;main.c: 618:             }
 }
-[e :U 2375 ]
-"400
-[; ;main.c: 400:         }
+[e :U 2398 ]
+"619
+[; ;main.c: 619:         }
 }
 [e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> 8 `i 2371  ]
-[e :U 2372 ]
+[e $ < -> _i `i -> 8 `i 2394  ]
+[e :U 2395 ]
 }
-"401
-[; ;main.c: 401:     }
+"620
+[; ;main.c: 620:     }
 }
 [e ++ _j -> -> 1 `i `uc ]
-[e :U 2370 ]
-[e $ < -> _j `ui -> _wLen `ui 2367  ]
-[e :U 2368 ]
+[e :U 2393 ]
+[e $ < -> _j `ui -> _wLen `ui 2390  ]
+[e :U 2391 ]
 }
-"403
-[; ;main.c: 403:     crc_hig = crc & 0xFF;
+"622
+[; ;main.c: 622:     crc_hig = crc & 0xFF;
 [e = _crc_hig -> & -> _crc `ui -> -> 255 `i `ui `uc ]
-"404
-[; ;main.c: 404:     crc_low = crc >> 8;
+"623
+[; ;main.c: 623:     crc_low = crc >> 8;
 [e = _crc_low -> >> -> _crc `ui -> 8 `i `uc ]
-"406
-[; ;main.c: 406:     *crc_l = crc_low;
+"625
+[; ;main.c: 625:     *crc_l = crc_low;
 [e = *U _crc_l _crc_low ]
-"407
-[; ;main.c: 407:     *crc_h = crc_hig;
+"626
+[; ;main.c: 626:     *crc_h = crc_hig;
 [e = *U _crc_h _crc_hig ]
-"409
-[; ;main.c: 409: }
-[e :UE 2366 ]
+"628
+[; ;main.c: 628: }
+[e :UE 2389 ]
 }

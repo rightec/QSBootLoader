@@ -28214,6 +28214,66 @@ void OSCILLATOR_Initialize(void);
 void PMD_Initialize(void);
 # 44 "main.c" 2
 
+# 1 "/opt/microchip/xc8/v2.36/pic/include/c99/string.h" 1 3
+# 25 "/opt/microchip/xc8/v2.36/pic/include/c99/string.h" 3
+# 1 "/opt/microchip/xc8/v2.36/pic/include/c99/bits/alltypes.h" 1 3
+# 411 "/opt/microchip/xc8/v2.36/pic/include/c99/bits/alltypes.h" 3
+typedef struct __locale_struct * locale_t;
+# 26 "/opt/microchip/xc8/v2.36/pic/include/c99/string.h" 2 3
+
+void *memcpy (void *restrict, const void *restrict, size_t);
+void *memmove (void *, const void *, size_t);
+void *memset (void *, int, size_t);
+int memcmp (const void *, const void *, size_t);
+void *memchr (const void *, int, size_t);
+
+char *strcpy (char *restrict, const char *restrict);
+char *strncpy (char *restrict, const char *restrict, size_t);
+
+char *strcat (char *restrict, const char *restrict);
+char *strncat (char *restrict, const char *restrict, size_t);
+
+int strcmp (const char *, const char *);
+int strncmp (const char *, const char *, size_t);
+
+int strcoll (const char *, const char *);
+size_t strxfrm (char *restrict, const char *restrict, size_t);
+
+char *strchr (const char *, int);
+char *strrchr (const char *, int);
+
+size_t strcspn (const char *, const char *);
+size_t strspn (const char *, const char *);
+char *strpbrk (const char *, const char *);
+char *strstr (const char *, const char *);
+char *strtok (char *restrict, const char *restrict);
+
+size_t strlen (const char *);
+
+char *strerror (int);
+# 65 "/opt/microchip/xc8/v2.36/pic/include/c99/string.h" 3
+char *strtok_r (char *restrict, const char *restrict, char **restrict);
+int strerror_r (int, char *, size_t);
+char *stpcpy(char *restrict, const char *restrict);
+char *stpncpy(char *restrict, const char *restrict, size_t);
+size_t strnlen (const char *, size_t);
+char *strdup (const char *);
+char *strndup (const char *, size_t);
+char *strsignal(int);
+char *strerror_l (int, locale_t);
+int strcoll_l (const char *, const char *, locale_t);
+size_t strxfrm_l (char *restrict, const char *restrict, size_t, locale_t);
+
+
+
+
+void *memccpy (void *restrict, const void *restrict, int, size_t);
+# 45 "main.c" 2
+
+
+
+
+
 
 
 
@@ -28228,18 +28288,56 @@ typedef struct QS_bootProt{
 
 
     uint8_t qs_Policy;
-# 70 "main.c"
+# 75 "main.c"
     uint8_t qs_CmdId;
     uint8_t qs_Payload[240];
     uint8_t qs_CrcLow;
     uint8_t qs_CrcHigh;
     uint8_t qs_Etx;
 } QS_BOOT_PROT_T;
+# 89 "main.c"
+typedef struct
+{
+    uint16_t FW_Erp_Identifier;
+    uint8_t FW_Erp_Version;
+    uint8_t FW_Erp_BuildNumber;
+    uint32_t FW_Erp_Crc32;
+
+} FW_SW_VERSION_T;
+
+
+FW_SW_VERSION_T theFwVersion;
+
+
+
+
+
+
+
+typedef struct
+{
+    uint8_t ID_Info_Version;
+
+} ID_INFO_VERSION_T;
+
+ID_INFO_VERSION_T theRevisionID;
+uint8_t theDeviceID = 0x23;
+
+
+union U_WVAL {
+ short i;
+ uint8_t c[2];
+ };
+
+typedef union U_WVAL WVAL;
+
 
 void proto_entry(void);
 void proto_parser(uint8_t __newChar);
 void proto_decoder(void);
 void CalcCrc16_Poly(uint16_t crc_initial, uint16_t poly, uint8_t *pBuf, uint16_t wLen, uint8_t *crc_l, uint8_t *crc_h);
+void wxtoa(char *s, short n);
+void bxtoa(char *s, uint8_t n);
 
 
 
@@ -28298,45 +28396,184 @@ uint8_t c;
 
 
 }
-# 152 "main.c"
+# 202 "main.c"
 QS_BOOT_PROT_T qsDecodPack;
 
-uint8_t answerBuf[240];
+static uint8_t answerBuf[240];
+static uint8_t statoDecoder;
+static uint8_t lenTxDecoder;
+static uint8_t cntTxDecoder;
+static uint8_t cmdDecoder;
+static uint8_t crcDecoderL;
+static uint8_t crcDecoderH;
 
 void proto_decoder(void)
 {
     uint8_t nb;
 
-    if( qsDecodPack.qs_Stx == 0x02 )
+
+    switch( statoDecoder )
     {
-        qsDecodPack.qs_Stx = 0x00;
+        case 0:
+            if( qsDecodPack.qs_Stx == 0x02 )
+            {
+                qsDecodPack.qs_Stx = 0x00;
+                cmdDecoder = 0;
 
-        switch( qsDecodPack.qs_CmdId )
-        {
-            case 0x50:
-                UART5_Write(0x02);
-                UART5_Write(0x04);
-                UART5_Write(0x23);
-                UART5_Write(0xA3);
-                UART5_Write(0x50|0x80);
+                switch( qsDecodPack.qs_CmdId )
+                {
+                    case 0x41:
+                        cmdDecoder = 0x41;
+                        memcpy(answerBuf, &theFwVersion, sizeof(theFwVersion));
 
-                answerBuf[0] = 0x66;
-                answerBuf[1] = 0x66;
-                answerBuf[2] = 0x66;
-                answerBuf[3] = 0x66;
+                        lenTxDecoder = sizeof(theFwVersion);
+                        break;
+
+                    case 0x42:
+
+                        cmdDecoder = 0x42;
+                        answerBuf[0] = theRevisionID.ID_Info_Version;
+                        answerBuf[1] = 0x00;
+                        answerBuf[2] = 0x00;
+                        answerBuf[3] = 0x00;
+
+                        lenTxDecoder = 4;
+                        break;
+
+                    case 0x43:
+
+                        cmdDecoder = 0x43;
+                        answerBuf[0] = theDeviceID;
+                        answerBuf[1] = 0x00;
+                        answerBuf[2] = 0x00;
+                        answerBuf[3] = 0x00;
+
+                        lenTxDecoder = 4;
+                        break;
+
+                    case 0x44:
+                        cmdDecoder = 0x44;
+                        memcpy(answerBuf, &theFwVersion, sizeof(theFwVersion));
+
+                        lenTxDecoder = sizeof(theFwVersion);
+                        break;
+
+                    case 0x50:
+
+                        cmdDecoder = 0x50;
+                        answerBuf[0] = 0x66;
+                        answerBuf[1] = 0x66;
+                        answerBuf[2] = 0x66;
+                        answerBuf[3] = 0x66;
+
+                        lenTxDecoder = 4;
+                        break;
+
+                    case 0x51:
+                        cmdDecoder = 0x51;
+                        answerBuf[0] = 0x00;
+                        answerBuf[1] = qsDecodPack.qs_Payload[0];
+                        answerBuf[2] = qsDecodPack.qs_Payload[1];
+                        answerBuf[3] = '1';
+
+                        lenTxDecoder = 4;
+                        break;
+
+                    case 0x52:
+                        cmdDecoder = 0x52;
+                        answerBuf[0] = '2';
+                        answerBuf[1] = '2';
+                        answerBuf[2] = '2';
+                        answerBuf[3] = '2';
+
+                        lenTxDecoder = 4;
+                        break;
+
+                    case 0x53:
+                        cmdDecoder = 0x53;
+                        answerBuf[0] = '0';
+                        answerBuf[1] = '2';
+                        answerBuf[2] = '2';
+                        answerBuf[3] = '2';
+
+                        lenTxDecoder = 4;
+                        break;
+
+                    case 0x70:
+                        cmdDecoder = 0x70;
+                        answerBuf[0] = '2';
+                        answerBuf[1] = '2';
+                        answerBuf[2] = '2';
+                        answerBuf[3] = '2';
+
+                        lenTxDecoder = 4;
+                        break;
+                }
+
+                if( cmdDecoder != 0 )
+                {
 
 
-                CalcCrc16_Poly(0x0000, 0x8005, answerBuf, 4, &answerBuf[4], &answerBuf[5]);
-                answerBuf[6] = 0x03;
+                    CalcCrc16_Poly(0x0000, 0x8005, answerBuf, lenTxDecoder, &crcDecoderL, &crcDecoderH);
 
-                for(nb=0; nb<7; nb++)
-                    UART5_Write(answerBuf[nb]);
+                    answerBuf[lenTxDecoder++] = crcDecoderL;
+                    answerBuf[lenTxDecoder++] = crcDecoderH;
+                    answerBuf[lenTxDecoder++] = 0x03;
+                    statoDecoder++;
+                }
+            }
+            break;
 
-                break;
-        }
+        case 1:
+            UART5_Write(0x02);
+            UART5_Write(0x04);
+            UART5_Write(0x23);
+            UART5_Write(0xA3);
+            UART5_Write(cmdDecoder|0x80);
+            cntTxDecoder = 0;
+            statoDecoder++;
+            break;
 
+        case 2:
+            if( cntTxDecoder < lenTxDecoder)
+                UART5_Write(answerBuf[cntTxDecoder++]);
+            else
+                statoDecoder = 0;
+            break;
     }
 
+}
+# 379 "main.c"
+void wxtoa(char *s, short n)
+{
+WVAL wn;
+
+ wn.i = n;
+
+ bxtoa(s+2, wn.c[1]);
+ bxtoa(s, wn.c[0]);
+}
+
+
+
+
+void bxtoa(char *s, uint8_t n)
+{
+uint8_t b;
+
+ b = n & 0x0F;
+
+ if( b > 9 )
+  s[1] = (b - 10) + 'A';
+ else
+  s[1] = b + '0';
+
+ b = (n & 0xF0) >> 4;
+
+ if( b > 9 )
+  s[0] = (b - 10) + 'A';
+ else
+  s[0] = b + '0';
 }
 
 
@@ -28503,7 +28740,7 @@ void proto_parser(uint8_t __newChar)
 
 
             CalcCrc16_Poly(0x0000, 0x8005, qsDecodPack.qs_Payload, qsDecodPack.qs_PayLen, &qsDecodPack.qs_CrcLow, &qsDecodPack.qs_CrcHigh);
-# 364 "main.c"
+# 583 "main.c"
             statoParser = 0;
         }
 
