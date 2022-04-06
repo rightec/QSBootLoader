@@ -27,7 +27,7 @@
 [v ___lmul __lmul `(ul  1 e 4 0 ]
 "91 C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\Umul64.c
 [v ___omul __omul `(uo  1 e 8 0 ]
-"51 C:\lavoro\Clienti\HiFuture\QuantaSystem\Boot18.X\main.c
+"52 C:\lavoro\Clienti\HiFuture\QuantaSystem\Boot18.X\main.c
 [v _main main `(v  1 e 1 0 ]
 "52 C:\lavoro\Clienti\HiFuture\QuantaSystem\Boot18.X\mcc_generated_files/interrupt_manager.c
 [v _INTERRUPT_Initialize INTERRUPT_Initialize `(v  1 e 1 0 ]
@@ -47,31 +47,31 @@
 [v _FLASH_EraseBlock FLASH_EraseBlock `(v  1 e 1 0 ]
 "55 C:\lavoro\Clienti\HiFuture\QuantaSystem\Boot18.X\mcc_generated_files/pin_manager.c
 [v _PIN_MANAGER_Initialize PIN_MANAGER_Initialize `(v  1 e 1 0 ]
-"86 C:\lavoro\Clienti\HiFuture\QuantaSystem\Boot18.X\mcc_generated_files/uart5.c
+"88 C:\lavoro\Clienti\HiFuture\QuantaSystem\Boot18.X\mcc_generated_files/uart5.c
 [v _UART5_Initialize UART5_Initialize `(v  1 e 1 0 ]
-"192
+"194
 [v _UART5_Write UART5_Write `(v  1 e 1 0 ]
-"219
+"221
 [v _UART5_Transmit_ISR UART5_Transmit_ISR `(v  1 e 1 0 ]
-"239
+"241
 [v _UART5_Receive_ISR UART5_Receive_ISR `(v  1 e 1 0 ]
-"263
+"267
 [v _UART5_RxDataHandler UART5_RxDataHandler `(v  1 e 1 0 ]
-"273
-[v _UART5_DefaultFramingErrorHandler UART5_DefaultFramingErrorHandler `(v  1 e 1 0 ]
-"275
-[v _UART5_DefaultOverrunErrorHandler UART5_DefaultOverrunErrorHandler `(v  1 e 1 0 ]
 "277
-[v _UART5_DefaultErrorHandler UART5_DefaultErrorHandler `(v  1 e 1 0 ]
+[v _UART5_DefaultFramingErrorHandler UART5_DefaultFramingErrorHandler `(v  1 e 1 0 ]
+"279
+[v _UART5_DefaultOverrunErrorHandler UART5_DefaultOverrunErrorHandler `(v  1 e 1 0 ]
 "281
-[v _UART5_SetFramingErrorHandler UART5_SetFramingErrorHandler `(v  1 e 1 0 ]
+[v _UART5_DefaultErrorHandler UART5_DefaultErrorHandler `(v  1 e 1 0 ]
 "285
-[v _UART5_SetOverrunErrorHandler UART5_SetOverrunErrorHandler `(v  1 e 1 0 ]
+[v _UART5_SetFramingErrorHandler UART5_SetFramingErrorHandler `(v  1 e 1 0 ]
 "289
+[v _UART5_SetOverrunErrorHandler UART5_SetOverrunErrorHandler `(v  1 e 1 0 ]
+"293
 [v _UART5_SetErrorHandler UART5_SetErrorHandler `(v  1 e 1 0 ]
-"295
-[v _UART5_SetRxInterruptHandler UART5_SetRxInterruptHandler `(v  1 e 1 0 ]
 "299
+[v _UART5_SetRxInterruptHandler UART5_SetRxInterruptHandler `(v  1 e 1 0 ]
+"303
 [v _UART5_SetTxInterruptHandler UART5_SetTxInterruptHandler `(v  1 e 1 0 ]
 "517 C:\lavoro\Clienti\HiFuture\QuantaSystem\Boot18.X/mcc_generated_files/uart5.h
 [v _UART5_RxInterruptHandler UART5_RxInterruptHandler `*.37(v  1 e 2 0 ]
@@ -288,7 +288,7 @@
 [v _LATA LATA `VEuc  1 e 1 @1214 ]
 "46655
 [v _LATB LATB `VEuc  1 e 1 @1215 ]
-[s S551 . 1 `uc 1 LATB0 1 0 :1:0 
+[s S552 . 1 `uc 1 LATB0 1 0 :1:0 
 `uc 1 LATB1 1 0 :1:1 
 `uc 1 LATB2 1 0 :1:2 
 `uc 1 LATB3 1 0 :1:3 
@@ -298,10 +298,10 @@
 `uc 1 LATB7 1 0 :1:7 
 ]
 "46672
-[u S560 . 1 `S551 1 . 1 0 ]
+[u S561 . 1 `S552 1 . 1 0 ]
 "46672
 "46672
-[v _LATBbits LATBbits `VES560  1 e 1 @1215 ]
+[v _LATBbits LATBbits `VES561  1 e 1 @1215 ]
 "46717
 [v _LATC LATC `VEuc  1 e 1 @1216 ]
 "46779
@@ -345,6 +345,8 @@
 [v _TBLPTRU TBLPTRU `VEuc  1 e 1 @1272 ]
 "46 C:\lavoro\Clienti\HiFuture\QuantaSystem\Boot18.X\main.c
 [v _count count `i  1 e 2 0 ]
+"47
+[v _g_RxCounter g_RxCounter `i  1 e 2 0 ]
 "58 C:\lavoro\Clienti\HiFuture\QuantaSystem\Boot18.X\mcc_generated_files/memory.c
 [v _bufferRAM bufferRAM `us  1 e 2 @5376 ]
 "63 C:\lavoro\Clienti\HiFuture\QuantaSystem\Boot18.X\mcc_generated_files/uart5.c
@@ -373,64 +375,64 @@
 [v _uart5RxCount uart5RxCount `VEuc  1 e 1 0 ]
 "73
 [v _uart5RxLastError uart5RxLastError `VES301  1 s 1 uart5RxLastError ]
-"78
-[v _UART5_FramingErrorHandler UART5_FramingErrorHandler `*.37(v  1 e 2 0 ]
-"79
-[v _UART5_OverrunErrorHandler UART5_OverrunErrorHandler `*.37(v  1 e 2 0 ]
 "80
+[v _UART5_FramingErrorHandler UART5_FramingErrorHandler `*.37(v  1 e 2 0 ]
+"81
+[v _UART5_OverrunErrorHandler UART5_OverrunErrorHandler `*.37(v  1 e 2 0 ]
+"82
 [v _UART5_ErrorHandler UART5_ErrorHandler `*.37(v  1 e 2 0 ]
-"51 C:\lavoro\Clienti\HiFuture\QuantaSystem\Boot18.X\main.c
+"52 C:\lavoro\Clienti\HiFuture\QuantaSystem\Boot18.X\main.c
 [v _main main `(v  1 e 1 0 ]
 {
-"81
+"91
 } 0
-"192 C:\lavoro\Clienti\HiFuture\QuantaSystem\Boot18.X\mcc_generated_files/uart5.c
+"194 C:\lavoro\Clienti\HiFuture\QuantaSystem\Boot18.X\mcc_generated_files/uart5.c
 [v _UART5_Write UART5_Write `(v  1 e 1 0 ]
 {
 [v UART5_Write@txData txData `uc  1 a 1 wreg ]
 [v UART5_Write@txData txData `uc  1 a 1 wreg ]
 [v UART5_Write@txData txData `uc  1 a 1 2 ]
-"213
+"215
 } 0
 "50 C:\lavoro\Clienti\HiFuture\QuantaSystem\Boot18.X\mcc_generated_files/mcc.c
 [v _SYSTEM_Initialize SYSTEM_Initialize `(v  1 e 1 0 ]
 {
 "57
 } 0
-"86 C:\lavoro\Clienti\HiFuture\QuantaSystem\Boot18.X\mcc_generated_files/uart5.c
+"88 C:\lavoro\Clienti\HiFuture\QuantaSystem\Boot18.X\mcc_generated_files/uart5.c
 [v _UART5_Initialize UART5_Initialize `(v  1 e 1 0 ]
 {
-"149
+"151
 } 0
-"299
+"303
 [v _UART5_SetTxInterruptHandler UART5_SetTxInterruptHandler `(v  1 e 1 0 ]
 {
 [v UART5_SetTxInterruptHandler@InterruptHandler InterruptHandler `*.37(v  1 p 2 2 ]
-"301
+"305
 } 0
-"295
+"299
 [v _UART5_SetRxInterruptHandler UART5_SetRxInterruptHandler `(v  1 e 1 0 ]
 {
 [v UART5_SetRxInterruptHandler@InterruptHandler InterruptHandler `*.37(v  1 p 2 2 ]
-"297
+"301
 } 0
-"285
+"289
 [v _UART5_SetOverrunErrorHandler UART5_SetOverrunErrorHandler `(v  1 e 1 0 ]
 {
 [v UART5_SetOverrunErrorHandler@interruptHandler interruptHandler `*.37(v  1 p 2 2 ]
-"287
+"291
 } 0
-"281
+"285
 [v _UART5_SetFramingErrorHandler UART5_SetFramingErrorHandler `(v  1 e 1 0 ]
 {
 [v UART5_SetFramingErrorHandler@interruptHandler interruptHandler `*.37(v  1 p 2 2 ]
-"283
+"287
 } 0
-"289
+"293
 [v _UART5_SetErrorHandler UART5_SetErrorHandler `(v  1 e 1 0 ]
 {
 [v UART5_SetErrorHandler@interruptHandler interruptHandler `*.37(v  1 p 2 2 ]
-"291
+"295
 } 0
 "75 C:\lavoro\Clienti\HiFuture\QuantaSystem\Boot18.X\mcc_generated_files/mcc.c
 [v _PMD_Initialize PMD_Initialize `(v  1 e 1 0 ]
@@ -457,31 +459,31 @@
 {
 "73
 } 0
-"219 C:\lavoro\Clienti\HiFuture\QuantaSystem\Boot18.X\mcc_generated_files/uart5.c
+"221 C:\lavoro\Clienti\HiFuture\QuantaSystem\Boot18.X\mcc_generated_files/uart5.c
 [v _UART5_Transmit_ISR UART5_Transmit_ISR `(v  1 e 1 0 ]
 {
-"237
-} 0
 "239
+} 0
+"241
 [v _UART5_Receive_ISR UART5_Receive_ISR `(v  1 e 1 0 ]
 {
-"261
+"265
 } 0
-"275
+"279
 [v _UART5_DefaultOverrunErrorHandler UART5_DefaultOverrunErrorHandler `(v  1 e 1 0 ]
 {
 } 0
-"273
+"277
 [v _UART5_DefaultFramingErrorHandler UART5_DefaultFramingErrorHandler `(v  1 e 1 0 ]
 {
 } 0
-"277
+"281
 [v _UART5_DefaultErrorHandler UART5_DefaultErrorHandler `(v  1 e 1 0 ]
 {
-"279
+"283
 } 0
-"263
+"267
 [v _UART5_RxDataHandler UART5_RxDataHandler `(v  1 e 1 0 ]
 {
-"271
+"275
 } 0

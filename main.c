@@ -44,6 +44,7 @@
 #include "mcc_generated_files/mcc.h"
 
 int count;
+int g_RxCounter;
 
 /*
                          Main application
@@ -73,7 +74,16 @@ void main(void)
         {
             count = 0;
             LED_LIFE_Toggle();
-        UART5_Write('a');
+            if (g_RxCounter > 0){
+                UART5_Write(0x2);UART5_Write(0x0);
+                UART5_Write(0x1);UART5_Write(0x20);
+                UART5_Write(0x50);UART5_Write(0xaa);
+                UART5_Write(0x00);UART5_Write(0x00);
+                UART5_Write(0x03);
+                /* 0x2 0x0 0x1 0x20 0x0 0x50 0xaa 0x0 0x0 0x3 */
+                g_RxCounter = 0;
+            }
+        
         }
         
         // Add your application code

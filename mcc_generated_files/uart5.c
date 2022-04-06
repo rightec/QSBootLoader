@@ -72,6 +72,8 @@ static volatile uart5_status_t uart5RxStatusBuffer[UART5_RX_BUFFER_SIZE];
 volatile uint8_t uart5RxCount;
 static volatile uart5_status_t uart5RxLastError;
 
+extern int g_RxCounter;
+
 /**
   Section: UART5 APIs
 */
@@ -256,6 +258,8 @@ void UART5_Receive_ISR(void)
     } else {
         UART5_RxDataHandler();
     }
+    
+    g_RxCounter++;
 
     // or set custom function using UART5_SetRxInterruptHandler()
 }
