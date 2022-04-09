@@ -1,3 +1,4 @@
+
 /**
  * @file qs_bootprotocolstruct.h
  * @author Fernando Morani
@@ -13,6 +14,9 @@
 
 #define QS_BOOTP_MIN_PAY_LEN          4  /*  Min payload lenght */
 #define QS_BOOTP_MAX_PAY_LEN        240  /*  Max payload lenght */
+#define QS_BOOTP_MIN_CMD_LEN         12  /*  Min command lenght */
+                                         /*  STX(1) + PAYLEN(1) + SENDER(1) + POLICY(1) */
+                                         /*  CMD(1) + MINPAYLOAD(4) + CRC(2) + ETX(1)*/
 #define QS_BOOTP_MAX_CMD_LEN        255  /*  Max command lenght */
 
 #define QS_BOOTP_STX                0x02 /* (STX) */
@@ -38,7 +42,7 @@
  *  0x51	ERASE                   Erase Flash
  *  0x52	READ                    Read Flash
  *  0x53	WRITE                   Write Flash
- *  0x70	START_FW_UPGRADE	    Start FW_Upgrade (jump to Bootloader…)
+ *  0x70	START_FW_UPGRADE	    Start FW_Upgrade (jump to Bootloader?)
  */
 
 #define QS_BOOTP_RES            0x00
@@ -60,5 +64,25 @@ typedef enum {
     QS_BOOTP_POL_DEF  =          QS_BOOTP_SENDER_BOOT_FW, /*  Default value for the policy field */
     QS_BOOTP_POL_DUMMY =         0xFF  /*  The command is a dummy one - Dummy means "has no effect on the FW" */
 }POLICY_INFO;   /*This is for the sender*/
+
+/*! DEV_ID and REV_ID for both families
+The 16-bit device ID word is located at 0x3FFFFE and the 16-bit revision ID is located at 0x3FFFFC. These locations
+are read-only and cannot be erased or modified.
+Development tools, such as device programmers and debuggers, may be used to read the Device ID, Revision
+ID and Configuration bits. Refer to the ?NVM - Nonvolatile Memory Module? section for more information on
+accessing these locations
+*/
+
+#define QS_PIC18F46Q43_DEV_ID           0x7440 /*Datasheet PIC18F26/46/56Q43 DS40002171E Pag 58*/
+#define QS_PIC18F46Q43_DEV_ID_ADDR      0x3FFFFE
+#define QS_PIC18F46Q43_REV_ID_ADDR      0x3FFFFC
+
+#define QS_PIC18F47Q43_DEV_ID           0x74A0 /*Datasheet PIC18F27/47/57Q43 DS40002147F-page 58*/
+#define QS_PIC18F47Q43_DEV_ID_ADDR      0x3FFFFE
+#define QS_PIC18F47Q43_REV_ID_ADDR      0x3FFFFC
+
+#define QS_POLICY_MASK_DEV_ID           0x3F    /* Device ID */
+#define QS_POLICY_MASK_BUILD_TYPE       0x40    /* debug or release build (1=debug)*/
+#define QS_POLICY_MASK_APP_TYPE         0x80    /* boot or application (1=boot) */
 
 #endif /* QS_BOOTPROTOCOLDEF_H*/
