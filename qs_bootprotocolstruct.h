@@ -96,7 +96,7 @@ typedef struct
 
 typedef struct QS_bootProt{
     uint8_t qs_Stx;                                 /*STX: Start of Message*/
-    uint8_t qs_PayLen;                             /*Payload lenght from 1 to 256 ---> Expressed as 0 to 255*/
+    uint16_t qs_PayLen;                             /*Payload lenght from 1 to 256 ---> Expressed as 0 to 255*/
                                                     /*Minimum payload lenght = 1*/
                                                     
     uint8_t qs_Sender;                              /* Sender of the packet (node source address)

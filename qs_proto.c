@@ -11,23 +11,23 @@ FW_SW_VERSION_T theFwVersion;
 ID_INFO_VERSION_T theRevisionID;
 QS_BOOT_PROT_T  qsDecodPack;        // Data Packets to decode
 
-static uint8_t answerBuf[240];
+static uint8_t answerBuf[QS_BOOTP_MAX_PAY_LEN];
 static uint8_t statoDecoder;
-static uint8_t lenTxDecoder;
-static uint8_t cntTxDecoder;
+static uint16_t lenTxDecoder;
+static uint16_t cntTxDecoder;
 static uint8_t cmdDecoder;
 static uint8_t crcDecoderL;
 static uint8_t crcDecoderH;
 
 static uint8_t statoParser;
-static uint8_t parserBuffer[255];
-static uint8_t parserIdx;
-static uint8_t parserLen;
+static uint8_t parserBuffer[QS_BOOTP_MAX_PAY_LEN];
+static uint16_t parserIdx;
+static uint16_t parserLen;
 static uint8_t parserSender;
 static uint8_t parserPolicy;
 static uint8_t parserCmd;
-static uint8_t parserPayBuf[255];
-static uint8_t parserPayIdx;
+static uint8_t parserPayBuf[QS_BOOTP_MAX_PAY_LEN];
+static uint16_t parserPayIdx;
 static uint8_t parserCrcL;
 static uint8_t parserCrcH;
 static uint8_t parserEtx;

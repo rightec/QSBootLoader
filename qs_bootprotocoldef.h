@@ -12,12 +12,12 @@
 #define QS_BOOTP_OK                 0x00 /* Command acknowledge - Use in the payload*/
 #define QS_BOOTP_FAIL               0x01 /* Command failed - Use in the payload*/
 
-#define QS_BOOTP_MIN_PAY_LEN          4  /*  Min payload lenght */
-#define QS_BOOTP_MAX_PAY_LEN        240  /*  Max payload lenght */
+#define QS_BOOTP_MIN_PAY_LEN          3  /*  Min payload lenght */
+#define QS_BOOTP_MAX_PAY_LEN       1024  /*  Max payload lenght */
 #define QS_BOOTP_MIN_CMD_LEN         12  /*  Min command lenght */
                                          /*  STX(1) + PAYLEN(1) + SENDER(1) + POLICY(1) */
                                          /*  CMD(1) + MINPAYLOAD(4) + CRC(2) + ETX(1)*/
-#define QS_BOOTP_MAX_CMD_LEN        255  /*  Max command lenght */
+#define QS_BOOTP_MAX_CMD_LEN        1036  /*  Max command lenght */
 
 #define QS_BOOTP_STX                0x02 /* (STX) */
 #define QS_BOOTP_ETX                0x03 /* (ETX) */
