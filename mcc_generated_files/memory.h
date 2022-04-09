@@ -62,6 +62,7 @@
 #define ERASE_FLASH_BLOCKSIZE    128
 #define END_FLASH                0x010000
 
+void FLASH_WriteHex(char *__strHex,  uint16_t __len);
 
 /**
   Section: MEMORY APIs

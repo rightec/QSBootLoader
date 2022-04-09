@@ -68,6 +68,8 @@ void main(void)
     // Disable the Global Interrupts
     //INTERRUPT_GlobalInterruptDisable();
 
+    proto_init();  // init dati proto
+    
     while (1)
     {
         

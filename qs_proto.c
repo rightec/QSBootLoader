@@ -14,6 +14,7 @@ QS_BOOT_PROT_T  qsDecodPack;        // Data Packets to decode
 static uint8_t answerBuf[QS_BOOTP_MAX_PAY_LEN];
 static uint8_t statoDecoder;
 static uint16_t lenTxDecoder;
+static uint16_t lenTxPayload;
 static uint16_t cntTxDecoder;
 static uint8_t cmdDecoder;
 static uint8_t crcDecoderL;
@@ -35,11 +36,18 @@ static uint8_t parserEtx;
 uint8_t theDeviceID = 0x23;
 
 
+void proto_init(void) 
+{
+    theRevisionID.ID_Info_ChipRevision = FLASH_ReadWord(0x3FFFFC); 
+
+    theRevisionID.ID_Info_ChipID = FLASH_ReadWord(0x3FFFFE);
+}
+
+
  // entrypoint manger protocollo
 void proto_entry(void) 
 {
 uint8_t c;
-    
     
     if( UART5_is_rx_ready() )
     {
@@ -49,8 +57,6 @@ uint8_t c;
     }
 
     proto_decoder();
-
-    
 }
 
 void proto_decoder(void)
@@ -63,102 +69,110 @@ void proto_decoder(void)
             {
                 qsDecodPack.qs_Stx = 0x00;
                 cmdDecoder = 0;
+                lenTxDecoder = 0;
+                
+                answerBuf[lenTxDecoder++] = 0;   // STX
+                answerBuf[lenTxDecoder++] = 0;   // LEN L
+                answerBuf[lenTxDecoder++] = 0;   // LEN H
+                answerBuf[lenTxDecoder++] = 0;   // SENDER
+                answerBuf[lenTxDecoder++] = 0;   // POLICY
+                answerBuf[lenTxDecoder++] = 0;   // CMD
+
                 
                 switch( qsDecodPack.qs_CmdId )
                 {
                     case    QS_BOOTP_READ_FW:
                         cmdDecoder = QS_BOOTP_READ_FW;
-                        memcpy(answerBuf, &theFwVersion, sizeof(theFwVersion));
+                        memcpy(&answerBuf[lenTxDecoder], &theFwVersion, sizeof(theFwVersion));
  
-                        lenTxDecoder = sizeof(theFwVersion);       // lunghezza payload
+                        lenTxDecoder += sizeof(theFwVersion);       // lunghezza payload
                         break;
                         
                     case    QS_BOOTP_READ_REV:
                         
                         cmdDecoder = QS_BOOTP_READ_REV;
-                        answerBuf[0] = theRevisionID.ID_Info_Version;
-                        answerBuf[1] = 0x00;
-                        answerBuf[2] = 0x00;
-                        answerBuf[3] = 0x00;
-
-                        lenTxDecoder = 4;       // lunghezza payload
+                        answerBuf[lenTxDecoder++] = theRevisionID.ID_Info_ChipRevision & 0xFF;
+                        answerBuf[lenTxDecoder++] = theRevisionID.ID_Info_ChipRevision >> 8;
+                        answerBuf[lenTxDecoder++] = 0x00;
+                        answerBuf[lenTxDecoder++] = 0x00;
                         break;
                         
                     case    QS_BOOTP_READ_DEV:
                         
                         cmdDecoder = QS_BOOTP_READ_DEV;
-                        answerBuf[0] = theDeviceID;
-                        answerBuf[1] = 0x00;
-                        answerBuf[2] = 0x00;
-                        answerBuf[3] = 0x00;
-
-                        lenTxDecoder = 4;       // lunghezza payload
+                        answerBuf[lenTxDecoder++] = theRevisionID.ID_Info_ChipID & 0xFF;
+                        answerBuf[lenTxDecoder++] = theRevisionID.ID_Info_ChipID >> 8;
+                        answerBuf[lenTxDecoder++] = 0x00;
+                        answerBuf[lenTxDecoder++] = 0x00;
                         break;
                         
                     case    QS_BOOTP_READ_BOOT:
                         cmdDecoder = QS_BOOTP_READ_BOOT;
                         memcpy(answerBuf, &theFwVersion, sizeof(theFwVersion));
  
-                        lenTxDecoder = sizeof(theFwVersion);       // lunghezza payload
+                        lenTxDecoder += sizeof(theFwVersion);       // lunghezza payload
                         break;                        
                         
                     case    QS_BOOTP_RESET:
                         
                         cmdDecoder = QS_BOOTP_RESET;
-                        answerBuf[0] = 0x66;
-                        answerBuf[1] = 0x66;
-                        answerBuf[2] = 0x66;
-                        answerBuf[3] = 0x66;
+                        answerBuf[lenTxDecoder++] = 0x66;
+                        answerBuf[lenTxDecoder++] = 0x66;
+                        answerBuf[lenTxDecoder++] = 0x66;
+                        answerBuf[lenTxDecoder++] = 0x66;
 
-                        lenTxDecoder = 4;       // lunghezza payload
                         break;
 
                     case    QS_BOOTP_ERASE:
                         cmdDecoder = QS_BOOTP_ERASE;
-                        answerBuf[0] = QS_BOOTP_OK;
-                        answerBuf[1] = qsDecodPack.qs_Payload[0];
-                        answerBuf[2] = qsDecodPack.qs_Payload[1];
-                        answerBuf[3] = '1';                        
-
-                        lenTxDecoder = 4;       // lunghezza payload
+                        answerBuf[lenTxDecoder++] = QS_BOOTP_OK;
+                        answerBuf[lenTxDecoder++] = qsDecodPack.qs_Payload[0];
+                        answerBuf[lenTxDecoder++] = qsDecodPack.qs_Payload[1];
+                        answerBuf[lenTxDecoder++] = '1';                        
                         break;
                         
                     case    QS_BOOTP_READ_FLASH:
                         cmdDecoder = QS_BOOTP_READ_FLASH;
-                        answerBuf[0] = '2';
-                        answerBuf[1] = '2';
-                        answerBuf[2] = '2';
-                        answerBuf[3] = '2';
-
-                        lenTxDecoder = 4;       // lunghezza payload
+                        answerBuf[lenTxDecoder++] = '2';
+                        answerBuf[lenTxDecoder++] = '2';
+                        answerBuf[lenTxDecoder++] = '2';
+                        answerBuf[lenTxDecoder++] = '2';
                         break;
                         
                     case    QS_BOOTP_WRITE_FLASH:
-                        cmdDecoder = QS_BOOTP_WRITE_FLASH;
-                        answerBuf[0] = '0';
-                        answerBuf[1] = '2';
-                        answerBuf[2] = '2';
-                        answerBuf[3] = '2';
+                        
+                        //FLASH_WriteHex(qsDecodPack.qs_Payload,  qsDecodPack.qs_PayLen);
 
-                        lenTxDecoder = 4;       // lunghezza payload
+                        cmdDecoder = QS_BOOTP_WRITE_FLASH;
+                        answerBuf[lenTxDecoder++] = '0';
+                        answerBuf[lenTxDecoder++] = '2';
+                        answerBuf[lenTxDecoder++] = '2';
+                        answerBuf[lenTxDecoder++] = '2';
                         break;
                         
                     case    QS_BOOTP_START_FW_UP:
                         cmdDecoder = QS_BOOTP_START_FW_UP;
-                        answerBuf[0] = '2';
-                        answerBuf[1] = '2';
-                        answerBuf[2] = '2';
-                        answerBuf[3] = '2';
-
-                        lenTxDecoder = 4;       // lunghezza payload
+                        answerBuf[lenTxDecoder++] = '2';
+                        answerBuf[lenTxDecoder++] = '2';
+                        answerBuf[lenTxDecoder++] = '2';
+                        answerBuf[lenTxDecoder++] = '2';
                         break;
                 }
 
                 if( cmdDecoder != 0 )   // se trova un comando valido ...
-                {                                
+                {         
+                    
+                    lenTxPayload = lenTxDecoder - 6;
+                    answerBuf[0] = 0x02;   // STX
+                    answerBuf[1] = lenTxPayload & 0xFF;   // LEN L
+                    answerBuf[2] = lenTxPayload >> 8;   // LEN H
+                    answerBuf[3] = 0x23;   // SENDER
+                    answerBuf[4] = 0xA3;   // POLICY
+                    answerBuf[5] = cmdDecoder | 0x80;   // CMD                    
+                    
                     
                     // CRC ibm like
-                    CalcCrc16_Poly(0x0000, 0x8005, answerBuf, lenTxDecoder, &crcDecoderL, &crcDecoderH);
+                    CalcCrc16_Poly(0x0000, 0x8005, &answerBuf[1], lenTxPayload + 5, &crcDecoderL, &crcDecoderH);
                     
                     answerBuf[lenTxDecoder++] = crcDecoderL; 
                     answerBuf[lenTxDecoder++] = crcDecoderH;
@@ -169,11 +183,6 @@ void proto_decoder(void)
             break;
             
         case    1:  // invio risposta comando
-            UART5_Write(0x02);
-            UART5_Write(0x04);
-            UART5_Write(0x23);
-            UART5_Write(0xA3);
-            UART5_Write(cmdDecoder|0x80);
             cntTxDecoder = 0;
             statoDecoder++;       // fine risposta
             break;
@@ -192,11 +201,10 @@ void proto_parser(uint8_t __newChar)
 {
 
         // sync char out of sync ? 
-    if(  statoParser != 0 && 
-         statoParser != 6 &&    // disattiva il resync sul crc
-         statoParser != 7 &&   
-         statoParser != 10    // e a frame in coda per il decode
-    )      
+    if(  statoParser == 3 && 
+         statoParser == 4 &&    
+         statoParser == 5 &&    
+         statoParser == 6  )      
     {
         if( __newChar == 0x02 )     // resync, out of sync ?
             statoParser = 0;
@@ -212,11 +220,18 @@ void proto_parser(uint8_t __newChar)
             }
             break;
 
-        case    1:      // attesa len
+        case    1:      // attesa len L
             
             parserLen = __newChar;      // copia la lunghezza
             
-            if( parserLen == 0 || parserLen > 240 )     // inizio pacchetto ?
+            statoParser++;
+            break;
+
+        case    2:      // attesa len H
+            
+            parserLen |= ((uint16_t) __newChar) << 8;      // copia la lunghezza
+            
+            if( parserLen <= 2 || parserLen > 1024 )   // len non valida  ?
             {
                 statoParser = 0;    // reset macchinino a stati
             }
@@ -225,8 +240,8 @@ void proto_parser(uint8_t __newChar)
                 statoParser++;                
             }
             break;
-    
-        case    2:      // attesa qs_Sender
+            
+        case    3:      // attesa qs_Sender
             
             parserSender = __newChar;      // copia il src address
             
@@ -240,7 +255,7 @@ void proto_parser(uint8_t __newChar)
             }
             break;
 
-        case    3:      // attesa qs_Policy
+        case    4:      // attesa qs_Policy
             
             parserPolicy = __newChar;      // copia il dst address
             
@@ -254,7 +269,7 @@ void proto_parser(uint8_t __newChar)
             }
             break;
             
-        case    4:      // attesa qs_Cmd
+        case    5:      // attesa qs_Cmd
             
             parserCmd = __newChar;      // copia il dst address
             
@@ -269,7 +284,7 @@ void proto_parser(uint8_t __newChar)
             }
             break;         
             
-        case    5:      // attesa qs_Payload
+        case    6:      // attesa qs_Payload
             
             parserPayBuf[parserPayIdx++] = __newChar;      // copia il dato
             
@@ -279,20 +294,20 @@ void proto_parser(uint8_t __newChar)
             }
             break;         
                        
-        case    6:      // attesa qs_CrcLow
+        case    7:      // attesa qs_CrcLow
             
             parserCrcL = __newChar;      // copia crc L
             statoParser++; 
             break;         
 
-        case    7:      // attesa qs_CrcHigh
+        case    8:      // attesa qs_CrcHigh
             
             parserCrcH = __newChar;      // copia crc H
 
             statoParser++; 
             break;         
             
-        case    8:      // attesa qs_Etx
+        case    9:      // attesa qs_Etx
             
             parserEtx = __newChar;      // copia etx
             
@@ -330,7 +345,10 @@ void proto_parser(uint8_t __newChar)
             // CalcCrc16_Poly(0xFFFF, 0xA001, qsDecodPack.qs_Payload, qsDecodPack.qs_PayLen, &qsDecodPack.qs_CrcLow, &qsDecodPack.qs_CrcHigh);
             
             // CRC ibm like
-            CalcCrc16_Poly(0x0000, 0x8005, qsDecodPack.qs_Payload, qsDecodPack.qs_PayLen, &qsDecodPack.qs_CrcLow, &qsDecodPack.qs_CrcHigh);
+            CalcCrc16_Poly(0x0000, 0x8005, 
+                                    (uint8_t *) &qsDecodPack.qs_PayLen, 
+                                    qsDecodPack.qs_PayLen + 5, 
+                                    &qsDecodPack.qs_CrcLow, &qsDecodPack.qs_CrcHigh);
          
             /*
             if( parserCrcL != qsDecodPack.qs_CrcLow ||

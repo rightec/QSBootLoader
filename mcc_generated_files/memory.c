@@ -57,6 +57,62 @@
 //128-words of Buffer RAM for PIC18F46Q43 is available at 0x1500
 uint16_t bufferRAM __at(0x1500); 
 
+uint16_t hexpars_len;
+uint32_t flashAddr;
+uint8_t statoHex;
+uint8_t recordType;
+
+void FLASH_WriteHex(char *__strHex,  uint16_t __len)
+{
+   /*
+char c;
+
+    for(hexpars_len=0; hexpars_len<__len; hexpars_len++)
+    {
+        c = __strHex++;
+        
+        
+        switch( statoHex )
+        {
+            case    0:
+                
+                if( c == ':' )  // inizio hex ?
+                {
+                    hex_cpb(__strHex, recordType);
+                    statoHex = 1;
+                }
+                break;
+                
+            case    1:
+                break;
+            
+        }
+    }
+    */
+}
+
+
+uint8_t hex_cpb(const char *s)
+{
+uint8_t ch;
+uint8_t cl;
+
+	ch = hex_char(*s++);		// incamera parte alta
+
+	if( ch == 0xFF )
+		ch = 0;
+	
+	ch <<= 4;					// è giusto la parte alta
+	
+	cl = hex_char(*s++);	
+
+	if( cl == 0xFF )
+		cl = 0;
+
+	return ( ch | cl );			// mi sembra giusto
+}
+
+
 uint8_t FLASH_ReadByte(uint32_t flashAddr)
 {
     //Set TBLPTR with the target byte address

@@ -42,3 +42,34 @@ uint8_t b;
 		s[0] = b + '0';
 }
 
+/**
+
+uint8_t hex_char(char __ch)
+{
+    if ((__ch >= 'a') && (__ch <= 'f'))
+	return (__ch - 'a' + 10);
+    
+    if ((__ch >= '0') && (__ch <= '9'))
+	return (__ch - '0');
+    
+    if ((__ch >= 'A') && (__ch <= 'F'))
+	return (__ch - 'A' + 10);
+    
+    return (0xFF);
+}
+
+
+
+uint16_t hex_cpw(char *s)
+{
+uint16_t wh;
+uint16_t wl;
+
+	wl = hex_cpb(s);
+	wh = hex_cpb(s+2);
+	wh <<= 8;
+	
+	return ( wh | wl );			// mi sembra giusto
+}
+
+*/

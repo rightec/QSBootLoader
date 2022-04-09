@@ -34,8 +34,11 @@ typedef struct
  */
 typedef struct
 {
-    uint8_t         ID_Info_Version;      /* Info Version  */
-    /* 8 bytes */
+    uint16_t         ID_Info_ChipID;      /* Info Version  */
+    
+    uint16_t         ID_Info_ChipRevision;      /* Info Version  */
+
+    /* 2 bytes */
 } ID_INFO_VERSION_T;
 
 /*!

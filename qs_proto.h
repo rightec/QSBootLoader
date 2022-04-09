@@ -19,6 +19,8 @@
 extern "C" {
 #endif
 
+void proto_init(void);
+
 void proto_entry(void);
 void proto_parser(uint8_t __newChar);
 void proto_decoder(void);
