@@ -9,6 +9,10 @@
 
 FW_SW_VERSION_T theFwVersion;
 ID_INFO_VERSION_T theRevisionID;
+ID_INFO_VERSION_T theFamilyDeviceID;
+READ_INFO_ANSWER_T theReadInfo;
+BANK_INFO_T theBankInfo;
+
 QS_BOOT_PROT_T  qsDecodPack;        // Data Packets to decode
 
 static uint8_t answerBuf[QS_BOOTP_MAX_PAY_LEN];
@@ -38,13 +42,19 @@ uint8_t theDeviceID = 0x23;
 
 void proto_init(void) 
 {
-    theRevisionID.ID_Info_ChipRevision = FLASH_ReadWord(0x3FFFFC); 
-
-    theRevisionID.ID_Info_ChipID = FLASH_ReadWord(0x3FFFFE);
+    theRevisionID.ID_Info = FLASH_ReadWord(0x3FFFFC); 
+    theFamilyDeviceID.ID_Info = FLASH_ReadWord(0x3FFFFE);
+    theReadInfo.READ_Info_Ack = QS_BOOTP_OK;
+    theReadInfo.READ_Info_Number = 0;
+    theBankInfo.BANK_Info_Ack  = QS_BOOTP_OK;
+    theBankInfo.BANK_Info_Number = 0;
+    theFwVersion.FW_Erp_BuildNumber = 0x01;
+    theFwVersion.FW_Erp_Crc32 = 0x02;
+    theFwVersion.FW_Erp_Identifier = 0x03;
+    theFwVersion.FW_Erp_Version = 0x04;
 }
 
-
- // entrypoint manger protocollo
+ // entrypoint protocol manger
 void proto_entry(void) 
 {
 uint8_t c;
@@ -64,8 +74,8 @@ void proto_decoder(void)
     
     switch( statoDecoder )
     {
-        case    0:  // attesa nuovo pacco da decodificare 
-            if( qsDecodPack.qs_Stx == 0x02 )    // valid pack ?
+        case    0:  // waiting for new message to decode
+            if( qsDecodPack.qs_Stx == 0x02 )    // valid message ?
             {
                 qsDecodPack.qs_Stx = 0x00;
                 cmdDecoder = 0;
@@ -83,60 +93,55 @@ void proto_decoder(void)
                 {
                     case    QS_BOOTP_READ_FW:
                         cmdDecoder = QS_BOOTP_READ_FW;
-                        memcpy(&answerBuf[lenTxDecoder], &theFwVersion, sizeof(theFwVersion));
- 
-                        lenTxDecoder += sizeof(theFwVersion);       // lunghezza payload
-                        break;
-                        
-                    case    QS_BOOTP_READ_REV:
-                        
+                        answerBuf[lenTxDecoder++] = QS_BOOTP_OK; // QS_BOOTP_OK or QS_BOOTP_FAIL;
+                        memcpy(&answerBuf[lenTxDecoder], &theFwVersion, sizeof(theFwVersion)); 
+                        lenTxDecoder += sizeof(theFwVersion);       // payload lenght
+                        break;                        
+                    case    QS_BOOTP_READ_REV:                        
                         cmdDecoder = QS_BOOTP_READ_REV;
-                        answerBuf[lenTxDecoder++] = theRevisionID.ID_Info_ChipRevision & 0xFF;
-                        answerBuf[lenTxDecoder++] = theRevisionID.ID_Info_ChipRevision >> 8;
-                        answerBuf[lenTxDecoder++] = 0x00;
-                        answerBuf[lenTxDecoder++] = 0x00;
+                        answerBuf[lenTxDecoder++] = QS_BOOTP_OK; // QS_BOOTP_OK or QS_BOOTP_FAIL;
+                        answerBuf[lenTxDecoder++] = theRevisionID.ID_Info & 0xFF;
+                        answerBuf[lenTxDecoder++] = theRevisionID.ID_Info >> 8;
                         break;
                         
-                    case    QS_BOOTP_READ_DEV:
-                        
+                    case    QS_BOOTP_READ_DEV:                        
                         cmdDecoder = QS_BOOTP_READ_DEV;
-                        answerBuf[lenTxDecoder++] = theRevisionID.ID_Info_ChipID & 0xFF;
-                        answerBuf[lenTxDecoder++] = theRevisionID.ID_Info_ChipID >> 8;
-                        answerBuf[lenTxDecoder++] = 0x00;
-                        answerBuf[lenTxDecoder++] = 0x00;
+                        answerBuf[lenTxDecoder++] = QS_BOOTP_OK; // QS_BOOTP_OK or QS_BOOTP_FAIL;
+                        answerBuf[lenTxDecoder++] = theFamilyDeviceID.ID_Info & 0xFF;
+                        answerBuf[lenTxDecoder++] = theFamilyDeviceID.ID_Info >> 8;
                         break;
                         
                     case    QS_BOOTP_READ_BOOT:
                         cmdDecoder = QS_BOOTP_READ_BOOT;
-                        memcpy(answerBuf, &theFwVersion, sizeof(theFwVersion));
- 
-                        lenTxDecoder += sizeof(theFwVersion);       // lunghezza payload
+                        answerBuf[lenTxDecoder++] = QS_BOOTP_OK; // QS_BOOTP_OK or QS_BOOTP_FAIL;
+                        memcpy(&answerBuf[lenTxDecoder], &theFwVersion, sizeof(theFwVersion));
+                        lenTxDecoder += sizeof(theFwVersion);       // payload lenght
                         break;                        
                         
-                    case    QS_BOOTP_RESET:
-                        
+                    case    QS_BOOTP_RESET:                        
                         cmdDecoder = QS_BOOTP_RESET;
-                        answerBuf[lenTxDecoder++] = 0x66;
-                        answerBuf[lenTxDecoder++] = 0x66;
-                        answerBuf[lenTxDecoder++] = 0x66;
-                        answerBuf[lenTxDecoder++] = 0x66;
-
+                        answerBuf[lenTxDecoder++] = QS_BOOTP_OK; // QS_BOOTP_OK or QS_BOOTP_FAIL
+                        answerBuf[lenTxDecoder++] = QS_BOOTP_VOID_PAYLOAD; // QS_BOOTP_VOID_PAYLOAD
+                        answerBuf[lenTxDecoder++] = QS_BOOTP_VOID_PAYLOAD; // QS_BOOTP_VOID_PAYLOAD
+/*                        for (int i = 1; i < QS_BOOTP_MIN_PAY_LEN; i++){
+                            lenTxDecoder++;
+                            answerBuf[lenTxDecoder] = QS_BOOTP_VOID_PAYLOAD;
+                        }
+ * */
                         break;
-
                     case    QS_BOOTP_ERASE:
                         cmdDecoder = QS_BOOTP_ERASE;
-                        answerBuf[lenTxDecoder++] = QS_BOOTP_OK;
+                        answerBuf[lenTxDecoder++] = QS_BOOTP_OK; // QS_BOOTP_OK or QS_BOOTP_FAIL
                         answerBuf[lenTxDecoder++] = qsDecodPack.qs_Payload[0];
                         answerBuf[lenTxDecoder++] = qsDecodPack.qs_Payload[1];
-                        answerBuf[lenTxDecoder++] = '1';                        
                         break;
                         
                     case    QS_BOOTP_READ_FLASH:
                         cmdDecoder = QS_BOOTP_READ_FLASH;
-                        answerBuf[lenTxDecoder++] = '2';
-                        answerBuf[lenTxDecoder++] = '2';
-                        answerBuf[lenTxDecoder++] = '2';
-                        answerBuf[lenTxDecoder++] = '2';
+                        // READ_INFO_ANSWER_T
+                        answerBuf[lenTxDecoder++] = QS_BOOTP_OK; // QS_BOOTP_OK or QS_BOOTP_FAIL
+                        answerBuf[lenTxDecoder++] = theReadInfo.READ_Info_Ack; // QS_BOOTP_OK or QS_BOOTP_FAIL // '2';
+                        answerBuf[lenTxDecoder++] = theReadInfo.READ_Info_Number; // Bytes red //'2';
                         break;
                         
                     case    QS_BOOTP_WRITE_FLASH:
@@ -144,25 +149,26 @@ void proto_decoder(void)
                         //FLASH_WriteHex(qsDecodPack.qs_Payload,  qsDecodPack.qs_PayLen);
 
                         cmdDecoder = QS_BOOTP_WRITE_FLASH;
-                        answerBuf[lenTxDecoder++] = '0';
-                        answerBuf[lenTxDecoder++] = '2';
-                        answerBuf[lenTxDecoder++] = '2';
-                        answerBuf[lenTxDecoder++] = '2';
+                        // BANK_INFO_T
+                        answerBuf[lenTxDecoder++] = QS_BOOTP_OK; // QS_BOOTP_OK or QS_BOOTP_FAIL
+                        answerBuf[lenTxDecoder++] = theBankInfo.BANK_Info_Ack; // QS_BOOTP_OK or QS_BOOTP_FAIL // '2';
+                        answerBuf[lenTxDecoder++] = theBankInfo.BANK_Info_Number; // Bank number// '2';;
+                        // answerBuf[lenTxDecoder++] = '2';
                         break;
                         
                     case    QS_BOOTP_START_FW_UP:
                         cmdDecoder = QS_BOOTP_START_FW_UP;
-                        answerBuf[lenTxDecoder++] = '2';
-                        answerBuf[lenTxDecoder++] = '2';
-                        answerBuf[lenTxDecoder++] = '2';
-                        answerBuf[lenTxDecoder++] = '2';
+                        answerBuf[lenTxDecoder++] = QS_BOOTP_OK;  // QS_BOOTP_OK or QS_BOOTP_FAIL // '2';
+                        answerBuf[lenTxDecoder++] = QS_BOOTP_VOID_PAYLOAD; //'2';
+                        answerBuf[lenTxDecoder++] = QS_BOOTP_VOID_PAYLOAD; //'2';
+                        // answerBuf[lenTxDecoder++] = '2';
                         break;
                 }
 
-                if( cmdDecoder != 0 )   // se trova un comando valido ...
+                if( cmdDecoder != 0 )   // is a valid command?
                 {         
                     
-                    lenTxPayload = lenTxDecoder - 6;
+                    lenTxPayload = (lenTxDecoder - QS_BOOTP_PAY_POS);  
                     answerBuf[0] = 0x02;   // STX
                     answerBuf[1] = lenTxPayload & 0xFF;   // LEN L
                     answerBuf[2] = lenTxPayload >> 8;   // LEN H
@@ -177,21 +183,21 @@ void proto_decoder(void)
                     answerBuf[lenTxDecoder++] = crcDecoderL; 
                     answerBuf[lenTxDecoder++] = crcDecoderH;
                     answerBuf[lenTxDecoder++] = 0x03;    // etx
-                    statoDecoder++;                 // pronto per l'invio
+                    statoDecoder++;                 // ready to send
                 }
             }        
             break;
             
-        case    1:  // invio risposta comando
+        case    1:  // send command answer
             cntTxDecoder = 0;
-            statoDecoder++;       // fine risposta
+            statoDecoder++;       // Answer end
             break;
 
-        case    2:  // invio dati in coda
+        case    2:  // send data to queue
             if( cntTxDecoder < lenTxDecoder)
                 UART5_Write(answerBuf[cntTxDecoder++]);
             else
-                statoDecoder = 0;       // fine risposta
+                statoDecoder = 0;       // Answer End
             break;
     }
     
@@ -212,28 +218,28 @@ void proto_parser(uint8_t __newChar)
     
     switch( statoParser )
     {
-        case    0:      // attesa sync su STX
-            if( __newChar == 0x02 )     // inizio pacchetto ?
+        case    0:      // wait for  sync on STX
+            if( __newChar == 0x02 )     // Start packet
             {
                 parserIdx = 0;
                 statoParser++;
             }
             break;
 
-        case    1:      // attesa len L
+        case    1:      // wait for len L
             
             parserLen = __newChar;      // copia la lunghezza
             
             statoParser++;
             break;
 
-        case    2:      // attesa len H
+        case    2:      // wait for  len H
             
-            parserLen |= ((uint16_t) __newChar) << 8;      // copia la lunghezza
+            parserLen |= ((uint16_t) __newChar) << 8;      // copy len
             
-            if( parserLen <= 2 || parserLen > 1024 )   // len non valida  ?
+            if( parserLen <= 2 || parserLen > 1024 )   // is len valid  ?
             {
-                statoParser = 0;    // reset macchinino a stati
+                statoParser = 0;    // reset state machine
             }
             else
             {
@@ -241,13 +247,13 @@ void proto_parser(uint8_t __newChar)
             }
             break;
             
-        case    3:      // attesa qs_Sender
+        case    3:      // wait for qs_Sender
             
-            parserSender = __newChar;      // copia il src address
+            parserSender = __newChar;      // copy src address
             
-            if( parserSender != 0x20 )     // source diverso dal PC ?
+            if( parserSender != 0x20 )     // source different from PC ?
             {
-                statoParser = 0;    // reset macchinino a stati
+                statoParser = 0;    // reset state machine
             }
             else
             {
@@ -255,13 +261,13 @@ void proto_parser(uint8_t __newChar)
             }
             break;
 
-        case    4:      // attesa qs_Policy
+        case    4:      // wait for qs_Policy
             
-            parserPolicy = __newChar;      // copia il dst address
+            parserPolicy = __newChar;      // copy dst address
             
-            if( parserPolicy != 0x23 )     // dest diverso dal mio ID  ?
+            if( parserPolicy != 0x23 )     // dest different from my ID  ?
             {
-                statoParser = 0;    // reset macchinino a stati
+                statoParser = 0;    // reset state machine
             }
             else
             {
@@ -269,13 +275,13 @@ void proto_parser(uint8_t __newChar)
             }
             break;
             
-        case    5:      // attesa qs_Cmd
+        case    5:      // wait for qs_Cmd
             
-            parserCmd = __newChar;      // copia il dst address
+            parserCmd = __newChar;      // copy dst address
             
-            if( parserCmd < 0x40 )     // cmd non previsto ?
+            if( parserCmd < 0x40 )     // cmd not allowed ?
             {
-                statoParser = 0;    // reset macchinino a stati
+                statoParser = 0;    // reset state machine
             }
             else
             {
@@ -284,53 +290,53 @@ void proto_parser(uint8_t __newChar)
             }
             break;         
             
-        case    6:      // attesa qs_Payload
+        case    6:      // wait for qs_Payload
             
-            parserPayBuf[parserPayIdx++] = __newChar;      // copia il dato
+            parserPayBuf[parserPayIdx++] = __newChar;      // copy data
             
-            if( parserPayIdx >= parserLen )     // cmd non previsto ?
+            if( parserPayIdx >= parserLen )     // is len correct ?
             {
                 statoParser++;                
             }
             break;         
                        
-        case    7:      // attesa qs_CrcLow
+        case    7:      // wait for qs_CrcLow
             
-            parserCrcL = __newChar;      // copia crc L
+            parserCrcL = __newChar;      // copy crc L
             statoParser++; 
             break;         
 
-        case    8:      // attesa qs_CrcHigh
+        case    8:      // wait for qs_CrcHigh
             
-            parserCrcH = __newChar;      // copia crc H
+            parserCrcH = __newChar;      // copy crc H
 
             statoParser++; 
             break;         
             
-        case    9:      // attesa qs_Etx
+        case    9:      // wait for qs_Etx
             
-            parserEtx = __newChar;      // copia etx
+            parserEtx = __newChar;      // copy etx
             
 //            if( parserPayIdx >= parserLen )     // crc ok ?
             
             statoParser = 10;                
             break;         
 
-        case    10:      // frame valido: puo' passare al decoder
+        case    10:      // frame valid: decoding
             break;
             
     }
     
         // bufferizza il comando per debug
-    if( statoParser != 0 && statoParser != 10  )   // parser attivo ?
+    if( statoParser != 0 && statoParser != 10  )   // is parser active ?
         parserBuffer[parserIdx++] = __newChar;
 
-        // frame validato pronto ?
+        // frame ready ?
     if( statoParser == 10 )
     {
-        if( qsDecodPack.qs_Stx == 0 )   // frame invalidato ? (già decodificato)
+        if( qsDecodPack.qs_Stx == 0 )   // frame decoded ?
         {
-            qsDecodPack.qs_Stx = 0x02;          // marca il frame come valido
+            qsDecodPack.qs_Stx = 0x02;          // set frame as valid
             qsDecodPack.qs_PayLen = parserLen;             
             qsDecodPack.qs_Sender = parserSender;             
             qsDecodPack.qs_Policy = parserPolicy;                              
@@ -357,7 +363,7 @@ void proto_parser(uint8_t __newChar)
                 qsDecodPack.qs_Stx = 0x00;          // abortisce il frame come valido
             }
             */
-            statoParser = 0;        // ok puo' incamerare un altro frame
+            statoParser = 0;        // ok. We can parse another frame
         }
         
     }

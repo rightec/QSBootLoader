@@ -23,8 +23,6 @@
 #define QS_BOOTP_ETX                0x03 /* (ETX) */
 
 #define QS_BOOTP_SENDER_SW          0x20 /*  Tool s/w is the sender of the packet */
-/* #define QS_BOOTP_SENDER_APP_FW_D    0x21*/ /*  Application f/w in debug version is the sender of the packet */
-/* #define QS_BOOTP_SENDER_APP_FW_R    0x22*/ /*  Application f/w in release version is the sender of the packet */
 #define QS_BOOTP_SENDER_BOOT_FW     0x23 /*  Boot f/w is the sender of the packet */
 
 #define QS_BOOTP_RESP_OFFSET        0x80 /*  Offset for command identifier field during response */
