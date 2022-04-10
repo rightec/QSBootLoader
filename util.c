@@ -42,7 +42,7 @@ uint8_t b;
 		s[0] = b + '0';
 }
 
-/**
+
 
 uint8_t hex_char(char __ch)
 {
@@ -58,7 +58,7 @@ uint8_t hex_char(char __ch)
     return (0xFF);
 }
 
-
+/**
 
 uint16_t hex_cpw(char *s)
 {
@@ -73,3 +73,24 @@ uint16_t wl;
 }
 
 */
+
+uint8_t hex_cpb(const char *s)
+{
+uint8_t ch;
+uint8_t cl;
+
+	ch = hex_char(*s++);		// incamera parte alta
+
+	if( ch == 0xFF )
+		ch = 0;
+	
+	ch <<= 4;					// è giusto la parte alta
+	
+	cl = hex_char(*s++);	
+
+	if( cl == 0xFF )
+		cl = 0;
+
+	return ( ch | cl );			// mi sembra giusto
+}
+

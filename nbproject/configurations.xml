@@ -48,6 +48,8 @@
       <itemPath>Makefile</itemPath>
       <itemPath>Boot18.mc3</itemPath>
     </logicalFolder>
+    <itemPath>qs_memory.h</itemPath>
+    <itemPath>qs_memory.c</itemPath>
   </logicalFolder>
   <sourceRootList>
     <Elem>.</Elem>
@@ -63,7 +65,7 @@
         <platformTool>pk4hybrid</platformTool>
         <languageToolchain>XC8</languageToolchain>
         <languageToolchainVersion>2.36</languageToolchainVersion>
-        <platform>2</platform>
+        <platform>3</platform>
       </toolsSet>
       <packs>
         <pack name="PIC18F-Q_DFP" vendor="Microchip" version="1.11.185"/>
