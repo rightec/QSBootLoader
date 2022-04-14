@@ -25,14 +25,16 @@ typedef union U_WVAL WVAL;
 
 void wxtoa(char *s, short n);
 void bxtoa(char *s, uint8_t  n);
-uint8_t hex_cpb(const char *s);
 
-uint16_t hec_cpw(const char *s);
 
 
 #ifdef	__cplusplus
 }
 #endif
+
+
+uint8_t hex_cpb(const char *s);
+uint16_t hec_cpw(const char *s);
 
 #endif	/* UTIL_H */
 

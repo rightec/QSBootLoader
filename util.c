@@ -42,6 +42,46 @@ uint8_t b;
 		s[0] = b + '0';
 }
 
+
+
+
+uint8_t hex_char(char __ch)
+{
+    if ((__ch >= 'a') && (__ch <= 'f'))
+	return (__ch - 'a' + 10);
+    
+    if ((__ch >= '0') && (__ch <= '9'))
+	return (__ch - '0');
+    
+    if ((__ch >= 'A') && (__ch <= 'F'))
+	return (__ch - 'A' + 10);
+    
+    return (0xFF);
+}
+
+
+uint8_t hex_cpb(const char *s)
+{
+uint8_t ch;
+uint8_t cl;
+
+	ch = hex_char(*s++);		// incamera parte alta
+
+	if( ch == 0xFF )
+		ch = 0;
+	
+	ch <<= 4;					// è giusto la parte alta
+	
+	cl = hex_char(*s++);	
+
+	if( cl == 0xFF )
+		cl = 0;
+
+	return ( ch | cl );			// mi sembra giusto
+}
+
+
+
 /**
 
 uint8_t hex_char(char __ch)

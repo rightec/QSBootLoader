@@ -11,7 +11,7 @@ FW_SW_VERSION_T theFwVersion;
 ID_INFO_VERSION_T theRevisionID;
 QS_BOOT_PROT_T  qsDecodPack;        // Data Packets to decode
 
-static uint8_t answerBuf[QS_BOOTP_MAX_PAY_LEN];
+static uint8_t answerBuf[256];
 static uint8_t statoDecoder;
 static uint16_t lenTxDecoder;
 static uint16_t lenTxPayload;
@@ -20,8 +20,10 @@ static uint8_t cmdDecoder;
 static uint8_t crcDecoderL;
 static uint8_t crcDecoderH;
 
+
+//static uint8_t parserBuffer[QS_BOOTP_MAX_CMD_LEN];
+
 static uint8_t statoParser;
-static uint8_t parserBuffer[QS_BOOTP_MAX_PAY_LEN];
 static uint16_t parserIdx;
 static uint16_t parserLen;
 static uint8_t parserSender;
@@ -41,6 +43,14 @@ void proto_init(void)
     theRevisionID.ID_Info_ChipRevision = FLASH_ReadWord(0x3FFFFC); 
 
     theRevisionID.ID_Info_ChipID = FLASH_ReadWord(0x3FFFFE);
+    
+    /*
+    strcpy(qsDecodPack.qs_Payload, ":040000000DEF00F010\n:0400080079EF06F096\n:10001800FF0052EF05F01BEF02F06300FCF7E8F475");
+    qsDecodPack.qs_PayLen = strlen(qsDecodPack.qs_Payload);
+    
+    FLASH_WriteHex(qsDecodPack.qs_Payload,  qsDecodPack.qs_PayLen);
+    */
+    
 }
 
 
@@ -141,7 +151,7 @@ void proto_decoder(void)
                         
                     case    QS_BOOTP_WRITE_FLASH:
                         
-                        //FLASH_WriteHex(qsDecodPack.qs_Payload,  qsDecodPack.qs_PayLen);
+                        FLASH_WriteHex(qsDecodPack.qs_Payload,  qsDecodPack.qs_PayLen);
 
                         cmdDecoder = QS_BOOTP_WRITE_FLASH;
                         answerBuf[lenTxDecoder++] = '0';
@@ -321,9 +331,9 @@ void proto_parser(uint8_t __newChar)
             
     }
     
-        // bufferizza il comando per debug
-    if( statoParser != 0 && statoParser != 10  )   // parser attivo ?
-        parserBuffer[parserIdx++] = __newChar;
+        // bufferizza il comando per debug (solo con pic18q47)
+//    if( statoParser != 0 && statoParser != 10  )   // parser attivo ?
+//        parserBuffer[parserIdx++] = __newChar;
 
         // frame validato pronto ?
     if( statoParser == 10 )

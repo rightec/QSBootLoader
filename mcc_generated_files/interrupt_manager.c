@@ -60,11 +60,13 @@ void __interrupt() INTERRUPT_InterruptManager (void)
     // interrupt handler
     if(PIE13bits.U5TXIE == 1 && PIR13bits.U5TXIF == 1)
     {
-        UART5_TxInterruptHandler();
+        UART5_Transmit_ISR();
+        //UART5_TxInterruptHandler();
     }
     else if(PIE13bits.U5RXIE == 1 && PIR13bits.U5RXIF == 1)
     {
-        UART5_RxInterruptHandler();
+        //UART5_RxInterruptHandler();
+        UART5_Receive_ISR();
     }
     else
     {
