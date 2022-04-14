@@ -22,20 +22,24 @@ uint8_t c[2];
 
 typedef union U_WVAL WVAL;
 
+union U_LVAL {
+long l;
+uint8_t c[4];
+};
+
+
+uint8_t hex_char(char __ch);
+uint8_t hex_cpb(const char *s);
+uint16_t hex_cpw(const char *s);
 
 void wxtoa(char *s, short n);
 void bxtoa(char *s, uint8_t  n);
-uint8_t hex_char(char __ch);
-uint8_t hex_cpb(const char *s);
-uint16_t hec_cpw(const char *s);
 
 #ifdef	__cplusplus
 }
 #endif
 
 
-uint8_t hex_cpb(const char *s);
-uint16_t hec_cpw(const char *s);
 
 #endif	/* UTIL_H */
 

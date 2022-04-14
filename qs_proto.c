@@ -5,6 +5,7 @@
  * Created on 7 aprile 2022, 8.32
  */
 
+#include "qs_memory.h"
 #include "qs_proto.h"
 
 FW_SW_VERSION_T theFwVersion;
@@ -15,7 +16,7 @@ BANK_INFO_T theBankInfo;
 
 QS_BOOT_PROT_T  qsDecodPack;        // Data Packets to decode
 
-static uint8_t answerBuf[256];
+static uint8_t answerBuf[260];
 static uint8_t statoDecoder;
 static uint16_t lenTxDecoder;
 static uint16_t lenTxPayload;
@@ -79,7 +80,12 @@ uint8_t c;
 
 void proto_decoder(void)
 {  
+uint16_t nb;
+uint32_t local_mem_addr;
+uint8_t local_mem_cnt;
+
     
+
     switch( statoDecoder )
     {
         case    0:  // waiting for new message to decode
@@ -104,7 +110,8 @@ void proto_decoder(void)
                         answerBuf[lenTxDecoder++] = QS_BOOTP_OK; // QS_BOOTP_OK or QS_BOOTP_FAIL;
                         memcpy(&answerBuf[lenTxDecoder], &theFwVersion, sizeof(theFwVersion)); 
                         lenTxDecoder += sizeof(theFwVersion);       // payload lenght
-                        break;                        
+                        break;         
+                        
                     case    QS_BOOTP_READ_REV:                        
                         cmdDecoder = QS_BOOTP_READ_REV;
                         answerBuf[lenTxDecoder++] = QS_BOOTP_OK; // QS_BOOTP_OK or QS_BOOTP_FAIL;
@@ -139,37 +146,58 @@ void proto_decoder(void)
                         break;
                     case    QS_BOOTP_ERASE:
                         cmdDecoder = QS_BOOTP_ERASE;
+                        
                         answerBuf[lenTxDecoder++] = QS_BOOTP_OK; // QS_BOOTP_OK or QS_BOOTP_FAIL
                         answerBuf[lenTxDecoder++] = qsDecodPack.qs_Payload[0];
                         answerBuf[lenTxDecoder++] = qsDecodPack.qs_Payload[1];
+                      
+                        if( qsDecodPack.qs_Policy != 0xFF )     // se è dummy ... simula
+                        {
+                        }
                         break;
                         
                     case    QS_BOOTP_READ_FLASH:
                         cmdDecoder = QS_BOOTP_READ_FLASH;
+                        
+                        theReadInfo.READ_Info_Number = qsDecodPack.qs_Payload[2];
+                        
                         // READ_INFO_ANSWER_T
                         answerBuf[lenTxDecoder++] = QS_BOOTP_OK; // QS_BOOTP_OK or QS_BOOTP_FAIL
                         answerBuf[lenTxDecoder++] = theReadInfo.READ_Info_Ack; // QS_BOOTP_OK or QS_BOOTP_FAIL // '2';
-                        answerBuf[lenTxDecoder++] = theReadInfo.READ_Info_Number; // Bytes red //'2';
+                        answerBuf[lenTxDecoder++] = theReadInfo.READ_Info_Number; // Bytes red 
+
+                        //Rd_Address;         /* Flash Address to read */
+                        //Rd_Info_Number;     /* Number of bytes to read */
+
+                        local_mem_addr = qsDecodPack.qs_Payload[1]; // piglia il numero del banco
+
+                        local_mem_addr <<= 8;                       // trasforma in offset
+                        
+                        local_mem_addr += qsDecodPack.qs_Payload[0];                       // trasforma in offset
+                        local_mem_addr += 0x2000;                   // somma la base per l'app
+                        
+                        local_mem_cnt = qsDecodPack.qs_Payload[2];
+                        
+                        for(nb=0;nb<local_mem_cnt;nb++)
+                            answerBuf[lenTxDecoder++] = FLASH_ReadByte(local_mem_addr);
                         break;
                         
                     case    QS_BOOTP_WRITE_FLASH:
                         
-                        FLASH_WriteHex(qsDecodPack.qs_Payload,  qsDecodPack.qs_PayLen);
+                        FLASH_WriteHex( (const char *) qsDecodPack.qs_Payload,  qsDecodPack.qs_PayLen);
 
                         cmdDecoder = QS_BOOTP_WRITE_FLASH;
                         // BANK_INFO_T
                         answerBuf[lenTxDecoder++] = QS_BOOTP_OK; // QS_BOOTP_OK or QS_BOOTP_FAIL
                         answerBuf[lenTxDecoder++] = theBankInfo.BANK_Info_Ack; // QS_BOOTP_OK or QS_BOOTP_FAIL // '2';
-                        answerBuf[lenTxDecoder++] = theBankInfo.BANK_Info_Number; // Bank number// '2';;
-                        // answerBuf[lenTxDecoder++] = '2';
+                        answerBuf[lenTxDecoder++] = theBankInfo.BANK_Info_Number; // Bank number
                         break;
                         
                     case    QS_BOOTP_START_FW_UP:
                         cmdDecoder = QS_BOOTP_START_FW_UP;
-                        answerBuf[lenTxDecoder++] = QS_BOOTP_OK;  // QS_BOOTP_OK or QS_BOOTP_FAIL // '2';
-                        answerBuf[lenTxDecoder++] = QS_BOOTP_VOID_PAYLOAD; //'2';
-                        answerBuf[lenTxDecoder++] = QS_BOOTP_VOID_PAYLOAD; //'2';
-                        // answerBuf[lenTxDecoder++] = '2';
+                        answerBuf[lenTxDecoder++] = QS_BOOTP_OK;  // QS_BOOTP_OK or QS_BOOTP_FAIL 
+                        answerBuf[lenTxDecoder++] = QS_BOOTP_VOID_PAYLOAD; 
+                        answerBuf[lenTxDecoder++] = QS_BOOTP_VOID_PAYLOAD; 
                         break;
                 }
 
@@ -203,13 +231,18 @@ void proto_decoder(void)
 
         case    2:  // send data to queue
             if( cntTxDecoder < lenTxDecoder)
-                UART5_Write(answerBuf[cntTxDecoder++]);
+            {
+                if( UART5_is_tx_ready() )
+                    UART5_Write(answerBuf[cntTxDecoder++]);
+            }
             else
                 statoDecoder = 0;       // Answer End
             break;
     }
     
 }
+
+
 
 void proto_parser(uint8_t __newChar)
 {
@@ -273,7 +306,7 @@ void proto_parser(uint8_t __newChar)
             
             parserPolicy = __newChar;      // copy dst address
             
-            if( parserPolicy != 0x23 )     // dest different from my ID  ?
+            if( parserPolicy != 0x23 && parserPolicy != 0xFF )     // dest different from my ID  ?
             {
                 statoParser = 0;    // reset state machine
             }

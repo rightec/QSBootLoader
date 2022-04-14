@@ -9,7 +9,7 @@
 
 void CalcCrc16_Poly(uint16_t crc_initial, uint16_t poly, uint8_t *pBuf, uint16_t wLen, uint8_t *crc_l, uint8_t *crc_h)
 {
-uint8_t i,j;
+uint16_t i,j;
 uint16_t data;
 uint16_t  crc = crc_initial;
 uint8_t  crc_low, crc_hig;

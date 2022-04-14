@@ -16,9 +16,10 @@
 extern "C" {
 #endif
 
-void FLASH_WriteHex(char *__strHex,  uint16_t __len);
-
-
+void FLASH_WriteHex(const char *__strHex,  uint16_t __len);
+void FLASH_WriteSingleWord(uint32_t __flashAddr, uint16_t __word_value);
+void FLASH_CalcCrc32(uint32_t crc_initial, uint32_t poly, uint32_t __flashStartAddr, uint32_t __flashEndAddr, uint32_t *crc_val);
+uint32_t FLASH_ReadLong(uint32_t flashAddr);
 
 #ifdef	__cplusplus
 }

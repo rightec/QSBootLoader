@@ -44,17 +44,90 @@
 #include "mcc_generated_files/mcc.h"
 #include <string.h>
 
+#include "qs_memory.h"
 #include "qs_proto.h"
+
+
+/* Setup per Configuration bits auto-generato tramite il tool per i fig bits
+ 
+ // PIC18F47Q43 Configuration Bit Settings
+
+// 'C' source line config statements
+
+// CONFIG1
+#pragma config FEXTOSC = OFF    // External Oscillator Selection (Oscillator not enabled)
+#pragma config RSTOSC = HFINTOSC_1MHZ// Reset Oscillator Selection (HFINTOSC with HFFRQ = 4 MHz and CDIV = 4:1)
+
+// CONFIG2
+#pragma config CLKOUTEN = OFF   // Clock out Enable bit (CLKOUT function is disabled)
+#pragma config PR1WAY = ON      // PRLOCKED One-Way Set Enable bit (PRLOCKED bit can be cleared and set only once)
+#pragma config CSWEN = ON       // Clock Switch Enable bit (Writing to NOSC and NDIV is allowed)
+#pragma config FCMEN = ON       // Fail-Safe Clock Monitor Enable bit (Fail-Safe Clock Monitor enabled)
+
+// CONFIG3
+#pragma config MCLRE = EXTMCLR  // MCLR Enable bit (If LVP = 0, MCLR pin is MCLR; If LVP = 1, RE3 pin function is MCLR )
+#pragma config PWRTS = PWRT_OFF // Power-up timer selection bits (PWRT is disabled)
+#pragma config MVECEN = OFF     // Multi-vector enable bit (Interrupt contoller does not use vector table to prioritze interrupts)
+#pragma config IVT1WAY = ON     // IVTLOCK bit One-way set enable bit (IVTLOCKED bit can be cleared and set only once)
+#pragma config LPBOREN = OFF    // Low Power BOR Enable bit (Low-Power BOR disabled)
+#pragma config BOREN = SBORDIS  // Brown-out Reset Enable bits (Brown-out Reset enabled , SBOREN bit is ignored)
+
+// CONFIG4
+#pragma config BORV = VBOR_1P9  // Brown-out Reset Voltage Selection bits (Brown-out Reset Voltage (VBOR) set to 1.9V)
+#pragma config ZCD = OFF        // ZCD Disable bit (ZCD module is disabled. ZCD can be enabled by setting the ZCDSEN bit of ZCDCON)
+#pragma config PPS1WAY = ON     // PPSLOCK bit One-Way Set Enable bit (PPSLOCKED bit can be cleared and set only once; PPS registers remain locked after one clear/set cycle)
+#pragma config STVREN = ON      // Stack Full/Underflow Reset Enable bit (Stack full/underflow will cause Reset)
+#pragma config LVP = ON         // Low Voltage Programming Enable bit (Low voltage programming enabled. MCLR/VPP pin function is MCLR. MCLRE configuration bit is ignored)
+#pragma config XINST = OFF      // Extended Instruction Set Enable bit (Extended Instruction Set and Indexed Addressing Mode disabled)
+
+// CONFIG5
+#pragma config WDTCPS = WDTCPS_31// WDT Period selection bits (Divider ratio 1:65536; software control of WDTPS)
+#pragma config WDTE = OFF       // WDT operating mode (WDT Disabled; SWDTEN is ignored)
+
+// CONFIG6
+#pragma config WDTCWS = WDTCWS_7// WDT Window Select bits (window always open (100%); software control; keyed access not required)
+#pragma config WDTCCS = SC      // WDT input clock selector (Software Control)
+
+// CONFIG7
+#pragma config BBSIZE = BBSIZE_8192// Boot Block Size selection bits (Boot Block size is 8192 words)
+#pragma config BBEN = ON        // Boot Block enable bit (Boot block enabled)
+#pragma config SAFEN = OFF      // Storage Area Flash enable bit (SAF disabled)
+#pragma config DEBUG = ON       // Background Debugger (Background Debugger enabled)
+
+// CONFIG8
+#pragma config WRTB = OFF       // Boot Block Write Protection bit (Boot Block not Write protected)
+#pragma config WRTC = OFF       // Configuration Register Write Protection bit (Configuration registers not Write protected)
+#pragma config WRTD = OFF       // Data EEPROM Write Protection bit (Data EEPROM not Write protected)
+#pragma config WRTSAF = OFF     // SAF Write protection bit (SAF not Write Protected)
+#pragma config WRTAPP = OFF     // Application Block write protection bit (Application Block not write protected)
+
+// CONFIG10
+#pragma config CP = OFF         // PFM and Data EEPROM Code Protection bit (PFM and Data EEPROM code protection disabled)
+
+// #pragma config statements should precede project file includes.
+// Use project enums instead of #define for ON and OFF.
+ 
+ 
+ 
+ 
+ 
+ */
+
 
 
 
 int count;
 
+uint8_t validApp;
+void (*pfUserApp)(void);
 /*
                          Main application
  */
 void main(void)
 {
+uint32_t crc_val;    
+uint32_t crc_mem; 
+    
     // Initialize the device
     SYSTEM_Initialize();
 
@@ -70,6 +143,16 @@ void main(void)
 
     proto_init();  // init dati proto
     
+    FLASH_CalcCrc32(0xFFFFFFFF, 0xEDB88320, 
+                            0x2004, 0x0E000, &crc_val);
+
+    crc_mem = FLASH_ReadLong(0x2000);
+    
+    if( crc_mem == crc_val )
+        validApp = 1;
+    else
+        validApp = 0;
+            
     while (1)
     {
         
@@ -81,6 +164,15 @@ void main(void)
         {
             count = 0;
             LED_LIFE_Toggle();
+
+            if( validApp )      // se l'app è valida la lancia
+            {
+                    // Disable the Global Interrupts
+                    //INTERRUPT_GlobalInterruptDisable();
+
+                pfUserApp = (void (*)(void)) 0x2004;
+                pfUserApp();
+            }
         }
         
         // Add your application code
@@ -88,29 +180,7 @@ void main(void)
 }
 
 
-/**
- * static int hex(char ch)
- * 
- * @ch: ascii char to be converted into int
- * 
-int hex(char ch)
-{
-    if ((ch >= 'a') && (ch <= 'f'))
-	return (ch - 'a' + 10);
-    if ((ch >= '0') && (ch <= '9'))
-	return (ch - '0');
-    if ((ch >= 'A') && (ch <= 'F'))
-	return (ch - 'A' + 10);
-    return (-1);
-}
 
- */
-
-/*
-			valueCom.c[0] = hex(sRx[4]) << 4;		// incamera vin_h
-			valueCom.c[0] += hex(sRx[5]);
-
-  */          
 
 /**
  End of File
