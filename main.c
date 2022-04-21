@@ -113,13 +113,10 @@
  
  */
 
-
-
+//void INTERRUPT_Initialize (void);
 
 int count;
 
-uint8_t validApp;
-void (*pfUserApp)(void);
 /*
                          Main application
  */
@@ -134,6 +131,8 @@ uint32_t crc_mem;
     // If using interrupts in PIC18 High/Low Priority Mode you need to enable the Global High and Low Interrupts
     // If using interrupts in PIC Mid-Range Compatibility Mode you need to enable the Global Interrupts
     // Use the following macros to:
+    
+    INTERRUPT_Initialize();
 
     // Enable the Global Interrupts
     INTERRUPT_GlobalInterruptEnable();
@@ -143,19 +142,9 @@ uint32_t crc_mem;
 
     proto_init();  // init dati proto
     
-    FLASH_CalcCrc32(0xFFFFFFFF, 0xEDB88320, 
-                            0x2004, 0x0E000, &crc_val);
-
-    crc_mem = FLASH_ReadLong(0x2000);
-    
-    if( crc_mem == crc_val )
-        validApp = 1;
-    else
-        validApp = 0;
             
     while (1)
-    {
-        
+    { 
         count++;
 
         proto_entry();  // entrypoint manger protocollo
@@ -164,23 +153,11 @@ uint32_t crc_mem;
         {
             count = 0;
             LED_LIFE_Toggle();
-
-            if( validApp )      // se l'app è valida la lancia
-            {
-                    // Disable the Global Interrupts
-                    //INTERRUPT_GlobalInterruptDisable();
-
-                pfUserApp = (void (*)(void)) 0x2004;
-                pfUserApp();
-            }
         }
         
         // Add your application code
     }
 }
-
-
-
 
 /**
  End of File

@@ -42,6 +42,9 @@ static uint8_t parserEtx;
 
 uint8_t theDeviceID = 0x23;
 
+char *bootString __at(0x1500); 
+
+
 
 void proto_init(void) 
 {
@@ -84,8 +87,7 @@ uint16_t nb;
 uint32_t local_mem_addr;
 uint8_t local_mem_cnt;
 
-    
-
+   
     switch( statoDecoder )
     {
         case    0:  // waiting for new message to decode
@@ -138,59 +140,19 @@ uint8_t local_mem_cnt;
                         answerBuf[lenTxDecoder++] = QS_BOOTP_OK; // QS_BOOTP_OK or QS_BOOTP_FAIL
                         answerBuf[lenTxDecoder++] = QS_BOOTP_VOID_PAYLOAD; // QS_BOOTP_VOID_PAYLOAD
                         answerBuf[lenTxDecoder++] = QS_BOOTP_VOID_PAYLOAD; // QS_BOOTP_VOID_PAYLOAD
-/*                        for (int i = 1; i < QS_BOOTP_MIN_PAY_LEN; i++){
-                            lenTxDecoder++;
-                            answerBuf[lenTxDecoder] = QS_BOOTP_VOID_PAYLOAD;
-                        }
- * */
                         break;
-                    case    QS_BOOTP_ERASE:
-                        cmdDecoder = QS_BOOTP_ERASE;
                         
-                        answerBuf[lenTxDecoder++] = QS_BOOTP_OK; // QS_BOOTP_OK or QS_BOOTP_FAIL
-                        answerBuf[lenTxDecoder++] = qsDecodPack.qs_Payload[0];
-                        answerBuf[lenTxDecoder++] = qsDecodPack.qs_Payload[1];
-                      
-                        if( qsDecodPack.qs_Policy != 0xFF )     // se è dummy ... simula
-                        {
-                        }
+                    case    QS_BOOTP_ERASE:
+                        //cmdDecoder = QS_BOOTP_ERASE;  non pervenuto
+                        
                         break;
                         
                     case    QS_BOOTP_READ_FLASH:
-                        cmdDecoder = QS_BOOTP_READ_FLASH;
-                        
-                        theReadInfo.READ_Info_Number = qsDecodPack.qs_Payload[2];
-                        
-                        // READ_INFO_ANSWER_T
-                        answerBuf[lenTxDecoder++] = QS_BOOTP_OK; // QS_BOOTP_OK or QS_BOOTP_FAIL
-                        answerBuf[lenTxDecoder++] = theReadInfo.READ_Info_Ack; // QS_BOOTP_OK or QS_BOOTP_FAIL // '2';
-                        answerBuf[lenTxDecoder++] = theReadInfo.READ_Info_Number; // Bytes red 
-
-                        //Rd_Address;         /* Flash Address to read */
-                        //Rd_Info_Number;     /* Number of bytes to read */
-
-                        local_mem_addr = qsDecodPack.qs_Payload[1]; // piglia il numero del banco
-
-                        local_mem_addr <<= 8;                       // trasforma in offset
-                        
-                        local_mem_addr += qsDecodPack.qs_Payload[0];                       // trasforma in offset
-                        local_mem_addr += 0x2000;                   // somma la base per l'app
-                        
-                        local_mem_cnt = qsDecodPack.qs_Payload[2];
-                        
-                        for(nb=0;nb<local_mem_cnt;nb++)
-                            answerBuf[lenTxDecoder++] = FLASH_ReadByte(local_mem_addr);
+                        //cmdDecoder = QS_BOOTP_READ_FLASH;   // non pervenuto
                         break;
                         
                     case    QS_BOOTP_WRITE_FLASH:
-                        
-                        FLASH_WriteHex( (const char *) qsDecodPack.qs_Payload,  qsDecodPack.qs_PayLen);
-
-                        cmdDecoder = QS_BOOTP_WRITE_FLASH;
-                        // BANK_INFO_T
-                        answerBuf[lenTxDecoder++] = QS_BOOTP_OK; // QS_BOOTP_OK or QS_BOOTP_FAIL
-                        answerBuf[lenTxDecoder++] = theBankInfo.BANK_Info_Ack; // QS_BOOTP_OK or QS_BOOTP_FAIL // '2';
-                        answerBuf[lenTxDecoder++] = theBankInfo.BANK_Info_Number; // Bank number
+                        // cmdDecoder = QS_BOOTP_WRITE_FLASH;   // non pervenuto
                         break;
                         
                     case    QS_BOOTP_START_FW_UP:
@@ -208,8 +170,8 @@ uint8_t local_mem_cnt;
                     answerBuf[0] = 0x02;   // STX
                     answerBuf[1] = lenTxPayload & 0xFF;   // LEN L
                     answerBuf[2] = lenTxPayload >> 8;   // LEN H
-                    answerBuf[3] = 0x23;   // SENDER
-                    answerBuf[4] = 0xA3;   // POLICY
+                    answerBuf[3] = 0x21;   // SENDER
+                    answerBuf[4] = 0xA1;   // POLICY
                     answerBuf[5] = cmdDecoder | 0x80;   // CMD                    
                     
                     
@@ -236,8 +198,33 @@ uint8_t local_mem_cnt;
                     UART5_Write(answerBuf[cntTxDecoder++]);
             }
             else
+            {
+                
+                if( cmdDecoder == QS_BOOTP_RESET )          // reset secco ?
+                {
+                    while( !UART5_is_tx_ready() );      // aspetta che tutti i dati escano ....
+                    
+                    strcpy(bootString, "Reset Boot!");      // chiede un banale reset
+
+                    __delay_ms(10);                         // attesa extra per gli ultimi caratteri
+                    RESET();                                // si riparte !!
+                    
+                }
+               
+                if( cmdDecoder == QS_BOOTP_START_FW_UP )    // reset + boot ?
+                {
+                    while( !UART5_is_tx_ready() );          // aspetta che tutti i dati escano ....
+                    
+                    strcpy(bootString, "Stop Boot!");       // chiede uno stop al boot
+
+                    __delay_ms(10);                         // attesa extra per gli ultimi caratteri
+                    RESET();                                // si riparte !!   
+                }
+
                 statoDecoder = 0;       // Answer End
+            }
             break;
+            
     }
     
 }
@@ -367,10 +354,7 @@ void proto_parser(uint8_t __newChar)
             break;
             
     }
-    
-        // bufferizza il comando per debug (solo con pic18q47)
-//    if( statoParser != 0 && statoParser != 10  )   // parser attivo ?
-//        parserBuffer[parserIdx++] = __newChar;
+   
 
         // frame ready ?
     if( statoParser == 10 )

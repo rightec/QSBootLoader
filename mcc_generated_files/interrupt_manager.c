@@ -53,6 +53,29 @@ void  INTERRUPT_Initialize (void)
 {
     // Disable Interrupt Priority Vectors (16CXXX Compatibility Mode)
     INTCON0bits.IPEN = 0;
+    
+   //INTCON0bits.GIEH = 1;
+    // Enable high priority interrupts
+    //INTCON0bits.GIEL = 1;
+    // Enable low priority interrupts
+    //INTCON0bits.IPEN = 1;
+    // Enable interrupt priority
+    //PIE0bits.SWIE = 1;
+    // Enable SW interrupt
+    //PIE0bits.HLVDIE = 1;
+    // Enable HLVD interrupt
+    //IPR0bits.SWIP = 0;
+    // Make SW interrupt low priority
+
+    INTERRUPT_GlobalInterruptDisable();
+    
+    // Change IVTBASE to 0x2100
+    IVTBASEU = 0x00;
+    // Optional
+    IVTBASEH = 0x21;
+    // Default is 0x000008
+    IVTBASEL = 0x00;    
+    
 }
 
 void __interrupt() INTERRUPT_InterruptManager (void)

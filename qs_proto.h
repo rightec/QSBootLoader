@@ -12,7 +12,6 @@
 #include <string.h>
 #include "qs_bootprotocolstruct.h"
 #include "qs_crc16.h"
-#include "util.h"
 
 
 #ifdef	__cplusplus

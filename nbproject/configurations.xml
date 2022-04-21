@@ -17,7 +17,6 @@
       <itemPath>qs_bootprotocoldef.h</itemPath>
       <itemPath>qs_bootprotocolstruct.h</itemPath>
       <itemPath>qs_crc16.h</itemPath>
-      <itemPath>util.h</itemPath>
       <itemPath>qs_proto.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
@@ -39,7 +38,6 @@
       </logicalFolder>
       <itemPath>main.c</itemPath>
       <itemPath>qs_crc16.c</itemPath>
-      <itemPath>util.c</itemPath>
       <itemPath>qs_proto.c</itemPath>
       <itemPath>qs_memory.c</itemPath>
       <itemPath>qs_memory.h</itemPath>
@@ -132,8 +130,8 @@
         <property key="what-to-do" value="ignore"/>
       </HI-TECH-COMP>
       <HI-TECH-LINK>
-        <property key="additional-options-checksum" value=""/>
-        <property key="additional-options-code-offset" value=""/>
+        <property key="additional-options-checksum" value="2004-C000@2000"/>
+        <property key="additional-options-code-offset" value="0x2100"/>
         <property key="additional-options-command-line" value=""/>
         <property key="additional-options-errata" value=""/>
         <property key="additional-options-extend-address" value="false"/>
@@ -192,6 +190,8 @@
                   value="${communication.interface.default}"/>
         <property key="communication.interface.jtag" value="2wire"/>
         <property key="communication.speed" value="${communication.speed.default}"/>
+        <property key="debugoptions.debug-startup" value="Use system settings"/>
+        <property key="debugoptions.reset-behaviour" value="Use system settings"/>
         <property key="debugoptions.simultaneous.debug" value="false"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
         <property key="freeze.timers" value="false"/>
