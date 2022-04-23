@@ -130,7 +130,7 @@
         <property key="what-to-do" value="ignore"/>
       </HI-TECH-COMP>
       <HI-TECH-LINK>
-        <property key="additional-options-checksum" value="2004-C000@2000"/>
+        <property key="additional-options-checksum" value="2004-F000@2000"/>
         <property key="additional-options-code-offset" value="0x2100"/>
         <property key="additional-options-command-line" value=""/>
         <property key="additional-options-errata" value=""/>

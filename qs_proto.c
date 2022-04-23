@@ -42,18 +42,13 @@ static uint8_t parserEtx;
 
 uint8_t theDeviceID = 0x23;
 
-char *bootString __at(0x1500); 
+char *bootString = (char *) 0xF00; 
 
 
 
 void proto_init(void) 
 {
-    /*
-    strcpy(qsDecodPack.qs_Payload, ":040000000DEF00F010\n:0400080079EF06F096\n:10001800FF0052EF05F01BEF02F06300FCF7E8F475");
-    qsDecodPack.qs_PayLen = strlen(qsDecodPack.qs_Payload);
-    
-    FLASH_WriteHex(qsDecodPack.qs_Payload,  qsDecodPack.qs_PayLen);
-    */
+
     theRevisionID.ID_Info = FLASH_ReadWord(0x3FFFFC); 
     theFamilyDeviceID.ID_Info = FLASH_ReadWord(0x3FFFFE);
     theReadInfo.READ_Info_Ack = QS_BOOTP_OK;

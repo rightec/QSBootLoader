@@ -119,6 +119,13 @@ int count;
 
 /*
                          Main application
+ * 
+ * Nota: al momento l'area utile per l'applicativo va dall'indirizzo 0x2100 a 0xEFFF
+ *       teniamo quindi da 0xF000 a 0xFFFF (4K) utili per memorizzare parametri di lavoro
+ * 
+ *      nel caso serva estendere l'area utile è necessario cambiare il setup del calcolatore chksum
+ *      nel menu XC8linker-Additional Options
+ * 
  */
 void main(void)
 {
@@ -157,6 +164,45 @@ uint32_t crc_mem;
         
         // Add your application code
     }
+}
+
+
+/* Setup vector table PTR (IVTBASE)
+ * 
+ * Nota: il CRC viene memorizzato all'indirizzo 0x2000
+ *       mentre la tabella dei vettori inizia all'indirizzo 0x2100 
+ *      in questo modo è possibile utilizzare i primi 256-4 bytes per 
+ *      altre info sull'applicativo (versione-compatiblità, dimensione ecc.)
+ *      inoltre l'app puo' crescere oltre l'indirizzo 0x10000 disponibile
+ *      nel modello PIC18F47xx
+ */
+void  INTERRUPT_Initialize (void)
+{
+    // Disable Interrupt Priority Vectors (16CXXX Compatibility Mode)
+    INTCON0bits.IPEN = 0;
+    
+   //INTCON0bits.GIEH = 1;
+    // Enable high priority interrupts
+    //INTCON0bits.GIEL = 1;
+    // Enable low priority interrupts
+    //INTCON0bits.IPEN = 1;
+    // Enable interrupt priority
+    //PIE0bits.SWIE = 1;
+    // Enable SW interrupt
+    //PIE0bits.HLVDIE = 1;
+    // Enable HLVD interrupt
+    //IPR0bits.SWIP = 0;
+    // Make SW interrupt low priority
+
+    INTERRUPT_GlobalInterruptDisable();
+    
+    // Change IVTBASE to 0x2100
+    IVTBASEU = 0x00;
+    // Optional
+    IVTBASEH = 0x21;
+    // Default is 0x000008
+    IVTBASEL = 0x00;    
+    
 }
 
 /**
