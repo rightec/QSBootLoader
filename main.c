@@ -113,13 +113,14 @@
  
  */
 
-
+//char *bootString __at(0x1000); 
+char *bootString; 
 
 
 int count;
 
 uint8_t validApp;
-void (*pfUserApp)(void);
+
 /*
                          Main application
  */
@@ -144,7 +145,7 @@ uint32_t crc_mem;
     proto_init();  // init dati proto
     
     FLASH_CalcCrc32(0xFFFFFFFF, 0xEDB88320, 
-                            0x2004, 0x0E000, &crc_val);
+                            0x2004, 0x0F000, &crc_val);
 
     crc_mem = FLASH_ReadLong(0x2000);
     
@@ -152,7 +153,16 @@ uint32_t crc_mem;
         validApp = 1;
     else
         validApp = 0;
-            
+    
+   bootString = (char *) 0x0F00; 
+   
+   //strcpy(bootString, "Stop Boot!");     per simulazione stop da app
+
+   
+            // se l'app chiede uno stop al boot
+    if( strcmp(bootString, "Stop Boot!") != 0 )     
+       validApp = 0;       // niente salto all'app
+    
     while (1)
     {
         
@@ -168,10 +178,10 @@ uint32_t crc_mem;
             if( validApp )      // se l'app è valida la lancia
             {
                     // Disable the Global Interrupts
-                    //INTERRUPT_GlobalInterruptDisable();
+                INTERRUPT_GlobalInterruptDisable();
 
-                pfUserApp = (void (*)(void)) 0x2004;
-                pfUserApp();
+                    // salta all'app (invece di fare un call) per non perdere livelli di stack
+                asm("goto 0x2100");
             }
         }
         

@@ -56,7 +56,9 @@
  */
 
 //128-words of Buffer RAM for PIC18F46Q43 is available at 0x1500
-uint16_t bufferRAM __at(0x1500); 
+//uint16_t bufferRAM __at(0x1000); 
+uint16_t *bufferRAM = (uint16_t *) 0x0F00; 
+ 
 
 
 
