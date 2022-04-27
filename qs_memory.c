@@ -168,7 +168,9 @@ void FLASH_WriteSingleWord(uint32_t __flashAddr, uint16_t __word_value)
 {
 uint8_t GIEBitValue = INTCON0bits.GIE;
 
-/*
+    if( __flashAddr < 0x2000 )      // possiamo scrivere da 0x2000 in su
+        return;
+
     // Load NVMADR with the target address of the word
     NVMADR = __flashAddr;
     NVMDAT = __word_value;
@@ -199,6 +201,6 @@ uint8_t GIEBitValue = INTCON0bits.GIE;
     //10.3.6
     // Restore interrupt enable bit value
     // Disable writes to memory
-*/
+
   
  }

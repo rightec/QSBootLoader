@@ -29,6 +29,8 @@
 
 #define QS_BOOTP_VOID_PAYLOAD       0xAA /*  Reset/StartUpdgrade commands have a single byte payload */
 
+#define QS_BOOTP_ERASE_ALL          0xFF
+
 /*!
  * Section to define command ID
  *  0x00	Reserved                Reserved

@@ -61,6 +61,11 @@ void proto_init(void)
     theFwVersion.FW_Erp_Crc32 = 0x02;
     theFwVersion.FW_Erp_Identifier = 0x03;
     theFwVersion.FW_Erp_Version = 0x04;
+     
+//     FLASH_WriteSingleWord(0x3000, 0x5566);    // scrive in flash
+     
+//     theBankInfo.BANK_Info_Number = FLASH_ReadWord(0x3000); 
+   // FLASH_EraseBlock(0x2000);
 }
 
  // entrypoint protocol manger
@@ -83,6 +88,7 @@ void proto_decoder(void)
 uint16_t nb;
 uint32_t local_mem_addr;
 uint8_t local_mem_cnt;
+uint32_t local_page_addr;
 
     
 
@@ -146,14 +152,51 @@ uint8_t local_mem_cnt;
                         break;
                     case    QS_BOOTP_ERASE:
                         cmdDecoder = QS_BOOTP_ERASE;
-                        
+    
                         answerBuf[lenTxDecoder++] = QS_BOOTP_OK; // QS_BOOTP_OK or QS_BOOTP_FAIL
-                        answerBuf[lenTxDecoder++] = qsDecodPack.qs_Payload[0];
-                        answerBuf[lenTxDecoder++] = qsDecodPack.qs_Payload[1];
                       
                         if( qsDecodPack.qs_Policy != 0xFF )     // se è dummy ... simula
                         {
+                            if( qsDecodPack.qs_Payload[1] == QS_BOOTP_ERASE_ALL )   // delete all ?
+                            {
+                                local_mem_addr = 0x2000; 
+                                
+                                if( theFamilyDeviceID.ID_Info == QS_PIC18F47Q43_DEV_ID )
+                                    local_page_addr = 0x0F000;   // last address = 0x1E000;
+                                else
+                                    local_page_addr = 0x0F000;   // last address = 0x0E000;
+                                
+                                while( local_mem_addr < local_page_addr)
+                                {
+                                    
+                                    FLASH_EraseBlock(local_mem_addr);
+                                    
+                                    local_mem_addr += 0x100;    // prossima pagina
+                                }
+                            }
+                            else
+                            {
+                                local_mem_addr = 0x2000;  // prima pagina utile
+                                
+                                local_page_addr = qsDecodPack.qs_Payload[1];   // last address = 0x1E000;
+                                
+                                local_page_addr <<= 8;
+
+                                local_page_addr += 0x2000;
+
+                                while( local_mem_addr < local_page_addr)
+                                {
+                                    FLASH_EraseBlock(local_mem_addr);
+                                    
+                                    local_mem_addr += 0x100;    // prossima pagina
+                                }
+                            }
                         }
+                            // Disable interrupts before changing states
+    
+                        answerBuf[lenTxDecoder++] = qsDecodPack.qs_Payload[0];
+                        answerBuf[lenTxDecoder++] = qsDecodPack.qs_Payload[1];
+
                         break;
                         
                     case    QS_BOOTP_READ_FLASH:
@@ -184,8 +227,14 @@ uint8_t local_mem_cnt;
                         
                     case    QS_BOOTP_WRITE_FLASH:
                         
-                        FLASH_WriteHex( (const char *) qsDecodPack.qs_Payload,  qsDecodPack.qs_PayLen);
-
+                        if( qsDecodPack.qs_Policy != 0xFF )     // se è dummy ... simula
+                        {
+                            FLASH_WriteHex( (const char *) qsDecodPack.qs_Payload,  qsDecodPack.qs_PayLen);
+                        }
+                        else
+                        {
+                            theBankInfo.BANK_Info_Number++;
+                        }
                         cmdDecoder = QS_BOOTP_WRITE_FLASH;
                         // BANK_INFO_T
                         answerBuf[lenTxDecoder++] = QS_BOOTP_OK; // QS_BOOTP_OK or QS_BOOTP_FAIL

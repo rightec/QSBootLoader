@@ -100,8 +100,8 @@ uint16_t hex_cpw(const char *s)
 uint16_t wh;
 uint16_t wl;
 
-	wl = hex_cpb(s);
-	wh = hex_cpb(s+2);
+	wh = hex_cpb(s);
+	wl = hex_cpb(s+2);
 	wh <<= 8;
 	
 	return ( wh | wl );			// mi sembra giusto

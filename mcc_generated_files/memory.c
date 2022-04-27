@@ -230,7 +230,7 @@ void FLASH_EraseBlock(uint32_t flashAddr)
     while (NVMCON0bits.GO);
 
     //Restore the interrupts
-    INTCON0bits.GIE = GIEBitValue;
+    INTCON0bits.GIE = 1;
 
     //Set the NVMCMD control bits for Word Read operation to avoid accidental writes
     NVMCON1bits.NVMCMD = 0b000;
