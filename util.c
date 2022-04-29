@@ -106,3 +106,15 @@ uint16_t wl;
 	
 	return ( wh | wl );			// mi sembra giusto
 }
+
+uint16_t hex_cpw_swap(const char *s)
+{
+uint16_t wh;
+uint16_t wl;
+
+	wl = hex_cpb(s);
+	wh = hex_cpb(s+2);
+	wh <<= 8;
+	
+	return ( wh | wl );			// mi sembra giusto
+}

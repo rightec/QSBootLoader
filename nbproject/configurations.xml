@@ -178,7 +178,7 @@
         <property key="remove-unused-sections" value="true"/>
       </HI-TECH-LINK>
       <Tool>
-        <property key="AutoSelectMemRanges" value="auto"/>
+        <property key="AutoSelectMemRanges" value="manual"/>
         <property key="Freeze Peripherals" value="true"/>
         <property key="SecureSegment.SegmentProgramming" value="FullChipProgramming"/>
         <property key="ToolFirmwareFilePath"
@@ -209,7 +209,7 @@
         <property key="memories.instruction.ram.ranges"
                   value="${memories.instruction.ram.ranges}"/>
         <property key="memories.programmemory" value="true"/>
-        <property key="memories.programmemory.ranges" value="0-ffff"/>
+        <property key="memories.programmemory.ranges" value="0-1FFF"/>
         <property key="memories.rww" value="true"/>
         <property key="poweroptions.powerenable" value="false"/>
         <property key="programmerToGoImageName" value="Boot18_ptg"/>
@@ -261,7 +261,7 @@
         <property key="wpo-lto" value="false"/>
       </XC8-config-global>
       <pk4hybrid>
-        <property key="AutoSelectMemRanges" value="auto"/>
+        <property key="AutoSelectMemRanges" value="manual"/>
         <property key="Freeze Peripherals" value="true"/>
         <property key="SecureSegment.SegmentProgramming" value="FullChipProgramming"/>
         <property key="ToolFirmwareFilePath"
@@ -275,6 +275,8 @@
                   value="${communication.interface.default}"/>
         <property key="communication.interface.jtag" value="2wire"/>
         <property key="communication.speed" value="${communication.speed.default}"/>
+        <property key="debugoptions.debug-startup" value="Use system settings"/>
+        <property key="debugoptions.reset-behaviour" value="Use system settings"/>
         <property key="debugoptions.simultaneous.debug" value="false"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
         <property key="freeze.timers" value="false"/>
@@ -290,7 +292,7 @@
         <property key="memories.instruction.ram.ranges"
                   value="${memories.instruction.ram.ranges}"/>
         <property key="memories.programmemory" value="true"/>
-        <property key="memories.programmemory.ranges" value="0-ffff"/>
+        <property key="memories.programmemory.ranges" value="0-1FFF"/>
         <property key="memories.rww" value="true"/>
         <property key="poweroptions.powerenable" value="false"/>
         <property key="programmerToGoImageName" value="Boot18_ptg"/>

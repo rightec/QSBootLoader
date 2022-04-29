@@ -59,7 +59,8 @@ char c;
                             
                             for(cntRecordData=0; cntRecordData < recordLen; cntRecordData += 2)
                             {
-                                hex_value = hex_cpw(&__strHex[hexpars_len]);  // piglia un altro pezzetto ..
+                                hex_value = hex_cpw_swap(&__strHex[hexpars_len]);  // piglia un altro pezzetto ..
+                                //hex_value = hex_cpw(&__strHex[hexpars_len]);  // piglia un altro pezzetto ..
                                 hexpars_len += 4;
                                 
                                 FLASH_WriteSingleWord(memAddr, hex_value);    // scrive in flash
@@ -72,12 +73,12 @@ char c;
                             break;
 
                         case    0x02:     // segment address record
-                            recordSegm = hex_cpw(&__strHex[hexpars_len]);
+                            //recordSegm = hex_cpw(&__strHex[hexpars_len]);
                             hexpars_len += 4;
                             break;
 
                         case    0x04:     // Extended Linear Address record
-                            recordSegm = hex_cpw(&__strHex[hexpars_len]);
+                            //recordSegm = hex_cpw(&__strHex[hexpars_len]);
                             hexpars_len += 4;
                             break;
                     }

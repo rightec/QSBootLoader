@@ -42,6 +42,7 @@ static uint8_t parserEtx;
 
 uint8_t theDeviceID = 0x23;
 
+extern char *bootString; 
 
 void proto_init(void) 
 {
@@ -61,11 +62,13 @@ void proto_init(void)
     theFwVersion.FW_Erp_Crc32 = 0x02;
     theFwVersion.FW_Erp_Identifier = 0x03;
     theFwVersion.FW_Erp_Version = 0x04;
-     
-//     FLASH_WriteSingleWord(0x3000, 0x5566);    // scrive in flash
+   
+    
+ //   FLASH_EraseBlock(0x3000);
+ //    FLASH_WriteSingleWord(0x3000, 0x5566);    // scrive in flash
      
 //     theBankInfo.BANK_Info_Number = FLASH_ReadWord(0x3000); 
-   // FLASH_EraseBlock(0x2000);
+   
 }
 
  // entrypoint protocol manger
@@ -285,7 +288,20 @@ uint32_t local_page_addr;
                     UART5_Write(answerBuf[cntTxDecoder++]);
             }
             else
+            {
+                if( cmdDecoder == QS_BOOTP_RESET )          // reset secco ?
+                {
+                    while( !UART5_is_tx_ready() );      // aspetta che tutti i dati escano ....
+                    
+                    strcpy(bootString, "Reset Boot!");      // chiede un banale reset
+
+                    __delay_ms(10);                         // attesa extra per gli ultimi caratteri
+                    RESET();                                // si riparte !!
+                    
+                }
+               
                 statoDecoder = 0;       // Answer End
+            }
             break;
     }
     

@@ -149,10 +149,18 @@ uint32_t crc_mem;
 
     crc_mem = FLASH_ReadLong(0x2000);
     
+    
+    if( crc_mem != 0xFFFFFFFF )
+        validApp = 1;
+    else
+        validApp = 0;
+    
+    /*
     if( crc_mem == crc_val )
         validApp = 1;
     else
         validApp = 0;
+    */
     
    bootString = (char *) 0x0F00; 
    
@@ -160,7 +168,7 @@ uint32_t crc_mem;
 
    
             // se l'app chiede uno stop al boot
-    if( strcmp(bootString, "Stop Boot!") != 0 )     
+    if( strcmp(bootString, "Stop Boot!") == 0 )     
        validApp = 0;       // niente salto all'app
     
     while (1)
