@@ -7,6 +7,8 @@
             <file>file:/media/enrico/DATA/Prodotti/Schede/boot/QS/Firmware/Application18.X/main.c</file>
             <file>file:/media/enrico/DATA/Prodotti/Schede/boot/QS/Firmware/Application18.X/mcc_generated_files/interrupt_manager.c</file>
             <file>file:/media/enrico/DATA/Prodotti/Schede/boot/QS/Firmware/Application18.X/qs_proto.c</file>
+            <file>file:/media/enrico/DATA/Prodotti/Schede/boot/QS/Firmware/Application18.X/mcc_generated_files/mcc.c</file>
+            <file>file:/media/enrico/DATA/Prodotti/Schede/boot/QS/Firmware/Application18.X/mcc_generated_files/uart5.c</file>
         </group>
     </open-files>
 </project-private>

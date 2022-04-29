@@ -48,8 +48,10 @@
 #include "qs_proto.h"
 
 
-/* Setup per Configuration bits auto-generato tramite il tool per i fig bits
- 
+/* Setup per Configuration bits auto-generato tramite il tool per i config bits
+ * 
+
+
  // PIC18F47Q43 Configuration Bit Settings
 
 // 'C' source line config statements
@@ -67,8 +69,8 @@
 // CONFIG3
 #pragma config MCLRE = EXTMCLR  // MCLR Enable bit (If LVP = 0, MCLR pin is MCLR; If LVP = 1, RE3 pin function is MCLR )
 #pragma config PWRTS = PWRT_OFF // Power-up timer selection bits (PWRT is disabled)
-#pragma config MVECEN = OFF     // Multi-vector enable bit (Interrupt contoller does not use vector table to prioritze interrupts)
-#pragma config IVT1WAY = ON     // IVTLOCK bit One-way set enable bit (IVTLOCKED bit can be cleared and set only once)
+#pragma config MVECEN = ON     // Multi-vector enable bit (Interrupt contoller does not use vector table to prioritze interrupts)
+#pragma config IVT1WAY = OFF     // IVTLOCK bit One-way set enable bit (IVTLOCKED bit can be cleared and set only once)
 #pragma config LPBOREN = OFF    // Low Power BOR Enable bit (Low-Power BOR disabled)
 #pragma config BOREN = SBORDIS  // Brown-out Reset Enable bits (Brown-out Reset enabled , SBOREN bit is ignored)
 
@@ -104,15 +106,14 @@
 // CONFIG10
 #pragma config CP = OFF         // PFM and Data EEPROM Code Protection bit (PFM and Data EEPROM code protection disabled)
 
+ 
 // #pragma config statements should precede project file includes.
 // Use project enums instead of #define for ON and OFF.
  
+  */
  
  
  
- 
- */
-
 //void INTERRUPT_Initialize (void);
 
 int count;
@@ -196,12 +197,13 @@ void  INTERRUPT_Initialize (void)
 
     INTERRUPT_GlobalInterruptDisable();
     
+    
     // Change IVTBASE to 0x2100
     IVTBASEU = 0x00;
     // Optional
     IVTBASEH = 0x21;
     // Default is 0x000008
-    IVTBASEL = 0x00;    
+    IVTBASEL = 0x08;    
     
 }
 

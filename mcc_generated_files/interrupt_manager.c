@@ -50,7 +50,7 @@
 #include "mcc.h"
 
 
-void __interrupt() INTERRUPT_InterruptManager (void)
+void __interrupt(base(0x2108)) INTERRUPT_InterruptManager (void)
 {
     // interrupt handler
     if(PIE13bits.U5TXIE == 1 && PIR13bits.U5TXIF == 1)
