@@ -95,8 +95,8 @@ typedef struct
  */
 typedef struct
 {
-    uint8_t         WRITE_Block[QS_BOOTP_BLOCK_SIZE];            /* Block to write */
-    uint8_t         WRITE_LEN;
+    uint8_t          WRITE_Block[QS_BOOTP_BLOCK_SIZE];            /* Block to write */
+    uint8_t          WRITE_LEN;
 }WRITE_TO_BUFFER_FLASH_T;
 
 

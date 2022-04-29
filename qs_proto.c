@@ -5,7 +5,6 @@
  * Created on 7 aprile 2022, 8.32
  */
 
-#include "qs_memory.h"
 #include "qs_proto.h"
 
 FW_SW_VERSION_T theFwVersion;
@@ -42,8 +41,7 @@ static uint8_t parserEtx;
 
 uint8_t theDeviceID = 0x23;
 
-char *bootString = (char *) 0xF00; 
-
+char *bootString = (char *) 0x500;      // Info area shared between Bootloader and application
 
 
 void proto_init(void) 
@@ -61,7 +59,7 @@ void proto_init(void)
     theFwVersion.FW_Erp_Version = 0x04;
 }
 
- // entrypoint protocol manger
+// entrypoint protocol manger
 void proto_entry(void) 
 {
 uint8_t c;
@@ -79,8 +77,6 @@ uint8_t c;
 void proto_decoder(void)
 {  
 uint16_t nb;
-uint32_t local_mem_addr;
-uint8_t local_mem_cnt;
 
    
     switch( statoDecoder )
@@ -138,16 +134,16 @@ uint8_t local_mem_cnt;
                         break;
                         
                     case    QS_BOOTP_ERASE:
-                        //cmdDecoder = QS_BOOTP_ERASE;  non pervenuto
+                        //cmdDecoder = QS_BOOTP_ERASE;  // Not used in application
                         
                         break;
                         
                     case    QS_BOOTP_READ_FLASH:
-                        //cmdDecoder = QS_BOOTP_READ_FLASH;   // non pervenuto
+                        //cmdDecoder = QS_BOOTP_READ_FLASH;   // Not used in application
                         break;
                         
                     case    QS_BOOTP_WRITE_FLASH:
-                        // cmdDecoder = QS_BOOTP_WRITE_FLASH;   // non pervenuto
+                        // cmdDecoder = QS_BOOTP_WRITE_FLASH;   // Not used in application
                         break;
                         
                     case    QS_BOOTP_START_FW_UP:
@@ -195,25 +191,27 @@ uint8_t local_mem_cnt;
             else
             {
                 
-                if( cmdDecoder == QS_BOOTP_RESET )          // reset secco ?
+                if( cmdDecoder == QS_BOOTP_RESET )          
                 {
-                    while( !UART5_is_tx_ready() );      // aspetta che tutti i dati escano ....
+                    while( !UART5_is_tx_ready() );          // Wait for all data to be tarnsmitted
                     
-                    strcpy(bootString, "Reset Boot!");      // chiede un banale reset
+                    bootString = (char *) 0x500;            // area ram scambio info tra boot e applicazione
 
-                    __delay_ms(10);                         // attesa extra per gli ultimi caratteri
-                    RESET();                                // si riparte !!
+                    strcpy(bootString, "Reset Boot!");      // Write RESET TAG
+
+                    __delay_ms(10);                         // Delay for last tx char
+                    RESET();                                // Restart
                     
                 }
                
-                if( cmdDecoder == QS_BOOTP_START_FW_UP )    // reset + boot ?
+                if( cmdDecoder == QS_BOOTP_START_FW_UP )    
                 {
-                    while( !UART5_is_tx_ready() );          // aspetta che tutti i dati escano ....
+                    while( !UART5_is_tx_ready() );           // Wait for all data to be tarnsmitted
                     
-                    strcpy(bootString, "Stop Boot!");       // chiede uno stop al boot
+                    strcpy(bootString, "Stop Boot!");        // Write STOP BOOT TAG
 
-                    __delay_ms(10);                         // attesa extra per gli ultimi caratteri
-                    RESET();                                // si riparte !!   
+                    __delay_ms(10);                         // Delay for last tx char
+                    RESET();                                // Restart   
                 }
 
                 statoDecoder = 0;       // Answer End
@@ -251,7 +249,7 @@ void proto_parser(uint8_t __newChar)
 
         case    1:      // wait for len L
             
-            parserLen = __newChar;      // copia la lunghezza
+            parserLen = __newChar;      // Copy the len
             
             statoParser++;
             break;
@@ -366,9 +364,6 @@ void proto_parser(uint8_t __newChar)
             
             for(nb=0;nb<parserLen;nb++)
                 qsDecodPack.qs_Payload[nb] = parserPayBuf[nb];    
-
-            // CRC standard per modbus
-            // CalcCrc16_Poly(0xFFFF, 0xA001, qsDecodPack.qs_Payload, qsDecodPack.qs_PayLen, &qsDecodPack.qs_CrcLow, &qsDecodPack.qs_CrcHigh);
             
             // CRC ibm like
             CalcCrc16_Poly(0x0000, 0x8005, 
@@ -376,13 +371,6 @@ void proto_parser(uint8_t __newChar)
                                     qsDecodPack.qs_PayLen + 5, 
                                     &qsDecodPack.qs_CrcLow, &qsDecodPack.qs_CrcHigh);
          
-            /*
-            if( parserCrcL != qsDecodPack.qs_CrcLow ||
-                parserCrcH != qsDecodPack.qs_CrcHigh )
-            {
-                qsDecodPack.qs_Stx = 0x00;          // abortisce il frame come valido
-            }
-            */
             statoParser = 0;        // ok. We can parse another frame
         }
         
