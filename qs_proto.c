@@ -199,6 +199,8 @@ uint8_t local_mem_cnt;
                 {
                     while( !UART5_is_tx_ready() );      // aspetta che tutti i dati escano ....
                     
+                    bootString = (char *) 0x500;      // area ram scambio info tra boot e applicazione
+
                     strcpy(bootString, "Reset Boot!");      // chiede un banale reset
 
                     __delay_ms(10);                         // attesa extra per gli ultimi caratteri
