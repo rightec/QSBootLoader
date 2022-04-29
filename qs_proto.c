@@ -42,7 +42,7 @@ static uint8_t parserEtx;
 
 uint8_t theDeviceID = 0x23;
 
-char *bootString = (char *) 0xF00; 
+char *bootString = (char *) 0x500;      // area ram scambio info tra boot e applicazione
 
 
 

@@ -48,6 +48,7 @@
 #include "qs_proto.h"
 
 
+
 /* Setup per Configuration bits auto-generato tramite il tool per i config bits
  * 
 
