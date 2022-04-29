@@ -121,17 +121,15 @@ int count;
 /*
                          Main application
  * 
- * Nota: al momento l'area utile per l'applicativo va dall'indirizzo 0x2100 a 0xEFFF
- *       teniamo quindi da 0xF000 a 0xFFFF (4K) utili per memorizzare parametri di lavoro
+ * Note: Area reserved for application 0x2100 to 0xEFFF (see linker settings)
+ *       From 0xF000 a 0xFFFF (4K) Useful for application params 
+ *       In order to change this setting go to XC8linker submenu in 
+ *       "Project Properties"
  * 
- *      nel caso serva estendere l'area utile è necessario cambiare il setup del calcolatore chksum
- *      nel menu XC8linker-Additional Options
  * 
  */
 void main(void)
 {
-uint32_t crc_val;    
-uint32_t crc_mem; 
     
     // Initialize the device
     SYSTEM_Initialize();
@@ -148,14 +146,14 @@ uint32_t crc_mem;
     // Disable the Global Interrupts
     //INTERRUPT_GlobalInterruptDisable();
 
-    proto_init();  // init dati proto
+    proto_init();  // init proto data
     
             
     while (1)
     { 
         count++;
 
-        proto_entry();  // entrypoint manger protocollo
+        proto_entry();  // entrypoint protocol manager
         
         if( count > 30000 )
         {
@@ -170,12 +168,11 @@ uint32_t crc_mem;
 
 /* Setup vector table PTR (IVTBASE)
  * 
- * Nota: il CRC viene memorizzato all'indirizzo 0x2000
- *       mentre la tabella dei vettori inizia all'indirizzo 0x2100 
- *      in questo modo è possibile utilizzare i primi 256-4 bytes per 
- *      altre info sull'applicativo (versione-compatiblità, dimensione ecc.)
- *      inoltre l'app puo' crescere oltre l'indirizzo 0x10000 disponibile
- *      nel modello PIC18F47xx
+ * Nota: CRC is loaded at 0x2000
+ *       Vector table is at 0x2100 
+ *       From 0x2000 to 0x20FF we can store other application info     
+ *       Application size could grow until the size available for
+ *       PIC18F47xx (Linker does the checksum)
  */
 void  INTERRUPT_Initialize (void)
 {
@@ -198,11 +195,10 @@ void  INTERRUPT_Initialize (void)
     INTERRUPT_GlobalInterruptDisable();
     
     
-    // Change IVTBASE to 0x2100
-    IVTBASEU = 0x00;
-    // Optional
-    IVTBASEH = 0x21;
+    // Change IVTBASE to 0x2108
     // Default is 0x000008
+    IVTBASEU = 0x00;
+    IVTBASEH = 0x21;
     IVTBASEL = 0x08;    
     
 }

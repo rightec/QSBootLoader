@@ -60,10 +60,10 @@
         <targetDevice>PIC18F47Q43</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>pk4hybrid</platformTool>
+        <platformTool>noID</platformTool>
         <languageToolchain>XC8</languageToolchain>
         <languageToolchainVersion>2.36</languageToolchainVersion>
-        <platform>2</platform>
+        <platform>3</platform>
       </toolsSet>
       <packs>
         <pack name="PIC18F-Q_DFP" vendor="Microchip" version="1.11.185"/>
@@ -130,7 +130,7 @@
         <property key="what-to-do" value="ignore"/>
       </HI-TECH-COMP>
       <HI-TECH-LINK>
-        <property key="additional-options-checksum" value="2004-F000@2000"/>
+        <property key="additional-options-checksum" value="2004-EFFF@2000"/>
         <property key="additional-options-code-offset" value="2100"/>
         <property key="additional-options-command-line" value=""/>
         <property key="additional-options-errata" value=""/>
