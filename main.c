@@ -188,7 +188,7 @@ uint32_t crc_mem;
                     // Disable the Global Interrupts
                 INTERRUPT_GlobalInterruptDisable();
 
-                    // salta all'app (invece di fare un call) per non perdere livelli di stack
+                // Jump to App
                 asm("goto 0x2100");
             }
         }
