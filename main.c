@@ -116,18 +116,20 @@
 //char *bootString __at(0x1000); 
 char *bootString; 
 
-
 int count;
 
 uint8_t validApp;
+uint16_t crc_val1 = 0xFFFF;  
+uint16_t crc_val2= 0xFFFF;  
+
 
 /*
                          Main application
  */
 void main(void)
 {
-uint32_t crc_val;    
-uint32_t crc_mem; 
+
+uint16_t crc_mem; 
     
     // Initialize the device
     SYSTEM_Initialize();
@@ -144,13 +146,22 @@ uint32_t crc_mem;
 
     proto_init();  // init dati proto
     
-    FLASH_CalcCrc32(0xFFFFFFFF, 0xEDB88320, 
-                            0x2004, 0x0F000, &crc_val);
+//    FLASH_CalcCrc32(0xFFFFFFFF, 0xEDB88320, 
+//                            0x2004, 0x0F000, &crc_val);
 
-    crc_mem = FLASH_ReadLong(0x2000);
+//    FLASH_CalcCrc16(0xFFFF, 0x8408, 
+//                            0x2004, 0x0F000, &crc_val);
+    FLASH_CalcCrc16(0xFFFF, 0x8408, 
+                            0x2004, 0xF000, &crc_val1);
+
     
     
-    if( crc_mem != 0xFFFFFFFF )
+    crc_val2 = crc(0x2004, 0xF000-0x2004, 0xFFFF);
+    
+    crc_mem = FLASH_ReadWord(0x2000);
+    
+    
+    if( crc_mem != 0xFFFF || crc_val1 == crc_val2 )
         validApp = 1;
     else
         validApp = 0;
@@ -162,15 +173,20 @@ uint32_t crc_mem;
         validApp = 0;
     */
     
-   bootString = (char *) 0x0F00; 
+   bootString = (char *) 0x0500; 
    
    //strcpy(bootString, "Stop Boot!");     per simulazione stop da app
 
    
             // se l'app chiede uno stop al boot
     if( strcmp(bootString, "Stop Boot!") == 0 )     
+    {
        validApp = 0;       // niente salto all'app
-    
+       
+       strcpy(bootString, "Go Boot!");     
+    }
+   
+   
     while (1)
     {
         
