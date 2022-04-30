@@ -55,14 +55,10 @@ char *bootString;
 int count;
 
 uint8_t validApp;
-<<<<<<< HEAD
 uint32_t crc_val;  
-
-=======
 uint16_t crc_val1 = 0;  
 uint16_t crc_val2 = 0;  
 uint16_t crc_Flash = 0;
->>>>>>> 131981ff28f7beb09ee3536c7e5558627bcabb13
 
 readType checksumData[0x100];
 resultType hexmateChecksum;
@@ -89,14 +85,12 @@ uint32_t crc_mem;
 
     proto_init();  // init dati proto
     
-<<<<<<< HEAD
 //    FLASH_CalcCrc32Lsb(0xFFFFFFFF, 0xEDB88320, 
 //                            0x2004, 0x0F000, &crc_val);
 
     FLASH_CalcCrc32Msb(0xFFFFFFFF, 0xEDB88320, 
                             0x2004, 0x0F000, &crc_val);
     
-=======
  //   FLASH_CalcCrc32(0xFFFFFFFF, 0xEDB88320, 
   //                          0x2004, 0x0F000, &crc_val);
 
@@ -138,7 +132,6 @@ uint32_t crc_mem;
     crc_Flash = 0xFFFF;
     crc_Flash = crcFlash(0x2004, 0xF000-0x2004, crc_Flash);
      
->>>>>>> 131981ff28f7beb09ee3536c7e5558627bcabb13
     
     crc_mem = FLASH_ReadLong(0x2000);
     

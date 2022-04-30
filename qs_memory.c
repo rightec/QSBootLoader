@@ -135,19 +135,17 @@ uint32_t  local_mem_addr;
             
 }
 
-<<<<<<< HEAD
 /*
  http://www.sunshine2k.de/coding/javascript/crc/crc_js.html
  * 
  * http://www.sunshine2k.de/articles/coding/crc/understanding_crc.html
  */
+
 void FLASH_CalcCrc32Msb(uint32_t crc_initial, uint32_t poly, 
-                            uint32_t __flashStartAddr, uint32_t __flashEndAddr, uint32_t *__crc_val)
-=======
+                            uint32_t __flashStartAddr, uint32_t __flashEndAddr, uint32_t *__crc_val);
 
 void FLASH_CalcCrc16(uint16_t crc_initial, uint16_t poly, 
                             uint32_t __flashStartAddr, uint32_t __flashEndAddr, uint16_t *__crc_val)
->>>>>>> 131981ff28f7beb09ee3536c7e5558627bcabb13
 {
 uint8_t i,j;
 uint32_t flash_data;
