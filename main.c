@@ -119,8 +119,7 @@ char *bootString;
 int count;
 
 uint8_t validApp;
-uint16_t crc_val1 = 0xFFFF;  
-uint16_t crc_val2= 0xFFFF;  
+uint32_t crc_val;  
 
 
 /*
@@ -129,7 +128,7 @@ uint16_t crc_val2= 0xFFFF;
 void main(void)
 {
 
-uint16_t crc_mem; 
+uint32_t crc_mem; 
     
     // Initialize the device
     SYSTEM_Initialize();
@@ -146,22 +145,17 @@ uint16_t crc_mem;
 
     proto_init();  // init dati proto
     
-//    FLASH_CalcCrc32(0xFFFFFFFF, 0xEDB88320, 
+//    FLASH_CalcCrc32Lsb(0xFFFFFFFF, 0xEDB88320, 
 //                            0x2004, 0x0F000, &crc_val);
 
-//    FLASH_CalcCrc16(0xFFFF, 0x8408, 
-//                            0x2004, 0x0F000, &crc_val);
-    FLASH_CalcCrc16(0xFFFF, 0x8408, 
-                            0x2004, 0xF000, &crc_val1);
-
+    FLASH_CalcCrc32Msb(0xFFFFFFFF, 0xEDB88320, 
+                            0x2004, 0x0F000, &crc_val);
     
     
-    crc_val2 = crc(0x2004, 0xF000-0x2004, 0xFFFF);
-    
-    crc_mem = FLASH_ReadWord(0x2000);
+    crc_mem = FLASH_ReadLong(0x2000);
     
     
-    if( crc_mem != 0xFFFF || crc_val1 == crc_val2 )
+    if( crc_mem != 0xFFFFFFFF  )
         validApp = 1;
     else
         validApp = 0;

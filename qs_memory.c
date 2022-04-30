@@ -101,7 +101,7 @@ char c;
     
 }
 
-void FLASH_CalcCrc32(uint32_t crc_initial, uint32_t poly, 
+void FLASH_CalcCrc32Lsb(uint32_t crc_initial, uint32_t poly, 
                             uint32_t __flashStartAddr, uint32_t __flashEndAddr, uint32_t *__crc_val)
 {
 uint8_t i,j;
@@ -135,67 +135,39 @@ uint32_t  local_mem_addr;
             
 }
 
-#define POLYNOMIAL     0x1021
- 
-#define WIDTH   (8 * sizeof(resultType))
-#define MSb     ((resultType)1 << (WIDTH - 1))
-
-
-//extern const readType checksumData[0x100] @ 0x0;
-//extern const resultType hexmateChecksum @ 0x100;
-
-
-resultType crc(const readType * data, unsigned n, resultType remainder)
-{
-    unsigned pos;
-    unsigned char bitp;
- 
-    for (pos = 0; pos != n; pos++) 
-    {
-        remainder ^= ((resultType)data[pos] << (WIDTH - 8));
-    
-        for (bitp = 8; bitp > 0; bitp--) 
-        {
-            if (remainder & MSb) 
-            {
-                remainder = (remainder << 1) ^ POLYNOMIAL;
-            } 
-            else 
-            {
-                remainder <<= 1;
-            }
-        }
-    }
- 
-    return remainder;
-}
-
-void FLASH_CalcCrc16(uint16_t crc_initial, uint16_t poly, 
-                            uint32_t __flashStartAddr, uint32_t __flashEndAddr, uint16_t *__crc_val)
+/*
+ http://www.sunshine2k.de/coding/javascript/crc/crc_js.html
+ * 
+ * http://www.sunshine2k.de/articles/coding/crc/understanding_crc.html
+ */
+void FLASH_CalcCrc32Msb(uint32_t crc_initial, uint32_t poly, 
+                            uint32_t __flashStartAddr, uint32_t __flashEndAddr, uint32_t *__crc_val)
 {
 uint8_t i,j;
-uint16_t flash_data;
-uint16_t  crc = crc_initial;
+uint32_t flash_data;
+uint32_t  crc = crc_initial;
 uint32_t  local_mem_addr;
 
     for (local_mem_addr=__flashStartAddr; local_mem_addr < __flashEndAddr; local_mem_addr++)
     {
         flash_data = FLASH_ReadByte(local_mem_addr);
         
+        flash_data << 24;       // porta nel byte msb
+        
         crc ^= flash_data;
         
         for (i=0; i < 8; i++)
         {
             // se shiftero' un bit a 1 vado in xor col polinomio
-            if ( crc & 0x01 )
+            if ( crc & 0x80000000 )
             {
-                crc >>= 1;      // shift
+                crc <<= 1;      // shift
                 
                 crc ^= poly;    // somma il poly
             }
             else
             {
-                crc >>= 1;      // shifta solo
+                crc <<= 1;      // shifta solo
             }
         }
     }
@@ -203,6 +175,9 @@ uint32_t  local_mem_addr;
     *__crc_val = crc;
             
 }
+
+
+
 
 
 uint32_t FLASH_ReadLong(uint32_t flashAddr)
