@@ -142,7 +142,40 @@ uint32_t  local_mem_addr;
  */
 
 void FLASH_CalcCrc32Msb(uint32_t crc_initial, uint32_t poly, 
-                            uint32_t __flashStartAddr, uint32_t __flashEndAddr, uint32_t *__crc_val);
+                            uint32_t __flashStartAddr, uint32_t __flashEndAddr, uint32_t *__crc_val)
+{
+uint8_t i,j;
+uint32_t flash_data;
+uint32_t  crc = crc_initial;
+uint32_t  local_mem_addr;
+
+    for (local_mem_addr=__flashStartAddr; local_mem_addr < __flashEndAddr; local_mem_addr++)
+    {
+        flash_data = FLASH_ReadByte(local_mem_addr);
+        
+        flash_data << 24;       // porta nel byte msb
+        
+        crc ^= flash_data;
+        
+        for (i=0; i < 8; i++)
+        {
+            // se shiftero' un bit a 1 vado in xor col polinomio
+            if ( crc & 0x80000000 )
+            {
+                crc <<= 1;      // shift
+                
+                crc ^= poly;    // somma il poly
+            }
+            else
+            {
+                crc <<= 1;      // shifta solo
+            }
+        }
+    }
+
+    *__crc_val = crc;
+            
+}
 
 void FLASH_CalcCrc16(uint16_t crc_initial, uint16_t poly, 
                             uint32_t __flashStartAddr, uint32_t __flashEndAddr, uint16_t *__crc_val)
