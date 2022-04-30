@@ -16,16 +16,12 @@
 extern "C" {
 #endif
 
-typedef unsigned char readType;
-typedef unsigned int resultType;
  
 void FLASH_WriteHex(const char *__strHex,  uint16_t __len);
 void FLASH_WriteSingleWord(uint32_t __flashAddr, uint16_t __word_value);
 void FLASH_CalcCrc32(uint32_t crc_initial, uint32_t poly, uint32_t __flashStartAddr, uint32_t __flashEndAddr, uint32_t *crc_val);
 void FLASH_CalcCrc16(uint16_t crc_initial, uint16_t poly,  uint32_t __flashStartAddr, uint32_t __flashEndAddr, uint16_t *__crc_val);
- 
-resultType crc(const readType * data, unsigned n, resultType remainder);
- 
+  
 uint32_t FLASH_ReadLong(uint32_t flashAddr);
 
 #ifdef	__cplusplus

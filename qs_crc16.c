@@ -6,6 +6,9 @@
  */
 
 #include "qs_crc16.h"
+#include "mcc_generated_files/memory.h"
+
+
 
 void CalcCrc16_Poly(uint16_t crc_initial, uint16_t poly, uint8_t *pBuf, uint16_t wLen, uint8_t *crc_l, uint8_t *crc_h)
 {
@@ -44,4 +47,57 @@ uint8_t  crc_low, crc_hig;
             
 }
 
+resultType crc(readType * data, unsigned n, resultType remainder)
+{
+    unsigned pos;
+    unsigned char bitp;
+ 
+    for (pos = 0; pos != n; pos++) 
+    {
+        remainder ^= ((resultType)data[pos] << (WIDTH - 8));
+    
+        for (bitp = 8; bitp > 0; bitp--) 
+        {
+            if (remainder & MSb) 
+            {
+                remainder = (remainder << 1) ^ POLYNOMIAL;
+            } 
+            else 
+            {
+                remainder <<= 1;
+            }
+        }
+    }
+ 
+    return remainder;
+}
+
+
+uint16_t crcFlash(uint32_t data, unsigned n, uint16_t remainder)
+{
+    uint32_t pos;
+    unsigned char bitp;
+    
+    uint32_t stopAddr = data + n;
+ 
+    for (pos = data; pos != stopAddr; pos++) 
+    {
+        
+        remainder ^= ((uint16_t)FLASH_ReadByte(pos) << (WIDTH - 8));
+    
+        for (bitp = 8; bitp > 0; bitp--) 
+        {
+            if (remainder & MSb) 
+            {
+                remainder = (remainder << 1) ^ POLYNOMIAL;
+            } 
+            else 
+            {
+                remainder <<= 1;
+            }
+        }
+    }
+ 
+    return remainder;
+}
 

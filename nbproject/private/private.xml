@@ -3,7 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/lavoro/Clienti/HiFuture/QuantaSystem/Boot18.X/qs_memory.c</file>
+            <file>file:/C:/lavoro/Clienti/HiFuture/QuantaSystem/Boot18.X/mcc_generated_files/memory.c</file>
+            <file>file:/C:/lavoro/Clienti/HiFuture/QuantaSystem/Boot18.X/qs_proto.c</file>
+            <file>file:/C:/lavoro/Clienti/HiFuture/QuantaSystem/Boot18.X/qs_crc16.c</file>
+            <file>file:/C:/lavoro/Clienti/HiFuture/QuantaSystem/Boot18.X/dist/default/debug/startup.s</file>
             <file>file:/C:/lavoro/Clienti/HiFuture/QuantaSystem/Boot18.X/main.c</file>
+            <file>file:/C:/lavoro/Clienti/HiFuture/QuantaSystem/Boot18.X/qs_crc16.h</file>
         </group>
     </open-files>
 </project-private>

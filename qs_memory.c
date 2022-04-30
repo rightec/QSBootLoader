@@ -135,40 +135,6 @@ uint32_t  local_mem_addr;
             
 }
 
-#define POLYNOMIAL     0x1021
- 
-#define WIDTH   (8 * sizeof(resultType))
-#define MSb     ((resultType)1 << (WIDTH - 1))
-
-
-//extern const readType checksumData[0x100] @ 0x0;
-//extern const resultType hexmateChecksum @ 0x100;
-
-
-resultType crc(const readType * data, unsigned n, resultType remainder)
-{
-    unsigned pos;
-    unsigned char bitp;
- 
-    for (pos = 0; pos != n; pos++) 
-    {
-        remainder ^= ((resultType)data[pos] << (WIDTH - 8));
-    
-        for (bitp = 8; bitp > 0; bitp--) 
-        {
-            if (remainder & MSb) 
-            {
-                remainder = (remainder << 1) ^ POLYNOMIAL;
-            } 
-            else 
-            {
-                remainder <<= 1;
-            }
-        }
-    }
- 
-    return remainder;
-}
 
 void FLASH_CalcCrc16(uint16_t crc_initial, uint16_t poly, 
                             uint32_t __flashStartAddr, uint32_t __flashEndAddr, uint16_t *__crc_val)
