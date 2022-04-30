@@ -19,7 +19,7 @@ endif
 endif
 
 # Environment
-MKDIR=mkdir -p
+MKDIR=gnumkdir -p
 RM=rm -f 
 MV=mv 
 CP=cp 
@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=mcc_generated_files/memory.c mcc_generated_files/interrupt_manager.c mcc_generated_files/pin_manager.c mcc_generated_files/uart5.c mcc_generated_files/device_config.c mcc_generated_files/mcc.c main.c qs_crc16.c qs_proto.c qs_memory.c
+SOURCEFILES_QUOTED_IF_SPACED=mcc_generated_files/memory.c mcc_generated_files/interrupt_manager.c mcc_generated_files/pin_manager.c mcc_generated_files/uart5.c mcc_generated_files/device_config.c mcc_generated_files/mcc.c main.c qs_crc16.c qs_proto.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/mcc_generated_files/memory.p1 ${OBJECTDIR}/mcc_generated_files/interrupt_manager.p1 ${OBJECTDIR}/mcc_generated_files/pin_manager.p1 ${OBJECTDIR}/mcc_generated_files/uart5.p1 ${OBJECTDIR}/mcc_generated_files/device_config.p1 ${OBJECTDIR}/mcc_generated_files/mcc.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/qs_crc16.p1 ${OBJECTDIR}/qs_proto.p1 ${OBJECTDIR}/qs_memory.p1
-POSSIBLE_DEPFILES=${OBJECTDIR}/mcc_generated_files/memory.p1.d ${OBJECTDIR}/mcc_generated_files/interrupt_manager.p1.d ${OBJECTDIR}/mcc_generated_files/pin_manager.p1.d ${OBJECTDIR}/mcc_generated_files/uart5.p1.d ${OBJECTDIR}/mcc_generated_files/device_config.p1.d ${OBJECTDIR}/mcc_generated_files/mcc.p1.d ${OBJECTDIR}/main.p1.d ${OBJECTDIR}/qs_crc16.p1.d ${OBJECTDIR}/qs_proto.p1.d ${OBJECTDIR}/qs_memory.p1.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/mcc_generated_files/memory.p1 ${OBJECTDIR}/mcc_generated_files/interrupt_manager.p1 ${OBJECTDIR}/mcc_generated_files/pin_manager.p1 ${OBJECTDIR}/mcc_generated_files/uart5.p1 ${OBJECTDIR}/mcc_generated_files/device_config.p1 ${OBJECTDIR}/mcc_generated_files/mcc.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/qs_crc16.p1 ${OBJECTDIR}/qs_proto.p1
+POSSIBLE_DEPFILES=${OBJECTDIR}/mcc_generated_files/memory.p1.d ${OBJECTDIR}/mcc_generated_files/interrupt_manager.p1.d ${OBJECTDIR}/mcc_generated_files/pin_manager.p1.d ${OBJECTDIR}/mcc_generated_files/uart5.p1.d ${OBJECTDIR}/mcc_generated_files/device_config.p1.d ${OBJECTDIR}/mcc_generated_files/mcc.p1.d ${OBJECTDIR}/main.p1.d ${OBJECTDIR}/qs_crc16.p1.d ${OBJECTDIR}/qs_proto.p1.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/mcc_generated_files/memory.p1 ${OBJECTDIR}/mcc_generated_files/interrupt_manager.p1 ${OBJECTDIR}/mcc_generated_files/pin_manager.p1 ${OBJECTDIR}/mcc_generated_files/uart5.p1 ${OBJECTDIR}/mcc_generated_files/device_config.p1 ${OBJECTDIR}/mcc_generated_files/mcc.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/qs_crc16.p1 ${OBJECTDIR}/qs_proto.p1 ${OBJECTDIR}/qs_memory.p1
+OBJECTFILES=${OBJECTDIR}/mcc_generated_files/memory.p1 ${OBJECTDIR}/mcc_generated_files/interrupt_manager.p1 ${OBJECTDIR}/mcc_generated_files/pin_manager.p1 ${OBJECTDIR}/mcc_generated_files/uart5.p1 ${OBJECTDIR}/mcc_generated_files/device_config.p1 ${OBJECTDIR}/mcc_generated_files/mcc.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/qs_crc16.p1 ${OBJECTDIR}/qs_proto.p1
 
 # Source Files
-SOURCEFILES=mcc_generated_files/memory.c mcc_generated_files/interrupt_manager.c mcc_generated_files/pin_manager.c mcc_generated_files/uart5.c mcc_generated_files/device_config.c mcc_generated_files/mcc.c main.c qs_crc16.c qs_proto.c qs_memory.c
+SOURCEFILES=mcc_generated_files/memory.c mcc_generated_files/interrupt_manager.c mcc_generated_files/pin_manager.c mcc_generated_files/uart5.c mcc_generated_files/device_config.c mcc_generated_files/mcc.c main.c qs_crc16.c qs_proto.c
 
 
 
@@ -166,6 +166,7 @@ ${OBJECTDIR}/qs_proto.p1: qs_proto.c  nbproject/Makefile-${CND_CONF}.mk
 	@-${MV} ${OBJECTDIR}/qs_proto.d ${OBJECTDIR}/qs_proto.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/qs_proto.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
+<<<<<<< HEAD
 ${OBJECTDIR}/qs_memory.p1: qs_memory.c  nbproject/Makefile-${CND_CONF}.mk 
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/qs_memory.p1.d 
@@ -174,6 +175,8 @@ ${OBJECTDIR}/qs_memory.p1: qs_memory.c  nbproject/Makefile-${CND_CONF}.mk
 	@-${MV} ${OBJECTDIR}/qs_memory.d ${OBJECTDIR}/qs_memory.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/qs_memory.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
+=======
+>>>>>>> 9eec67e399cc35d97e078af4bda3750bbdc45cd5
 else
 ${OBJECTDIR}/mcc_generated_files/memory.p1: mcc_generated_files/memory.c  nbproject/Makefile-${CND_CONF}.mk 
 	@${MKDIR} "${OBJECTDIR}/mcc_generated_files" 
@@ -247,6 +250,7 @@ ${OBJECTDIR}/qs_proto.p1: qs_proto.c  nbproject/Makefile-${CND_CONF}.mk
 	@-${MV} ${OBJECTDIR}/qs_proto.d ${OBJECTDIR}/qs_proto.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/qs_proto.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
+<<<<<<< HEAD
 ${OBJECTDIR}/qs_memory.p1: qs_memory.c  nbproject/Makefile-${CND_CONF}.mk 
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/qs_memory.p1.d 
@@ -255,6 +259,8 @@ ${OBJECTDIR}/qs_memory.p1: qs_memory.c  nbproject/Makefile-${CND_CONF}.mk
 	@-${MV} ${OBJECTDIR}/qs_memory.d ${OBJECTDIR}/qs_memory.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/qs_memory.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
+=======
+>>>>>>> 9eec67e399cc35d97e078af4bda3750bbdc45cd5
 endif
 
 # ------------------------------------------------------------------------------------
@@ -300,7 +306,7 @@ endif
 # Enable dependency checking
 .dep.inc: .depcheck-impl
 
-DEPFILES=$(shell "${PATH_TO_IDE_BIN}"mplabwildcard ${POSSIBLE_DEPFILES})
+DEPFILES=$(shell mplabwildcard ${POSSIBLE_DEPFILES})
 ifneq (${DEPFILES},)
 include ${DEPFILES}
 endif
