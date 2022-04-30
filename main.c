@@ -48,70 +48,6 @@
 #include "qs_proto.h"
 
 
-/* Setup per Configuration bits auto-generato tramite il tool per i fig bits
- 
- // PIC18F47Q43 Configuration Bit Settings
-
-// 'C' source line config statements
-
-// CONFIG1
-#pragma config FEXTOSC = OFF    // External Oscillator Selection (Oscillator not enabled)
-#pragma config RSTOSC = HFINTOSC_1MHZ// Reset Oscillator Selection (HFINTOSC with HFFRQ = 4 MHz and CDIV = 4:1)
-
-// CONFIG2
-#pragma config CLKOUTEN = OFF   // Clock out Enable bit (CLKOUT function is disabled)
-#pragma config PR1WAY = ON      // PRLOCKED One-Way Set Enable bit (PRLOCKED bit can be cleared and set only once)
-#pragma config CSWEN = ON       // Clock Switch Enable bit (Writing to NOSC and NDIV is allowed)
-#pragma config FCMEN = ON       // Fail-Safe Clock Monitor Enable bit (Fail-Safe Clock Monitor enabled)
-
-// CONFIG3
-#pragma config MCLRE = EXTMCLR  // MCLR Enable bit (If LVP = 0, MCLR pin is MCLR; If LVP = 1, RE3 pin function is MCLR )
-#pragma config PWRTS = PWRT_OFF // Power-up timer selection bits (PWRT is disabled)
-#pragma config MVECEN = OFF     // Multi-vector enable bit (Interrupt contoller does not use vector table to prioritze interrupts)
-#pragma config IVT1WAY = ON     // IVTLOCK bit One-way set enable bit (IVTLOCKED bit can be cleared and set only once)
-#pragma config LPBOREN = OFF    // Low Power BOR Enable bit (Low-Power BOR disabled)
-#pragma config BOREN = SBORDIS  // Brown-out Reset Enable bits (Brown-out Reset enabled , SBOREN bit is ignored)
-
-// CONFIG4
-#pragma config BORV = VBOR_1P9  // Brown-out Reset Voltage Selection bits (Brown-out Reset Voltage (VBOR) set to 1.9V)
-#pragma config ZCD = OFF        // ZCD Disable bit (ZCD module is disabled. ZCD can be enabled by setting the ZCDSEN bit of ZCDCON)
-#pragma config PPS1WAY = ON     // PPSLOCK bit One-Way Set Enable bit (PPSLOCKED bit can be cleared and set only once; PPS registers remain locked after one clear/set cycle)
-#pragma config STVREN = ON      // Stack Full/Underflow Reset Enable bit (Stack full/underflow will cause Reset)
-#pragma config LVP = ON         // Low Voltage Programming Enable bit (Low voltage programming enabled. MCLR/VPP pin function is MCLR. MCLRE configuration bit is ignored)
-#pragma config XINST = OFF      // Extended Instruction Set Enable bit (Extended Instruction Set and Indexed Addressing Mode disabled)
-
-// CONFIG5
-#pragma config WDTCPS = WDTCPS_31// WDT Period selection bits (Divider ratio 1:65536; software control of WDTPS)
-#pragma config WDTE = OFF       // WDT operating mode (WDT Disabled; SWDTEN is ignored)
-
-// CONFIG6
-#pragma config WDTCWS = WDTCWS_7// WDT Window Select bits (window always open (100%); software control; keyed access not required)
-#pragma config WDTCCS = SC      // WDT input clock selector (Software Control)
-
-// CONFIG7
-#pragma config BBSIZE = BBSIZE_8192// Boot Block Size selection bits (Boot Block size is 8192 words)
-#pragma config BBEN = ON        // Boot Block enable bit (Boot block enabled)
-#pragma config SAFEN = OFF      // Storage Area Flash enable bit (SAF disabled)
-#pragma config DEBUG = ON       // Background Debugger (Background Debugger enabled)
-
-// CONFIG8
-#pragma config WRTB = OFF       // Boot Block Write Protection bit (Boot Block not Write protected)
-#pragma config WRTC = OFF       // Configuration Register Write Protection bit (Configuration registers not Write protected)
-#pragma config WRTD = OFF       // Data EEPROM Write Protection bit (Data EEPROM not Write protected)
-#pragma config WRTSAF = OFF     // SAF Write protection bit (SAF not Write Protected)
-#pragma config WRTAPP = OFF     // Application Block write protection bit (Application Block not write protected)
-
-// CONFIG10
-#pragma config CP = OFF         // PFM and Data EEPROM Code Protection bit (PFM and Data EEPROM code protection disabled)
-
-// #pragma config statements should precede project file includes.
-// Use project enums instead of #define for ON and OFF.
- 
- 
- 
- 
- 
- */
 
 //char *bootString __at(0x1000); 
 char *bootString; 
@@ -119,9 +55,17 @@ char *bootString;
 int count;
 
 uint8_t validApp;
+<<<<<<< HEAD
 uint32_t crc_val;  
 
+=======
+uint16_t crc_val1 = 0;  
+uint16_t crc_val2 = 0;  
+uint16_t crc_Flash = 0;
+>>>>>>> 131981ff28f7beb09ee3536c7e5558627bcabb13
 
+readType checksumData[0x100];
+resultType hexmateChecksum;
 /*
                          Main application
  */
@@ -145,12 +89,56 @@ uint32_t crc_mem;
 
     proto_init();  // init dati proto
     
+<<<<<<< HEAD
 //    FLASH_CalcCrc32Lsb(0xFFFFFFFF, 0xEDB88320, 
 //                            0x2004, 0x0F000, &crc_val);
 
     FLASH_CalcCrc32Msb(0xFFFFFFFF, 0xEDB88320, 
                             0x2004, 0x0F000, &crc_val);
     
+=======
+ //   FLASH_CalcCrc32(0xFFFFFFFF, 0xEDB88320, 
+  //                          0x2004, 0x0F000, &crc_val);
+
+//    FLASH_CalcCrc16(0xFFFF, 0x8408, 
+//                            0x2004, 0x0F000, &crc_val);
+
+//    FLASH_CalcCrc16(0xFFFF, 0x8408, 
+//                            0x2004, 0xF000, &crc_val1);
+    
+     
+
+    
+    crc_val2 = 0xFFFF;
+    crc_val2 = crc((readType *)0x2004, 0xF000-0x2004, crc_val2);
+    
+    uint16_t iSize = 0xF000-0x2004;
+    uint16_t iLoop = iSize/0x100;
+    uint16_t iRest = iSize - (iLoop*0x100);
+    uint16_t address = 0x2004;
+    hexmateChecksum = 0xFFFF;
+    for (uint16_t i = 0; i<iLoop; i++){
+        address = 0x2004 + 0x100*i;
+        for (uint16_t j = 0; j< 0x100; j++){
+            checksumData[j] = FLASH_ReadByte(address + j);
+        }
+       // memcpy((void*)checksumData,(void*)(address),0x100);
+        hexmateChecksum = crc(checksumData,
+                    sizeof(checksumData)/sizeof(readType), hexmateChecksum);
+            
+    }
+    address = address + 0x100;
+    for (uint16_t j = 0; j< iRest; j++){
+            checksumData[j] = FLASH_ReadByte(address + j);
+        }
+//    memcpy((void*)checksumData,(void*)(address),iRest);
+    hexmateChecksum = crc(checksumData,
+                    iRest/sizeof(readType), hexmateChecksum);
+
+    crc_Flash = 0xFFFF;
+    crc_Flash = crcFlash(0x2004, 0xF000-0x2004, crc_Flash);
+     
+>>>>>>> 131981ff28f7beb09ee3536c7e5558627bcabb13
     
     crc_mem = FLASH_ReadLong(0x2000);
     
@@ -169,14 +157,12 @@ uint32_t crc_mem;
     
    bootString = (char *) 0x0500; 
    
-   //strcpy(bootString, "Stop Boot!");     per simulazione stop da app
+   //strcpy(bootString, "Stop Boot!");     
 
    
-            // se l'app chiede uno stop al boot
     if( strcmp(bootString, "Stop Boot!") == 0 )     
     {
-       validApp = 0;       // niente salto all'app
-       
+       validApp = 0;       // No Jump to APP
        strcpy(bootString, "Go Boot!");     
     }
    
@@ -186,19 +172,19 @@ uint32_t crc_mem;
         
         count++;
 
-        proto_entry();  // entrypoint manger protocollo
+        proto_entry();  // entrypoint protocol manager
         
         if( count > 30000 )
         {
             count = 0;
             LED_LIFE_Toggle();
 
-            if( validApp )      // se l'app è valida la lancia
+            if( validApp )      // App is valid - Run
             {
                     // Disable the Global Interrupts
                 INTERRUPT_GlobalInterruptDisable();
 
-                    // salta all'app (invece di fare un call) per non perdere livelli di stack
+                // Jump to App
                 asm("goto 0x2100");
             }
         }
