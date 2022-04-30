@@ -128,6 +128,8 @@ int count;
  *      nel caso serva estendere l'area utile è necessario cambiare il setup del calcolatore chksum
  *      nel menu XC8linker-Additional Options
  * 
+ * 2004-2013@2000,offset=0xFFFFFFFF,width=4,algorithm=5,polynomial=0xEDB88320
+ * 
  */
 void main(void)
 {
