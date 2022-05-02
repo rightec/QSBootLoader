@@ -87,11 +87,12 @@ uint32_t crc_mem;
     
     
    bootString = (char *) 0x0500; 
-   
+   int cmpval = 1;
    //strcpy(bootString, "Stop Boot!");     
-
+    
+   cmpval = strncmp(bootString, "Stop Boot!", 9) ;
    
-    if( strcmp(bootString, "Stop Boot!") == 0 )     
+    if( cmpval == 0 )     
     {
        validApp = 0;       // No Jump to APP
        strcpy(bootString, "Go Boot!");     
