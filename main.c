@@ -85,68 +85,6 @@ uint32_t crc_mem;
 
     proto_init();  // init dati proto
     
-//    FLASH_CalcCrc32Lsb(0xFFFFFFFF, 0xEDB88320, 
-//                            0x2004, 0x0F000, &crc_val);
-
-    FLASH_CalcCrc32Msb(0xFFFFFFFF, 0xEDB88320, 
-                            0x2004, 0x0F000, &crc_val);
-    
- //   FLASH_CalcCrc32(0xFFFFFFFF, 0xEDB88320, 
-  //                          0x2004, 0x0F000, &crc_val);
-
-//    FLASH_CalcCrc16(0xFFFF, 0x8408, 
-//                            0x2004, 0x0F000, &crc_val);
-
-//    FLASH_CalcCrc16(0xFFFF, 0x8408, 
-//                            0x2004, 0xF000, &crc_val1);
-    
-     
-
-    
-    crc_val2 = 0xFFFF;
-    crc_val2 = crc((readType *)0x2004, 0xF000-0x2004, crc_val2);
-    
-    uint16_t iSize = 0xF000-0x2004;
-    uint16_t iLoop = iSize/0x100;
-    uint16_t iRest = iSize - (iLoop*0x100);
-    uint16_t address = 0x2004;
-    hexmateChecksum = 0xFFFF;
-    for (uint16_t i = 0; i<iLoop; i++){
-        address = 0x2004 + 0x100*i;
-        for (uint16_t j = 0; j< 0x100; j++){
-            checksumData[j] = FLASH_ReadByte(address + j);
-        }
-       // memcpy((void*)checksumData,(void*)(address),0x100);
-        hexmateChecksum = crc(checksumData,
-                    sizeof(checksumData)/sizeof(readType), hexmateChecksum);
-            
-    }
-    address = address + 0x100;
-    for (uint16_t j = 0; j< iRest; j++){
-            checksumData[j] = FLASH_ReadByte(address + j);
-        }
-//    memcpy((void*)checksumData,(void*)(address),iRest);
-    hexmateChecksum = crc(checksumData,
-                    iRest/sizeof(readType), hexmateChecksum);
-
-    crc_Flash = 0xFFFF;
-    crc_Flash = crcFlash(0x2004, 0xF000-0x2004, crc_Flash);
-     
-    
-    crc_mem = FLASH_ReadLong(0x2000);
-    
-    
-    if( crc_mem != 0xFFFFFFFF  )
-        validApp = 1;
-    else
-        validApp = 0;
-    
-    /*
-    if( crc_mem == crc_val )
-        validApp = 1;
-    else
-        validApp = 0;
-    */
     
    bootString = (char *) 0x0500; 
    
@@ -158,7 +96,27 @@ uint32_t crc_mem;
        validApp = 0;       // No Jump to APP
        strcpy(bootString, "Go Boot!");     
     }
-   
+    else
+    {
+       
+    
+    //    FLASH_CalcCrc32Lsb(0xFFFFFFFF, 0xEDB88320, 
+    //                            0x2004, 0x0F000, &crc_val);
+
+        FLASH_CalcCrc32Msb(0xFFFFFFFF, 0xEDB88320, 
+                                0x2004, 0x0F000, &crc_val);
+
+
+        crc_mem = FLASH_ReadLong(0x2000);
+
+
+        if( crc_mem == crc_val )
+            validApp = 1;
+        else
+            validApp = 0;
+
+    }    
+
    
     while (1)
     {

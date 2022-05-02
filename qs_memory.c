@@ -153,7 +153,7 @@ uint32_t  local_mem_addr;
     {
         flash_data = FLASH_ReadByte(local_mem_addr);
         
-        flash_data << 24;       // porta nel byte msb
+        flash_data <<= 24;       // porta nel byte msb
         
         crc ^= flash_data;
         
@@ -228,17 +228,17 @@ union U_LVAL longVal;
 
     //Perform table read to move low byte from NVM to TABLAT
     asm("TBLRD*+");
-    longVal.c[0] = TABLAT;
-
-    asm("TBLRD*+");
-    longVal.c[1] = TABLAT;
+    longVal.c[3] = TABLAT;
 
     asm("TBLRD*+");
     longVal.c[2] = TABLAT;
 
+    asm("TBLRD*+");
+    longVal.c[1] = TABLAT;
+
     //Perform table read to move high byte from NVM to TABLAT
     asm("TBLRD");
-    longVal.c[3] = TABLAT;
+    longVal.c[0] = TABLAT;
 
     return (longVal.l);    
 }
@@ -251,7 +251,7 @@ void FLASH_WriteSingleWord(uint32_t __flashAddr, uint16_t __word_value)
 {
 uint8_t GIEBitValue = INTCON0bits.GIE;
 
-    if( __flashAddr < 0x2000 )      // possiamo scrivere da 0x2000 in su
+    if( __flashAddr < 0x2000 || __flashAddr >= 0xF000 )      // possiamo scrivere da 0x2000 in su
         return;
 
     // Load NVMADR with the target address of the word
