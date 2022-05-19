@@ -23,7 +23,8 @@ uint8_t c[2];
 typedef union U_WVAL WVAL;
 
 union U_LVAL {
-long l;
+uint32_t dw;
+long  l;
 uint8_t c[4];
 };
 

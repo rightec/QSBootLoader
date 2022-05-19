@@ -77,6 +77,9 @@
  *              readByte = FLASH_ReadByte(0x1FF00);
  *          }
  */
+ 
+uint32_t FLASH_ReadLongBE(uint32_t flashAddr);
+
 uint8_t FLASH_ReadByte(uint32_t flashAddr);
 
 /**

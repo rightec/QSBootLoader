@@ -46,6 +46,16 @@
 
 #include "qs_proto.h"
 
+
+////////////////////////////////////////////////////////////
+// Fw revision and build 
+
+const uint16_t FW_Erp_BuildNumber __at(0x2008) = 41;   
+const uint16_t FW_Erp_Identifier  __at(0x200A) = 42;
+const uint16_t FW_Erp_Version     __at(0x200C) = 43;
+    
+
+
 ////////////////////////////////////////////////////////////
 // Warning !! 
 //

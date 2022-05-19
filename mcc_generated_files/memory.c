@@ -95,6 +95,37 @@ uint16_t FLASH_ReadWord(uint32_t flashAddr)
     return (((uint16_t) readWordH << 8) | (readWordL));
 }
 
+/*
+ Big Endian reader for flash mem
+ */
+uint32_t FLASH_ReadLongBE(uint32_t flashAddr)
+{
+union U_LVAL longVal;
+
+    //Set TBLPTR with the target byte address
+    TBLPTRU = (uint8_t) ((flashAddr & 0x00FF0000) >> 16);
+    TBLPTRH = (uint8_t) ((flashAddr & 0x0000FF00) >> 8);
+    TBLPTRL = (uint8_t) (flashAddr & 0x000000FF);
+
+    //Perform table read to move low byte from NVM to TABLAT
+    asm("TBLRD*+");
+    longVal.c[3] = TABLAT;
+
+    asm("TBLRD*+");
+    longVal.c[2] = TABLAT;
+
+    asm("TBLRD*+");
+    longVal.c[1] = TABLAT;
+
+    //Perform table read to move high byte from NVM to TABLAT
+    asm("TBLRD");
+    longVal.c[0] = TABLAT;
+
+    return (longVal.dw);    
+}
+
+
+
 void MEMORY_ISR(void)
 {
     /* TODO : Add interrupt handling code */

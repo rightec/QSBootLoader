@@ -7,7 +7,10 @@
 
 #include "qs_proto.h"
 
-FW_SW_VERSION_T theFwVersion;
+
+FW_SW_VERSION_T theAppFwVersion;
+FW_SW_VERSION_T theBootFwVersion;
+
 ID_INFO_VERSION_T theRevisionID;
 ID_INFO_VERSION_T theFamilyDeviceID;
 READ_INFO_ANSWER_T theReadInfo;
@@ -53,10 +56,17 @@ void proto_init(void)
     theReadInfo.READ_Info_Number = 0;
     theBankInfo.BANK_Info_Ack  = QS_BOOTP_OK;
     theBankInfo.BANK_Info_Number = 0;
-    theFwVersion.FW_Erp_BuildNumber = 0x01;
-    theFwVersion.FW_Erp_Crc32 = 0x02;
-    theFwVersion.FW_Erp_Identifier = 0x03;
-    theFwVersion.FW_Erp_Version = 0x04;
+    
+    
+    theAppFwVersion.FW_Erp_Crc32 = FLASH_ReadLongBE(0x2000);
+    theAppFwVersion.FW_Erp_BuildNumber = FLASH_ReadByte(0x2008);
+    theAppFwVersion.FW_Erp_Identifier = FLASH_ReadByte(0x200A);
+    theAppFwVersion.FW_Erp_Version = FLASH_ReadByte(0x200C);
+
+    theBootFwVersion.FW_Erp_Crc32 = FLASH_ReadLongBE(0x1FF0);
+    theBootFwVersion.FW_Erp_BuildNumber = FLASH_ReadByte(0x1FF8);
+    theBootFwVersion.FW_Erp_Identifier = FLASH_ReadByte(0x1FFA);
+    theBootFwVersion.FW_Erp_Version = FLASH_ReadByte(0x1FFC);
 }
 
 // entrypoint protocol manger
@@ -101,8 +111,8 @@ uint16_t nb;
                     case    QS_BOOTP_READ_FW:
                         cmdDecoder = QS_BOOTP_READ_FW;
                         answerBuf[lenTxDecoder++] = QS_BOOTP_OK; // QS_BOOTP_OK or QS_BOOTP_FAIL;
-                        memcpy(&answerBuf[lenTxDecoder], &theFwVersion, sizeof(theFwVersion)); 
-                        lenTxDecoder += sizeof(theFwVersion);       // payload lenght
+                        memcpy(&answerBuf[lenTxDecoder], &theAppFwVersion, sizeof(theAppFwVersion)); 
+                        lenTxDecoder += sizeof(theAppFwVersion);       // payload lenght
                         break;         
                         
                     case    QS_BOOTP_READ_REV:                        
@@ -122,8 +132,8 @@ uint16_t nb;
                     case    QS_BOOTP_READ_BOOT:
                         cmdDecoder = QS_BOOTP_READ_BOOT;
                         answerBuf[lenTxDecoder++] = QS_BOOTP_OK; // QS_BOOTP_OK or QS_BOOTP_FAIL;
-                        memcpy(&answerBuf[lenTxDecoder], &theFwVersion, sizeof(theFwVersion));
-                        lenTxDecoder += sizeof(theFwVersion);       // payload lenght
+                        memcpy(&answerBuf[lenTxDecoder], &theBootFwVersion, sizeof(theBootFwVersion));
+                        lenTxDecoder += sizeof(theBootFwVersion);       // payload lenght
                         break;                        
                         
                     case    QS_BOOTP_RESET:                        
