@@ -166,17 +166,6 @@ ${OBJECTDIR}/qs_proto.p1: qs_proto.c  nbproject/Makefile-${CND_CONF}.mk
 	@-${MV} ${OBJECTDIR}/qs_proto.d ${OBJECTDIR}/qs_proto.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/qs_proto.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
-<<<<<<< HEAD
-${OBJECTDIR}/qs_memory.p1: qs_memory.c  nbproject/Makefile-${CND_CONF}.mk 
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/qs_memory.p1.d 
-	@${RM} ${OBJECTDIR}/qs_memory.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -memi=wordwrite -mram=default,-500-50F -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file -mcodeoffset=2100 -mchecksum=2004-EFFF@2000,offset=0xFFFFFFFF,width=4,algorithm=5,polynomial=0xEDB88320  -ginhx32 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto     -o ${OBJECTDIR}/qs_memory.p1 qs_memory.c 
-	@-${MV} ${OBJECTDIR}/qs_memory.d ${OBJECTDIR}/qs_memory.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/qs_memory.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-=======
->>>>>>> 9eec67e399cc35d97e078af4bda3750bbdc45cd5
 else
 ${OBJECTDIR}/mcc_generated_files/memory.p1: mcc_generated_files/memory.c  nbproject/Makefile-${CND_CONF}.mk 
 	@${MKDIR} "${OBJECTDIR}/mcc_generated_files" 
@@ -250,17 +239,6 @@ ${OBJECTDIR}/qs_proto.p1: qs_proto.c  nbproject/Makefile-${CND_CONF}.mk
 	@-${MV} ${OBJECTDIR}/qs_proto.d ${OBJECTDIR}/qs_proto.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/qs_proto.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
-<<<<<<< HEAD
-${OBJECTDIR}/qs_memory.p1: qs_memory.c  nbproject/Makefile-${CND_CONF}.mk 
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/qs_memory.p1.d 
-	@${RM} ${OBJECTDIR}/qs_memory.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -memi=wordwrite -mram=default,-500-50F -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file -mcodeoffset=2100 -mchecksum=2004-EFFF@2000,offset=0xFFFFFFFF,width=4,algorithm=5,polynomial=0xEDB88320  -ginhx32 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto     -o ${OBJECTDIR}/qs_memory.p1 qs_memory.c 
-	@-${MV} ${OBJECTDIR}/qs_memory.d ${OBJECTDIR}/qs_memory.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/qs_memory.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-=======
->>>>>>> 9eec67e399cc35d97e078af4bda3750bbdc45cd5
 endif
 
 # ------------------------------------------------------------------------------------

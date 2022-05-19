@@ -5,11 +5,7 @@
   <confs>
     <conf name="default" type="2">
       <platformToolSN>noToolString</platformToolSN>
-<<<<<<< HEAD
-      <languageToolchainDir>/opt/microchip/xc8/v2.36/bin</languageToolchainDir>
-=======
       <languageToolchainDir>C:\Program Files\Microchip\xc8\v2.36\bin</languageToolchainDir>
->>>>>>> 9eec67e399cc35d97e078af4bda3750bbdc45cd5
       <mdbdebugger version="1">
         <placeholder1>place holder 1</placeholder1>
         <placeholder2>place holder 2</placeholder2>

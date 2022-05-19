@@ -70,7 +70,7 @@ int count;
  *       In order to change this setting go to XC8linker submenu in 
  *       "Project Properties"
  * 
- * 
+ * Note2: Generated command line
  * 2004-2013@2000,offset=0xFFFFFFFF,width=4,algorithm=5,polynomial=0xEDB88320
  * 
  */
