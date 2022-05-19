@@ -46,7 +46,17 @@
 
 #include "qs_proto.h"
 
- 
+////////////////////////////////////////////////////////////
+// Warning !! 
+//
+// last flash memory address used by the application
+// the boot loader uses this address to calculate the CRC
+// and validate the application
+//
+// please set the same address used by the checksum application
+// 
+
+const long LastFlashUsedAddr __at(0x2004) = 0xEFFF;    
  
 //void INTERRUPT_Initialize (void);
 
