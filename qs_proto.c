@@ -63,10 +63,10 @@ void proto_init(void)
     theAppFwVersion.FW_Erp_Identifier = FLASH_ReadByte(0x200A);
     theAppFwVersion.FW_Erp_Version = FLASH_ReadByte(0x200C);
 
-    theBootFwVersion.FW_Erp_Crc32 = FLASH_ReadLongBE(0x1FF0);
-    theBootFwVersion.FW_Erp_BuildNumber = FLASH_ReadByte(0x1FF8);
-    theBootFwVersion.FW_Erp_Identifier = FLASH_ReadByte(0x1FFA);
-    theBootFwVersion.FW_Erp_Version = FLASH_ReadByte(0x1FFC);
+    theBootFwVersion.FW_Erp_Crc32 = FLASH_ReadLongBE(0x1FFC);
+    theBootFwVersion.FW_Erp_BuildNumber = FLASH_ReadByte(0x1FF0);
+    theBootFwVersion.FW_Erp_Identifier = FLASH_ReadByte(0x1FF2);
+    theBootFwVersion.FW_Erp_Version = FLASH_ReadByte(0x1FF4);
 }
 
 // entrypoint protocol manger
