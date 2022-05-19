@@ -44,7 +44,6 @@
                    displayName="Important Files"
                    projectFiles="false">
       <itemPath>Makefile</itemPath>
-      <itemPath>Boot18.mc3</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
@@ -55,7 +54,7 @@
     <conf name="default" type="2">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
-        <targetDevice>PIC18F46Q43</targetDevice>
+        <targetDevice>PIC18F47Q43</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
         <platformTool>pk4hybrid</platformTool>
@@ -129,8 +128,8 @@
       </HI-TECH-COMP>
       <HI-TECH-LINK>
         <property key="additional-options-checksum"
-                  value="2004-EFFF@2000,offset=0xFFFFFFFF,width=4,algorithm=5,polynomial=0xEDB88320"/>
-        <property key="additional-options-code-offset" value="2100"/>
+                  value="2004-1EFFF@2000,offset=0xFFFFFFFF,width=4,algorithm=5,polynomial=0xEDB88320"/>
+        <property key="additional-options-code-offset" value="2000"/>
         <property key="additional-options-command-line" value=""/>
         <property key="additional-options-errata" value=""/>
         <property key="additional-options-extend-address" value="false"/>
@@ -143,7 +142,7 @@
         <property key="code-model-external" value="wordwrite"/>
         <property key="code-model-rom" value=""/>
         <property key="create-html-files" value="false"/>
-        <property key="data-model-ram" value="default,-500-50F"/>
+        <property key="data-model-ram" value=""/>
         <property key="data-model-size-of-double" value="32"/>
         <property key="data-model-size-of-double-gcc" value="no-short-double"/>
         <property key="data-model-size-of-float" value="32"/>
@@ -173,7 +172,6 @@
         <property key="opt-xc8-linker-serial" value=""/>
         <property key="program-the-device-with-default-config-words" value="true"/>
         <property key="remove-unused-sections" value="true"/>
-        <appendMe value="-mivt=0x2108 "/>
       </HI-TECH-LINK>
       <Tool>
         <property key="AutoSelectMemRanges" value="auto"/>

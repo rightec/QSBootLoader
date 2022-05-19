@@ -50,9 +50,9 @@
 ////////////////////////////////////////////////////////////
 // Fw revision and build 
 
-const uint16_t FW_Erp_BuildNumber __at(0x2008) = 41;   
-const uint16_t FW_Erp_Identifier  __at(0x200A) = 42;
-const uint16_t FW_Erp_Version     __at(0x200C) = 43;
+const uint16_t FW_Erp_BuildNumber __at(0x2008) = 81;   
+const uint16_t FW_Erp_Identifier  __at(0x200A) = 82;
+const uint16_t FW_Erp_Version     __at(0x200C) = 83;
     
 
 
@@ -66,7 +66,11 @@ const uint16_t FW_Erp_Version     __at(0x200C) = 43;
 // please set the same address used by the checksum application
 // 
 
-const long LastFlashUsedAddr __at(0x2004) = 0xEFFF;    
+const long LastFlashUsedAddr __at(0x2004) = 0x1EFFF;    
+
+
+const long TestHiMem __at(0x1E000) = 0x5566;    
+
  
 //void INTERRUPT_Initialize (void);
 
@@ -104,7 +108,7 @@ void main(void)
 
     proto_init();  // init proto data
     
-            
+    
     while (1)
     { 
         count++;

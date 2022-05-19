@@ -1,4 +1,4 @@
-<config configName="default" projectName="Boot18" configVersion="1.1" device="PIC18F46Q43" deviceLibraryClass="com.microchip.mcc.mcu8.Mcu8PeripheralLibrary" coreVersion="5.3.3">
+<config configName="default" projectName="Boot18" configVersion="1.1" device="PIC18F47Q43" deviceLibraryClass="com.microchip.mcc.mcu8.Mcu8PeripheralLibrary" coreVersion="5.3.3">
    <usedPackages class="java.util.ArrayList"/>
    <usedClasses class="java.util.TreeMap">
       <entry>
@@ -8983,10 +8983,6 @@
          <value>disabled</value>
       </entry>
       <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="U2CTSPPS%aux1"/>
-         <value>%DESELECT%</value>
-      </entry>
-      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="U5CTSPPS%aux0"/>
          <value>%DESELECT%</value>
       </entry>
@@ -16291,58 +16287,58 @@
          <value>Window delay time 87.5%</value>
       </entry>
    </tokenMap>
-   <generatedFileHashHistoryMap class="java.util.HashMap">
-      <entry>
-         <file>mcc_generated_files/interrupt_manager.h</file>
-         <hash>c24f39790fba4cb858d412cc350dcdda3b66c2eecaf7aa3d4aa5af75ad1b69a8</hash>
-      </entry>
-      <entry>
-         <file>mcc_generated_files/uart5.c</file>
-         <hash>920007e83a8d3503b4a6786f0bfca84cbb094f5de8e34f18e570700b9f2ded76</hash>
-      </entry>
-      <entry>
-         <file>mcc_generated_files/pin_manager.h</file>
-         <hash>4a0faa8ffec5004f28618ee9d5801c2a9a88f4242c876b752b3fab3499885643</hash>
-      </entry>
-      <entry>
-         <file>mcc_generated_files/memory.h</file>
-         <hash>3b1ebf2afcaae6d19f0d3e1bc93725f706bdf8c83a8c4f36996c645a22082766</hash>
-      </entry>
+   <generatedFileHashHistoryMap class="java.util.TreeMap">
       <entry>
          <file>main.c</file>
          <hash>9436dfd925eb7973c8d121c6318e96c44e673e117e495a16e2fb5ee0692e944f</hash>
-      </entry>
-      <entry>
-         <file>mcc_generated_files/memory.c</file>
-         <hash>83583f7c57bfc36ea3a3b89401305cb7cb293cbf11ae95b70818dd1608fc0aa4</hash>
-      </entry>
-      <entry>
-         <file>mcc_generated_files/uart5.h</file>
-         <hash>2377f45323d6a4b4f41d40eb9f1cc366088eed495347239badbedfd1301bd661</hash>
-      </entry>
-      <entry>
-         <file>mcc_generated_files/device_config.h</file>
-         <hash>632c7cbf7677fd2c464fe9994484ecd912a4489ee7d39ab1159398e481a6db48</hash>
-      </entry>
-      <entry>
-         <file>mcc_generated_files/mcc.h</file>
-         <hash>53600cc750ece59abc04cf0223385b96c815561e4ee159ad4c0afe3844f714b5</hash>
       </entry>
       <entry>
          <file>mcc_generated_files/device_config.c</file>
          <hash>5706e5d82aa0d4a0bcbf7b922a98f5edc67efc15bb8f00e7cb643ea750c80aee</hash>
       </entry>
       <entry>
+         <file>mcc_generated_files/device_config.h</file>
+         <hash>632c7cbf7677fd2c464fe9994484ecd912a4489ee7d39ab1159398e481a6db48</hash>
+      </entry>
+      <entry>
          <file>mcc_generated_files/interrupt_manager.c</file>
          <hash>3e01de85352c108b89167a90f8083189c220dbf2ff03722a19c021f8975f21e9</hash>
+      </entry>
+      <entry>
+         <file>mcc_generated_files/interrupt_manager.h</file>
+         <hash>c24f39790fba4cb858d412cc350dcdda3b66c2eecaf7aa3d4aa5af75ad1b69a8</hash>
       </entry>
       <entry>
          <file>mcc_generated_files/mcc.c</file>
          <hash>4ba2e2c1a3a384aa6d19895da7ea192e7f505d92f94efe38c9f891177f64f047</hash>
       </entry>
       <entry>
+         <file>mcc_generated_files/mcc.h</file>
+         <hash>53600cc750ece59abc04cf0223385b96c815561e4ee159ad4c0afe3844f714b5</hash>
+      </entry>
+      <entry>
+         <file>mcc_generated_files/memory.c</file>
+         <hash>83583f7c57bfc36ea3a3b89401305cb7cb293cbf11ae95b70818dd1608fc0aa4</hash>
+      </entry>
+      <entry>
+         <file>mcc_generated_files/memory.h</file>
+         <hash>3b1ebf2afcaae6d19f0d3e1bc93725f706bdf8c83a8c4f36996c645a22082766</hash>
+      </entry>
+      <entry>
          <file>mcc_generated_files/pin_manager.c</file>
          <hash>b73ce01f38bc401fae63b8ef6313f69256f159eb7ce119162163ba0d183c6cb4</hash>
+      </entry>
+      <entry>
+         <file>mcc_generated_files/pin_manager.h</file>
+         <hash>4a0faa8ffec5004f28618ee9d5801c2a9a88f4242c876b752b3fab3499885643</hash>
+      </entry>
+      <entry>
+         <file>mcc_generated_files/uart5.c</file>
+         <hash>920007e83a8d3503b4a6786f0bfca84cbb094f5de8e34f18e570700b9f2ded76</hash>
+      </entry>
+      <entry>
+         <file>mcc_generated_files/uart5.h</file>
+         <hash>2377f45323d6a4b4f41d40eb9f1cc366088eed495347239badbedfd1301bd661</hash>
       </entry>
    </generatedFileHashHistoryMap>
 </config>
