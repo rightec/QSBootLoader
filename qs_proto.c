@@ -58,12 +58,12 @@ void proto_init(void)
     theBankInfo.BANK_Info_Number = 0;
     
     
-    theAppFwVersion.FW_Erp_Crc32 = FLASH_ReadLongBE(0x2000);
+    theAppFwVersion.FW_Erp_Crc32 = FLASH_ReadLong(0x2000);
     theAppFwVersion.FW_Erp_BuildNumber = FLASH_ReadByte(0x2008);
     theAppFwVersion.FW_Erp_Identifier = FLASH_ReadByte(0x200A);
     theAppFwVersion.FW_Erp_Version = FLASH_ReadByte(0x200C);
 
-    theBootFwVersion.FW_Erp_Crc32 = FLASH_ReadLongBE(0x1FFC);
+    theBootFwVersion.FW_Erp_Crc32 = FLASH_ReadLong(0x1FFC);
     theBootFwVersion.FW_Erp_BuildNumber = FLASH_ReadByte(0x1FF0);
     theBootFwVersion.FW_Erp_Identifier = FLASH_ReadByte(0x1FF2);
     theBootFwVersion.FW_Erp_Version = FLASH_ReadByte(0x1FF4);

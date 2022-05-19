@@ -95,10 +95,8 @@ uint16_t FLASH_ReadWord(uint32_t flashAddr)
     return (((uint16_t) readWordH << 8) | (readWordL));
 }
 
-/*
- Big Endian reader for flash mem
- */
-uint32_t FLASH_ReadLongBE(uint32_t flashAddr)
+
+uint32_t FLASH_ReadLong(uint32_t flashAddr)
 {
 union U_LVAL longVal;
 
@@ -109,17 +107,17 @@ union U_LVAL longVal;
 
     //Perform table read to move low byte from NVM to TABLAT
     asm("TBLRD*+");
-    longVal.c[3] = TABLAT;
-
-    asm("TBLRD*+");
-    longVal.c[2] = TABLAT;
+    longVal.c[0] = TABLAT;
 
     asm("TBLRD*+");
     longVal.c[1] = TABLAT;
 
+    asm("TBLRD*+");
+    longVal.c[2] = TABLAT;
+
     //Perform table read to move high byte from NVM to TABLAT
     asm("TBLRD");
-    longVal.c[0] = TABLAT;
+    longVal.c[3] = TABLAT;
 
     return (longVal.dw);    
 }

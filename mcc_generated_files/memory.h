@@ -78,7 +78,7 @@
  *          }
  */
  
-uint32_t FLASH_ReadLongBE(uint32_t flashAddr);
+uint32_t FLASH_ReadLong(uint32_t flashAddr);
 
 uint8_t FLASH_ReadByte(uint32_t flashAddr);
 
