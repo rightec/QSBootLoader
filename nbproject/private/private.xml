@@ -3,10 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/media/enrico/DATA/Prodotti/Schede/boot/QS/Firmware/Boot18.X/main.c</file>
             <file>file:/media/enrico/DATA/Prodotti/Schede/boot/QS/Firmware/Boot18.X/mcc_generated_files/interrupt_manager.c</file>
+            <file>file:/media/enrico/DATA/Prodotti/Schede/boot/QS/Firmware/Boot18.X/main.c</file>
             <file>file:/media/enrico/DATA/Prodotti/Schede/boot/QS/Firmware/Boot18.X/mcc_generated_files/device_config.c</file>
+            <file>file:/media/enrico/DATA/Prodotti/Schede/boot/QS/Firmware/Boot18.X/qs_proto.c</file>
+            <file>file:/media/enrico/DATA/Prodotti/Schede/boot/QS/Firmware/Boot18.X/mcc_generated_files/memory.c</file>
+            <file>file:/media/enrico/DATA/Prodotti/Schede/boot/QS/Firmware/Boot18.X/qs_memory.c</file>
             <file>file:/media/enrico/DATA/Prodotti/Schede/boot/QS/Firmware/Boot18.X/dist/default/debug/startup.s</file>
+            <file>file:/media/enrico/DATA/Prodotti/Schede/boot/QS/Firmware/Boot18.X/qs_memory.h</file>
+            <file>file:/media/enrico/DATA/Prodotti/Schede/boot/QS/Firmware/Boot18.X/mcc_generated_files/memory.h</file>
         </group>
     </open-files>
 </project-private>

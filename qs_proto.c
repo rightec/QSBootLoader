@@ -8,7 +8,10 @@
 #include "qs_memory.h"
 #include "qs_proto.h"
 
-FW_SW_VERSION_T theFwVersion;
+FW_SW_VERSION_T theAppFwVersion;
+FW_SW_VERSION_T theBootFwVersion;
+
+
 ID_INFO_VERSION_T theRevisionID;
 ID_INFO_VERSION_T theFamilyDeviceID;
 READ_INFO_ANSWER_T theReadInfo;
@@ -58,10 +61,16 @@ void proto_init(void)
     theReadInfo.READ_Info_Number = 0;
     theBankInfo.BANK_Info_Ack  = QS_BOOTP_OK;
     theBankInfo.BANK_Info_Number = 0;
-    theFwVersion.FW_Erp_BuildNumber = 0x01;
-    theFwVersion.FW_Erp_Crc32 = 0x02;
-    theFwVersion.FW_Erp_Identifier = 0x03;
-    theFwVersion.FW_Erp_Version = 0x04;
+    
+    theAppFwVersion.FW_Erp_Crc32 = FLASH_ReadLong(APPCRC_FLASH_ADDR);
+    theAppFwVersion.FW_Erp_BuildNumber = FLASH_ReadByte(0x2008);
+    theAppFwVersion.FW_Erp_Identifier = FLASH_ReadByte(0x200A);
+    theAppFwVersion.FW_Erp_Version = FLASH_ReadByte(0x200C);
+
+    theBootFwVersion.FW_Erp_Crc32 = FLASH_ReadLong(0x1FFC);
+    theBootFwVersion.FW_Erp_BuildNumber = FLASH_ReadByte(0x1FF0);
+    theBootFwVersion.FW_Erp_Identifier = FLASH_ReadByte(0x1FF2);
+    theBootFwVersion.FW_Erp_Version = FLASH_ReadByte(0x1FF4);
    
     
  //   FLASH_EraseBlock(0x3000);
@@ -117,8 +126,8 @@ uint32_t local_page_addr;
                     case    QS_BOOTP_READ_FW:
                         cmdDecoder = QS_BOOTP_READ_FW;
                         answerBuf[lenTxDecoder++] = QS_BOOTP_OK; // QS_BOOTP_OK or QS_BOOTP_FAIL;
-                        memcpy(&answerBuf[lenTxDecoder], &theFwVersion, sizeof(theFwVersion)); 
-                        lenTxDecoder += sizeof(theFwVersion);       // payload lenght
+                        memcpy(&answerBuf[lenTxDecoder], &theAppFwVersion, sizeof(theAppFwVersion)); 
+                        lenTxDecoder += sizeof(theAppFwVersion);       // payload lenght
                         break;         
                         
                     case    QS_BOOTP_READ_REV:                        
@@ -138,8 +147,8 @@ uint32_t local_page_addr;
                     case    QS_BOOTP_READ_BOOT:
                         cmdDecoder = QS_BOOTP_READ_BOOT;
                         answerBuf[lenTxDecoder++] = QS_BOOTP_OK; // QS_BOOTP_OK or QS_BOOTP_FAIL;
-                        memcpy(&answerBuf[lenTxDecoder], &theFwVersion, sizeof(theFwVersion));
-                        lenTxDecoder += sizeof(theFwVersion);       // payload lenght
+                        memcpy(&answerBuf[lenTxDecoder], &theBootFwVersion, sizeof(theBootFwVersion));
+                        lenTxDecoder += sizeof(theBootFwVersion);       // payload lenght
                         break;                        
                         
                     case    QS_BOOTP_RESET:                        
@@ -165,7 +174,7 @@ uint32_t local_page_addr;
                                 local_mem_addr = 0x2000; 
                                 
                                 if( theFamilyDeviceID.ID_Info == QS_PIC18F47Q43_DEV_ID )
-                                    local_page_addr = 0x0F000;   // last address = 0x1E000;
+                                    local_page_addr = 0x1F000;   // last address = 0x1E000;
                                 else
                                     local_page_addr = 0x0F000;   // last address = 0x0E000;
                                 
@@ -175,6 +184,12 @@ uint32_t local_page_addr;
                                     FLASH_EraseBlock(local_mem_addr);
                                     
                                     local_mem_addr += 0x100;    // prossima pagina
+                                
+                                    if( local_mem_addr == 0xF000 )
+                                    {
+                                        local_mem_addr = 0x10000; 
+                                    }
+                                
                                 }
                             }
                             else

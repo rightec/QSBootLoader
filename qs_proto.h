@@ -32,5 +32,9 @@ void proto_decoder(void);
 }
 #endif
 
+
+extern ID_INFO_VERSION_T theFamilyDeviceID;
+
+
 #endif	/* QS_PROTO_H */
 
