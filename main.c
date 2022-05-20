@@ -48,9 +48,16 @@
 #include "qs_proto.h"
 
 
+const uint16_t FW_Erp_BuildNumber __at(0x1FF0) = 0x01;   
+const uint16_t FW_Erp_Identifier  __at(0x1FF2) = 0x02;
+const uint16_t FW_Erp_Version     __at(0x1FF4) = 0x03;
+
 
 //char *bootString __at(0x1000); 
 char *bootString; 
+
+uint32_t appLastAddr;
+uint32_t deviceLastAddr;
 
 int count;
 
@@ -87,6 +94,8 @@ uint32_t crc_mem;
     
     
    bootString = (char *) 0x0500; 
+ 
+
    int cmpval = 1;
    //strcpy(bootString, "Stop Boot!");     
     
@@ -100,21 +109,29 @@ uint32_t crc_mem;
     else
     {
        
-    
+        if( theFamilyDeviceID.ID_Info == QS_PIC18F47Q43_DEV_ID )
+            deviceLastAddr = 0x1FFFF;   // last address = 0x1E000;
+        else
+            deviceLastAddr = 0x0FFFF;   // last address = 0x0E000;
+                                    
     //    FLASH_CalcCrc32Lsb(0xFFFFFFFF, 0xEDB88320, 
     //                            0x2004, 0x0F000, &crc_val);
 
-        FLASH_CalcCrc32Msb(0xFFFFFFFF, 0xEDB88320, 
-                                0x2004, 0x0F000, &crc_val);
+        crc_mem = FLASH_ReadLongBE(APPCRC_FLASH_ADDR);
+        
+        appLastAddr =  FLASH_ReadLong(APPLSM_FLASH_ADDR);
+        
+        if( appLastAddr != 0xFFFFFFFF &&
+            appLastAddr <= deviceLastAddr )
+        {
+            FLASH_CalcCrc32Msb(0xFFFFFFFF, 0xEDB88320, 
+                                0x2004, appLastAddr+1, &crc_val);
 
-
-        crc_mem = FLASH_ReadLong(0x2000);
-
-
-        if( crc_mem == crc_val )
-            validApp = 1;
-        else
-            validApp = 0;
+            if( crc_mem == crc_val )
+                validApp = 1;
+            else
+                validApp = 0;
+        }
 
     }    
 

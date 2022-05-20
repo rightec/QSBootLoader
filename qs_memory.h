@@ -12,6 +12,10 @@
 #include <stdint.h>
 #include "util.h"
 
+
+#define APPCRC_FLASH_ADDR      0x2000
+#define APPLSM_FLASH_ADDR      0x2004
+
 #ifdef	__cplusplus
 extern "C" {
 #endif
@@ -25,6 +29,8 @@ void FLASH_CalcCrc32Msb(uint32_t crc_initial, uint32_t poly,
                             uint32_t __flashStartAddr, uint32_t __flashEndAddr, uint32_t *__crc_val);
  
 uint32_t FLASH_ReadLong(uint32_t flashAddr);
+uint32_t FLASH_ReadLongBE(uint32_t flashAddr);
+
 
 #ifndef QS_MEM_NOT_USED
 void FLASH_CalcCrc32Lsb(uint32_t crc_initial, uint32_t poly, 
