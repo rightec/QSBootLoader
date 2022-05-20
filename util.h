@@ -15,6 +15,8 @@ extern "C" {
 #include "mcc_generated_files/mcc.h"
 #include <string.h>
     
+#define UTIL_NOT_USED
+    
 union U_WVAL {
 short i;
 uint8_t c[2];
@@ -33,8 +35,10 @@ uint8_t hex_cpb(const char *s);
 uint16_t hex_cpw(const char *s);
 uint16_t hex_cpw_swap(const char *s);
 
+#ifndef UTIL_NOT_USED
 void wxtoa(char *s, short n);
 void bxtoa(char *s, uint8_t  n);
+#endif
 
 #ifdef	__cplusplus
 }

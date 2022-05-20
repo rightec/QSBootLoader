@@ -14,6 +14,7 @@
 typedef unsigned char readType;
 typedef unsigned int resultType;
 
+#define QS_CRC_UNUSED_CODE
 
 #define POLY_IBM    0x8005 // CRC-16-MAXIM (IBM)
 #define POLY_MODBUS 0xA001 // CRC-16-MODBUS
@@ -31,8 +32,11 @@ extern "C" {
      * /brief CRC 16 Calculation
      */
 void CalcCrc16_Poly(uint16_t crc_initial, uint16_t poly, uint8_t *pBuf, uint16_t wLen, uint8_t *crc_l, uint8_t *crc_h);
+
+#ifndef QS_CRC_UNUSED_CODE
 resultType crc(readType * data, unsigned n, resultType remainder);
 uint16_t crcFlash(uint32_t data, unsigned n, uint16_t remainder);
+#endif
 
 
 #ifdef	__cplusplus

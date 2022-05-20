@@ -47,6 +47,7 @@ uint8_t  crc_low, crc_hig;
             
 }
 
+#ifndef QS_CRC_UNUSED_CODE
 resultType crc(readType * data, unsigned n, resultType remainder)
 {
     unsigned pos;
@@ -101,3 +102,4 @@ uint16_t crcFlash(uint32_t data, unsigned n, uint16_t remainder)
     return remainder;
 }
 
+#endif

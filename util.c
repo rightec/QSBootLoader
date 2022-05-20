@@ -7,7 +7,7 @@
 
 #include "util.h"
 
-
+#ifndef UTIL_NOT_USED
 /* Converte uno short in ascii esadecimale
 */
 void wxtoa(char *s, short n)
@@ -42,7 +42,7 @@ uint8_t b;
 		s[0] = b + '0';
 }
 
-
+#endif
 
 uint8_t hex_char(char __ch)
 {
