@@ -53,28 +53,27 @@ char c;
                     {
                         case    0x00:   // data record
                        
-                            memAddr = recordSegm;   // ricava address a 24bit
+                            memAddr = recordSegm;   // extract 24bit address
                             memAddr <<= 16;
                             memAddr += recordAddr;
                             
                             for(cntRecordData=0; cntRecordData < recordLen; cntRecordData += 2)
                             {
-                                hex_value = hex_cpw_swap(&__strHex[hexpars_len]);  // piglia un altro pezzetto ..
-                                //hex_value = hex_cpw(&__strHex[hexpars_len]);  // piglia un altro pezzetto ..
+                                hex_value = hex_cpw_swap(&__strHex[hexpars_len]);  
                                 hexpars_len += 4;
                                 
                                 if( theFamilyDeviceID.ID_Info == QS_PIC18F47Q43_DEV_ID )
                                 {
-                                    if( memAddr >= 0x2000 && memAddr <= 0x1FFFE )      // possiamo scrivere da 0x2000 in su
-                                        FLASH_WriteSingleWord(memAddr, hex_value);    // scrive in flash
+                                    if( memAddr >= 0x2000 && memAddr <= 0x1FFFE )      // Write from 0x2000 
+                                        FLASH_WriteSingleWord(memAddr, hex_value);     // Write to flash
                                 }
                                 else
                                 {
-                                    if( memAddr >= 0x2000 && memAddr <= 0xFFFE )      // possiamo scrivere da 0x2000 in su
-                                        FLASH_WriteSingleWord(memAddr, hex_value);    // scrive in flash
+                                    if( memAddr >= 0x2000 && memAddr <= 0xFFFE )      // Write from 0x2000 
+                                        FLASH_WriteSingleWord(memAddr, hex_value);    // Write to flash
                                 }                                
                                 
-                                memAddr += 2;      // prossima word
+                                memAddr += 2;      // next word
                             }
                             break;
 
@@ -102,7 +101,7 @@ char c;
             case    1:
                 break;
 
-            case    10:     // end of file raggiunta
+            case    10:     // end of file reached
                 break;
             
         }
@@ -129,22 +128,21 @@ uint32_t  local_mem_addr;
     {
         flash_data = FLASH_ReadByte(local_mem_addr);
         
-        flash_data <<= 24;       // porta nel byte msb
+        flash_data <<= 24;       //  msb
         
         crc ^= flash_data;
         
         for (i=0; i < 8; i++)
         {
-            // se shiftero' un bit a 1 vado in xor col polinomio
             if ( crc & 0x80000000 )
             {
                 crc <<= 1;      // shift
                 
-                crc ^= poly;    // somma il poly
+                crc ^= poly;    // add poly
             }
             else
             {
-                crc <<= 1;      // shifta solo
+                crc <<= 1;      // only shift
             }
         }
     }
@@ -166,22 +164,21 @@ uint32_t  local_mem_addr;
     {
         flash_data = FLASH_ReadByte(local_mem_addr);
         
-        flash_data << 24;       // porta nel byte msb
+        flash_data << 24;       // msb
         
         crc ^= flash_data;
         
         for (i=0; i < 8; i++)
         {
-            // se shiftero' un bit a 1 vado in xor col polinomio
             if ( crc & 0x80000000 )
             {
                 crc <<= 1;      // shift
                 
-                crc ^= poly;    // somma il poly
+                crc ^= poly;    // add poly
             }
             else
             {
-                crc <<= 1;      // shifta solo
+                crc <<= 1;      // only shift
             }
         }
     }
@@ -206,16 +203,15 @@ uint32_t  local_mem_addr;
         
         for (i=0; i < 8; i++)
         {
-            // se shiftero' un bit a 1 vado in xor col polinomio
             if ( crc & 0x01 )
             {
                 crc >>= 1;      // shift
                 
-                crc ^= poly;    // somma il poly
+                crc ^= poly;    // add poly
             }
             else
             {
-                crc >>= 1;      // shifta solo
+                crc >>= 1;      // only shift
             }
         }
     }
