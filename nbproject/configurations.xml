@@ -18,6 +18,7 @@
       <itemPath>qs_bootprotocolstruct.h</itemPath>
       <itemPath>qs_crc16.h</itemPath>
       <itemPath>qs_proto.h</itemPath>
+      <itemPath>util.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -61,7 +62,7 @@
         <platformTool>pk4hybrid</platformTool>
         <languageToolchain>XC8</languageToolchain>
         <languageToolchainVersion>2.36</languageToolchainVersion>
-        <platform>2</platform>
+        <platform>3</platform>
       </toolsSet>
       <packs>
         <pack name="PIC18F-Q_DFP" vendor="Microchip" version="1.11.185"/>
@@ -291,6 +292,8 @@
         <property key="memories.programmemory.ranges" value="0-ffff"/>
         <property key="memories.rww" value="true"/>
         <property key="poweroptions.powerenable" value="false"/>
+        <property key="programmerToGoFilePath"
+                  value="C:/lavoro/Clienti/HiFuture/QuantaSystem/Application18.X/debug/default/Boot18_ptg"/>
         <property key="programmerToGoImageName" value="Boot18_ptg"/>
         <property key="programoptions.donoteraseauxmem" value="false"/>
         <property key="programoptions.eraseb4program" value="true"/>

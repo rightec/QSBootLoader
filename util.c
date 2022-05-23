@@ -8,6 +8,7 @@
 #include "util.h"
 
 
+
 /* Converte uno short in ascii esadecimale
 */
 void wxtoa(char *s, short n)
